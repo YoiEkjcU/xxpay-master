@@ -44,7 +44,7 @@ public class RpcBaseParam implements Serializable {
      * 业务流水号(唯一标示一笔业务)
      * 由业务前缀(2字符,参见Constant.MP_BIZ_SEQUENCE_NO_PREFIX)+日期时间(yyyyMMddHHmmss)+流水号(6位数字)组成
      * eg.  Constant.MP_BIZ_SEQUENCE_NO_PREFIX)+DateUtils.getCurrentTimeStr("yyyyMMddHHmmss")
-     *          +BizSequenceUtils.getInstance().generateBizSeqNo()
+     * +BizSequenceUtils.getInstance().generateBizSeqNo()
      */
     protected String bizSeqNo;
     /**
@@ -52,10 +52,12 @@ public class RpcBaseParam implements Serializable {
      */
     protected String bizSign;
 
-    public RpcBaseParam() {}
+    public RpcBaseParam() {
+    }
 
     /**
      * 不需要业务签名的构造器
+     *
      * @param rpcSrcSysId
      * @param rpcSignKey
      * @param bizSeqNoPrefix
@@ -77,6 +79,7 @@ public class RpcBaseParam implements Serializable {
 
     /**
      * 需要业务签名的构造器
+     *
      * @param rpcSrcSysId
      * @param rpcSignKey
      * @param bizSeqNoPrefix
@@ -181,7 +184,7 @@ public class RpcBaseParam implements Serializable {
     }
 
     public Map<String, Object> convert2Map() {
-        Map<String, Object> rpcMap = new HashMap<String, Object>();
+        Map<String, Object> rpcMap = new HashMap<>();
         rpcMap.put("rpcSrcSysId", rpcSrcSysId);
         rpcMap.put("rpcDateTime", rpcDateTime);
         rpcMap.put("rpcSeqNo", rpcSeqNo);
@@ -191,5 +194,4 @@ public class RpcBaseParam implements Serializable {
         rpcMap.put("bizSign", bizSign);
         return rpcMap;
     }
-
 }

@@ -8,11 +8,10 @@ package org.xxpay.common.util;
 public class StrUtil {
 
     public static String toString(Object obj) {
-        return obj == null?"":obj.toString();
+        return obj == null ? "" : obj.toString();
     }
 
     public static String toString(Object obj, String nullStr) {
-        return obj == null?nullStr:obj.toString();
+        return obj == null ? nullStr : obj.toString();
     }
-
 }

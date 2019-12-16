@@ -1,6 +1,5 @@
 package org.xxpay.common.util;
 
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -58,6 +57,7 @@ public class ObjectValidUtil {
 
     /**
      * 判断是否为有效Short值
+     *
      * @param num
      * @return
      */
@@ -74,6 +74,7 @@ public class ObjectValidUtil {
 
     /**
      * 判断是否为有效Integer值
+     *
      * @param num
      * @return
      */
@@ -90,6 +91,7 @@ public class ObjectValidUtil {
 
     /**
      * 判断是否为有效Long值
+     *
      * @param num
      * @return
      */
@@ -106,6 +108,7 @@ public class ObjectValidUtil {
 
     /**
      * 判断是否为有效BigDecimal值
+     *
      * @param num
      * @return
      */
@@ -122,6 +125,7 @@ public class ObjectValidUtil {
 
     /**
      * 判断是否为有效String值
+     *
      * @param str
      * @return
      */
@@ -226,5 +230,4 @@ public class ObjectValidUtil {
         }
         return objs.length == nullcount;
     }
-
 }

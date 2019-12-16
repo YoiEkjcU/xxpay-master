@@ -17,19 +17,17 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 /**
- * @Description:
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description:
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 public class HttpClient {
 
-    private static final String USER_AGENT_VALUE =
-            "Mozilla/4.0 (compatible; MSIE 6.0; Windows XP)";
+    private static final String USER_AGENT_VALUE = "Mozilla/4.0 (compatible; MSIE 6.0; Windows XP)";
 
-    private static final String JKS_CA_FILENAME =
-            "tenpay_cacert.jks";
+    private static final String JKS_CA_FILENAME = "tenpay_cacert.jks";
 
     private static final String JKS_CA_ALIAS = "tenpay";
 
@@ -37,54 +35,34 @@ public class HttpClient {
 
     private static Logger _log = LoggerFactory.getLogger(HttpClient.class);
 
-    /**
-     * ca证书文件
-     */
+    /** ca证书文件 */
     private File caFile;
 
-    /**
-     * 证书文件
-     */
+    /** 证书文件 */
     private File certFile;
 
-    /**
-     * 证书密码
-     */
+    /** 证书密码 */
     private String certPasswd;
 
-    /**
-     * 请求内容，无论post和get，都用get方式提供
-     */
+    /** 请求内容，无论post和get，都用get方式提供 */
     private String reqContent;
 
-    /**
-     * 应答内容
-     */
+    /** 应答内容 */
     private String resContent;
 
-    /**
-     * 请求方法
-     */
+    /** 请求方法 */
     private String method;
 
-    /**
-     * 错误信息
-     */
+    /** 错误信息 */
     private String errInfo;
 
-    /**
-     * 超时时间,以秒为单位
-     */
+    /** 超时时间,以秒为单位 */
     private int timeOut;
 
-    /**
-     * http应答编码
-     */
+    /** http应答编码 */
     private int responseCode;
 
-    /**
-     * 字符编码
-     */
+    /** 字符编码 */
     private String charset;
 
     private InputStream inputStream;
@@ -164,9 +142,7 @@ public class HttpClient {
         } catch (IOException e) {
             _log.error("", e);
             this.errInfo = e.getMessage();
-            //return "";
         }
-
         return this.resContent;
     }
 
@@ -220,9 +196,6 @@ public class HttpClient {
             try {
                 this.callHttp();
                 isRet = true;
-            } catch (IOException e) {
-                _log.error("", e);
-                this.errInfo = e.getMessage();
             } catch (Exception e) {
                 _log.error("", e);
                 this.errInfo = e.getMessage();
@@ -466,7 +439,6 @@ public class HttpClient {
         conn.setRequestProperty("Content-Type",
                 "application/x-www-form-urlencoded");
 
-
         BufferedOutputStream out = new BufferedOutputStream(conn
                 .getOutputStream());
 
@@ -480,7 +452,6 @@ public class HttpClient {
         out.print(new String(postData));
         // flush输出流的缓冲
         out.flush();*/
-
 
         // 关闭流
         out.close();
@@ -535,7 +506,6 @@ public class HttpClient {
         return client.getResContent();
 
     }
-
 
     private static class TrustAnyTrustManager implements X509TrustManager {
 

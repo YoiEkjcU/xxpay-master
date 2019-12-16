@@ -27,6 +27,7 @@ public class BeanConvertUtils {
 
     /**
      * 将javabean转换为Map
+     *
      * @param obj
      * @return
      */
@@ -35,11 +36,7 @@ public class BeanConvertUtils {
             Map<String, Object> map = BeanUtils.describe(obj);
             map.remove("class");
             return map;
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }
         return null;
@@ -47,24 +44,19 @@ public class BeanConvertUtils {
 
     /**
      * 将Map转换为javabean
+     *
      * @param map
      * @param clazz
      * @param <T>
      * @return
      */
     public static <T> T map2Bean(Map<String, Object> map, Class<T> clazz) {
-        if (map == null || clazz == null) {
-            return null;
-        }
+        if (map == null || clazz == null) return null;
         T bean = null;
         try {
             bean = clazz.newInstance();
             BeanUtils.populate(bean, map);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return bean;
@@ -77,18 +69,11 @@ public class BeanConvertUtils {
      * @param src  源对象
      */
     public static void copyProperties(Object dest, Object src) {
-        if (src == null || dest == null) {
-            return;
-        }
+        if (src == null || dest == null) return;
         try {
             BeanUtils.copyProperties(dest, src);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
             e.printStackTrace();
         }
     }
-
 }

@@ -48,5 +48,4 @@ public class JsonUtil {
         }
         return (JSONObject) JSONObject.toJSON(object);
     }
-
 }

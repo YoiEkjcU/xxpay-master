@@ -40,18 +40,18 @@ public enum RetEnum {
     RET_BIZ_ALI_PAY_CREATE_FAIL("1004", "支付宝支付下单失败"),
     RET_BIZ_PAY_NOTIFY_VERIFY_FAIL("1005", "支付通知数据验证不正确"),
 
-
     // 未知错误
     RET_UNKNOWN_ERROR("9999", "未知错误");
 
     private String code;
     private String message;
 
-    private RetEnum(String code, String message) { this.code = code;
-        this.message = message; }
+    private RetEnum(String code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
-    public String getCode()
-    {
+    public String getCode() {
         return this.code;
     }
 

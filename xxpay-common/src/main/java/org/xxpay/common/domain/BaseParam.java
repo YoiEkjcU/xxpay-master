@@ -13,10 +13,12 @@ public class BaseParam extends RpcBaseParam {
 
     private Map<String, Object> bizParamMap;
 
-    public BaseParam() {}
+    public BaseParam() {
+    }
 
     /**
      * 不需要业务签名的构造器
+     *
      * @param rpcSrcSysId
      * @param rpcSignKey
      * @param bizSeqNoPrefix
@@ -34,11 +36,12 @@ public class BaseParam extends RpcBaseParam {
                 .append(super.rpcSignType)
                 .append(super.bizSeqNo);
         super.rpcSign = RpcSignUtils.sha1(decriptBuffer.toString());
-        this.bizParamMap = new HashMap<String, Object>();
+        this.bizParamMap = new HashMap<>();
     }
 
     /**
      * 需要业务签名的构造器
+     *
      * @param rpcSrcSysId
      * @param rpcSignKey
      * @param bizSeqNoPrefix
@@ -59,7 +62,7 @@ public class BaseParam extends RpcBaseParam {
                 .append(super.bizSeqNo)
                 .append(super.bizSign);
         super.rpcSign = RpcSignUtils.sha1(decriptBuffer.toString());
-        this.bizParamMap = new HashMap<String, Object>();
+        this.bizParamMap = new HashMap<>();
     }
 
     public Map<String, Object> getBizParamMap() {
@@ -96,6 +99,7 @@ public class BaseParam extends RpcBaseParam {
 
     /**
      * 判断bizParamMap中的参数是否全部为空，是则返回true，否则返回false
+     *
      * @param excludeKeys
      * @return
      */
@@ -109,7 +113,7 @@ public class BaseParam extends RpcBaseParam {
                 continue;
             }
             Object value = entry.getValue();
-            if (value != null ) {
+            if (value != null) {
                 if (value instanceof String) {
                     if (StringUtils.isNotBlank(value.toString())) {
                         return false;
@@ -124,77 +128,65 @@ public class BaseParam extends RpcBaseParam {
 
     /**
      * 获取long类型参数
+     *
      * @param name
      * @return
      */
     public Long getLongBizParam(String name) {
-        if (isNullValue(name)) {
-            return null;
-        }
-        return Long.valueOf(bizParamMap.get(name).toString());
+        return isNullValue(name) ? null : Long.valueOf(bizParamMap.get(name).toString());
     }
 
     /**
      * 获取int类型参数
+     *
      * @param name
      * @return
      */
     public Integer getIntBizParam(String name) {
-        if (isNullValue(name)) {
-            return null;
-        }
-        return Integer.valueOf(bizParamMap.get(name).toString());
+        return isNullValue(name) ? null : Integer.valueOf(bizParamMap.get(name).toString());
     }
 
     /**
      * 获取int类型参数,如果为空返回defaultValue
+     *
      * @param name
      * @param defaultValue
      * @return
      */
     public Integer getIntBizParam(String name, int defaultValue) {
-        if (isNullValue(name)) {
-            return defaultValue;
-        }
-        return Integer.valueOf(bizParamMap.get(name).toString());
+        return isNullValue(name) ? defaultValue : Integer.valueOf(bizParamMap.get(name).toString());
     }
 
     /**
      * 获取short类型参数
+     *
      * @param name
      * @return
      */
     public Short getShortBizParam(String name) {
-        if (isNullValue(name)) {
-            return null;
-        }
-        return Short.valueOf(bizParamMap.get(name).toString());
+        return isNullValue(name) ? null : Short.valueOf(bizParamMap.get(name).toString());
     }
 
     /**
      * 获取string类型参数,如果为空返回defaultValue
+     *
      * @param name
      * @param
      * @return
      */
-    public String getStringBizParam(String name, String defaultValue){
-        if (isNullValue(name)) {
-            return defaultValue;
-        }
-        return bizParamMap.get(name).toString();
+    public String getStringBizParam(String name, String defaultValue) {
+        return isNullValue(name) ? defaultValue : bizParamMap.get(name).toString();
     }
 
     /**
      * 获取string类型参数
+     *
      * @param name
      * @param
      * @return
      */
-    public String getStringBizParam(String name){
-        if (isNullValue(name)) {
-            return null;
-        }
-        return bizParamMap.get(name).toString();
+    public String getStringBizParam(String name) {
+        return isNullValue(name) ? null : bizParamMap.get(name).toString();
     }
 
     public List<Short> getShortListBizParam(String name) {
@@ -205,7 +197,7 @@ public class BaseParam extends RpcBaseParam {
         if (numberList == null) {
             return null;
         }
-        List<Short> shortList = new ArrayList<Short>(numberList.size());
+        List<Short> shortList = new ArrayList<>(numberList.size());
         for (Number number : numberList) {
             Short value = number.shortValue();
             shortList.add(value);
@@ -221,7 +213,7 @@ public class BaseParam extends RpcBaseParam {
         if (numberList == null) {
             return null;
         }
-        List<Integer> integerList = new ArrayList<Integer>(numberList.size());
+        List<Integer> integerList = new ArrayList<>(numberList.size());
         for (Number number : numberList) {
             Integer value = number.intValue();
             integerList.add(value);
@@ -237,7 +229,7 @@ public class BaseParam extends RpcBaseParam {
         if (numberList == null) {
             return null;
         }
-        List<Long> longList = new ArrayList<Long>(numberList.size());
+        List<Long> longList = new ArrayList<>(numberList.size());
         for (Number number : numberList) {
             Long value = number.longValue();
             longList.add(value);
@@ -247,11 +239,10 @@ public class BaseParam extends RpcBaseParam {
 
     public static void main(String[] args) {
         BaseParam baseParam = new BaseParam();
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("a", null);
         map.put("b", "");
         baseParam.setBizParamMap(map);
         System.out.println(baseParam.isInvalidMapValue(""));
     }
-
 }

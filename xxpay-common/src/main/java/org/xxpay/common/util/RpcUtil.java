@@ -33,6 +33,7 @@ public class RpcUtil {
 
     /**
      * 构建成功返回结果
+     *
      * @param baseParam
      * @param obj
      * @return
@@ -42,8 +43,9 @@ public class RpcUtil {
         resultMap.put(Constant.BIZ_RESULT_KEY, obj);
         return resultMap;
     }
+
     public static Map<String, Object> createBizResultWithDBError(RpcBaseParam baseParam, Object obj,
-                                                          String dbErrorCode, String dbErrorMsg) {
+                                                                 String dbErrorCode, String dbErrorMsg) {
         Map<String, Object> resultMap = createResultMapWithDBError(baseParam, RetEnum.RET_SUCCESS, dbErrorCode, dbErrorMsg);
         resultMap.put(Constant.BIZ_RESULT_KEY, obj);
         return resultMap;
@@ -51,6 +53,7 @@ public class RpcUtil {
 
     /**
      * 构建失败返回结果
+     *
      * @param rpcBaseParam
      * @param retEnum
      * @return
@@ -63,7 +66,7 @@ public class RpcUtil {
     }
 
     public static Map<String, Object> createFailResultWithDBError(RpcBaseParam rpcBaseParam, RetEnum retEnum,
-                                                           String dbErrorCode, String dbErrorMsg) {
+                                                                  String dbErrorCode, String dbErrorMsg) {
         if (retEnum == null) {
             retEnum = RetEnum.RET_PARAM_NOT_FOUND;
         }
@@ -83,7 +86,7 @@ public class RpcUtil {
     }
 
     private static Map<String, Object> createResultMapWithDBError(RpcBaseParam rpcBaseParam, RetEnum retEnum,
-                                                           String dbErrorCode, String dbErrorMsg) {
+                                                                  String dbErrorCode, String dbErrorMsg) {
         Map<String, Object> resultMap = null;
         if (rpcBaseParam != null) {
             resultMap = rpcBaseParam.convert2Map();
@@ -105,20 +108,19 @@ public class RpcUtil {
 
     public static String mkRet(Map<String, Object> result) {
         //_log.info("调用dal返回result={}", result);
-        if(result == null) return null;
-        String retCode = (String)result.get("rpcRetCode");
-        if("0000".equals(retCode)) {
-            if(result.get("bizResult") == null) return null;
+        if (result == null) return null;
+        String retCode = (String) result.get("rpcRetCode");
+        if ("0000".equals(retCode)) {
+            if (result.get("bizResult") == null) return null;
             return result.get("bizResult").toString();
         }
         return null;
     }
 
     public static Boolean isSuccess(Map<String, Object> result) {
-        if(result == null) return false;
+        if (result == null) return false;
         String retCode = (String) result.get("rpcRetCode");
-        if("0000".equals(retCode) && result.get("bizResult") != null) return true;
+        if ("0000".equals(retCode) && result.get("bizResult") != null) return true;
         return false;
     }
-
 }

@@ -21,7 +21,7 @@ public class DateTimeConverter implements Converter {
         return toDate(type, value);
     }
 
-    public static Object toDate(Class type, Object value) {
+    private static Object toDate(Class type, Object value) {
         if (value == null || "".equals(value))
             return null;
         if (value instanceof String) {

@@ -15,8 +15,7 @@ public enum RpcSignTypeEnum {
         this.code = code;
     }
 
-    public Integer getCode()
-    {
+    public Integer getCode() {
         return this.code;
     }
 
@@ -25,7 +24,7 @@ public enum RpcSignTypeEnum {
             return null;
         }
 
-        RpcSignTypeEnum[] values =RpcSignTypeEnum.values();
+        RpcSignTypeEnum[] values = RpcSignTypeEnum.values();
         for (RpcSignTypeEnum e : values) {
             if (e.getCode().equals(code)) {
                 return e;
@@ -33,5 +32,4 @@ public enum RpcSignTypeEnum {
         }
         return null;
     }
-
 }

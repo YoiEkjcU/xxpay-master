@@ -22,6 +22,7 @@ public class DateUtils {
 
     /**
      * 获取指定时间字符串(默认格式:yyyyMMddHHmmssSSS)
+     *
      * @param date
      * @return
      */
@@ -43,6 +44,7 @@ public class DateUtils {
 
     /**
      * 获取指定时间字符串
+     *
      * @param date
      * @return
      */
@@ -53,6 +55,7 @@ public class DateUtils {
 
     /**
      * 判断时间字符串是否为默认格式
+     *
      * @param dateTimeStr
      * @return
      */
@@ -66,5 +69,4 @@ public class DateUtils {
             return false;
         }
     }
-
 }

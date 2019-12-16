@@ -86,5 +86,4 @@ public class RandomStrUtils {
         randomStrMap.put(resultStr, nowTime);
         return resultStr;
     }
-
 }

@@ -1,10 +1,10 @@
 package org.xxpay.common.constant;
 
 /**
- * @Description: 支付返回码定义
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description: 支付返回码定义
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 public enum PayEnum {
@@ -48,13 +48,11 @@ public enum PayEnum {
         this.message = message;
     }
 
-    public String getCode()
-    {
+    public String getCode() {
         return this.code;
     }
 
     public String getMessage() {
         return this.message;
     }
-
 }

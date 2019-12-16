@@ -65,7 +65,7 @@ public class RpcBaseResult extends RpcBaseParam {
     }
 
     public Map<String, Object> convert2Map() {
-        Map<String, Object> rpcMap = new HashMap<String, Object>();
+        Map<String, Object> rpcMap = new HashMap<>();
         rpcMap.put("rpcSrcSysId", rpcSrcSysId);
         rpcMap.put("rpcDateTime", rpcDateTime);
         rpcMap.put("rpcSeqNo", rpcSeqNo);
@@ -79,5 +79,4 @@ public class RpcBaseResult extends RpcBaseParam {
         rpcMap.put("dbErrorMsg", dbErrorMsg);
         return rpcMap;
     }
-
 }
