@@ -47,7 +47,6 @@ public class RefundOrderDemo {
         paramMap.put("channelUser", "jmdhappy@126.com");  // 微信openId:oIkQuwhPgPUgl-TvQ48_UUpZUwMs(丁志伟)
         paramMap.put("payOrderId", "P0020171114192121000003");
 
-
         //{"h5_info": {"type":"Wap","wap_url": "https://pay.qq.com","wap_name": "腾讯充值"}}
 
         String reqSign = PayDigestUtil.getSign(paramMap, reqKey);
@@ -58,18 +57,18 @@ public class RefundOrderDemo {
         String result = XXPayUtil.call4Post(url + reqData);
         System.out.println("请求支付中心退款接口,响应数据:" + result);
         Map retMap = JSON.parseObject(result);
-        if("SUCCESS".equals(retMap.get("retCode")) && "SUCCESS".equalsIgnoreCase(retMap.get("resCode").toString())) {
+        if ("SUCCESS".equals(retMap.get("retCode")) && "SUCCESS".equalsIgnoreCase(retMap.get("resCode").toString())) {
             // 验签
             String checkSign = PayDigestUtil.getSign(retMap, repKey, "sign", "payParams");
             String retSign = (String) retMap.get("sign");
-            if(checkSign.equals(retSign)) {
+            if (checkSign.equals(retSign)) {
                 System.out.println("=========支付中心退款验签成功=========");
-            }else {
+            } else {
                 System.err.println("=========支付中心退款验签失败=========");
                 return null;
             }
         }
-        return retMap.get("transOrderId")+"";
+        return retMap.get("transOrderId") + "";
     }
 
     static String quryPayOrderTest(String mchOrderNo, String payOrderId) {
@@ -87,18 +86,17 @@ public class RefundOrderDemo {
         String result = XXPayUtil.call4Post(url + reqData);
         System.out.println("请求支付中心查单接口,响应数据:" + result);
         Map retMap = JSON.parseObject(result);
-        if("SUCCESS".equals(retMap.get("retCode")) && "SUCCESS".equalsIgnoreCase(retMap.get("resCode").toString())) {
+        if ("SUCCESS".equals(retMap.get("retCode")) && "SUCCESS".equalsIgnoreCase(retMap.get("resCode").toString())) {
             // 验签
             String checkSign = PayDigestUtil.getSign(retMap, repKey, "sign", "payParams");
             String retSign = (String) retMap.get("sign");
-            if(checkSign.equals(retSign)) {
+            if (checkSign.equals(retSign)) {
                 System.out.println("=========支付中心查单验签成功=========");
-            }else {
+            } else {
                 System.err.println("=========支付中心查单验签失败=========");
                 return null;
             }
         }
-        return retMap.get("payOrderId")+"";
+        return retMap.get("payOrderId") + "";
     }
-
 }

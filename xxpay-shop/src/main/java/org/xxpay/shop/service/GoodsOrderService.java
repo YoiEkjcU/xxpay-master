@@ -61,5 +61,4 @@ public class GoodsOrderService {
     public int update(GoodsOrder goodsOrder) {
         return goodsOrderMapper.updateByPrimaryKeySelective(goodsOrder);
     }
-
 }

@@ -1,11 +1,13 @@
 package org.xxpay.shop.dao.mapper;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.xxpay.shop.dao.model.GoodsOrder;
 import org.xxpay.shop.dao.model.GoodsOrderExample;
 
 public interface GoodsOrderMapper {
+
     int countByExample(GoodsOrderExample example);
 
     int deleteByExample(GoodsOrderExample example);

@@ -14,7 +14,7 @@ public class MgrDemo {
 
     public static void main(String[] args) {
         //addMchInfo();
-       addPayChannel();
+        addPayChannel();
     }
 
     // 添加商户
@@ -40,7 +40,7 @@ public class MgrDemo {
         params.put("channelName", "WX");//WX
         params.put("channelMchId", "1481721182");
         params.put("mchId", "20001223");
-        params.put("param","{\"mchId\":\"1481721182\", \"appId\":\"wx077cb62e341f8a5c\", \"key\":\"***\", \"certLocalPath\":\"wx/1481721182_cert.p12\", \"certPassword\":\"1481721182\", \"desc\":\"xxpay_shop-native(xxpay扫码支付)\"}");
+        params.put("param", "{\"mchId\":\"1481721182\", \"appId\":\"wx077cb62e341f8a5c\", \"key\":\"***\", \"certLocalPath\":\"wx/1481721182_cert.p12\", \"certPassword\":\"1481721182\", \"desc\":\"xxpay_shop-native(xxpay扫码支付)\"}");
         params.put("remark", "微信扫码支付");
         String reqData = "params=" + params.toJSONString();
         System.out.println("请求支付中心添加渠道接口,请求数据:" + reqData);
@@ -48,5 +48,4 @@ public class MgrDemo {
         String result = XXPayUtil.call4Post(url + reqData);
         System.out.println("请求支付中心添加渠道接口,响应数据:" + result);
     }
-
 }
