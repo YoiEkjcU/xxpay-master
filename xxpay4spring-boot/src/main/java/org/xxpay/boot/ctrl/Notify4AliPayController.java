@@ -79,9 +79,4 @@ public class Notify4AliPayController {
         }
         return notifyPayService.handleAliPayNotify(params);
     }
-
-    public static void main(String[] args) {
-        String[] ss = {"aa", "bb", "cc", "dd"};
-        System.out.println(Arrays.toString(ss));
-    }
 }
