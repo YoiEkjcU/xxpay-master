@@ -68,7 +68,7 @@ public class BaseService {
         return CollectionUtils.isEmpty(payOrderList) ? null : payOrderList.get(0);
     }
 
-    public int baseUpdateStatus4Ing(String payOrderId, String channelOrderNo) {
+    protected int baseUpdateStatus4Ing(String payOrderId, String channelOrderNo) {
         PayOrder payOrder = new PayOrder();
         payOrder.setStatus(PayConstant.PAY_STATUS_PAYING);
         if (channelOrderNo != null) payOrder.setChannelOrderNo(channelOrderNo);

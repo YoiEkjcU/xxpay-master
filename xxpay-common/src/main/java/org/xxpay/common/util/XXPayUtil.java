@@ -23,24 +23,21 @@ public class XXPayUtil {
 
     public static Map<String, Object> makeRetMap(String retCode, String retMsg, String resCode, String errCode, String errCodeDesc) {
         Map<String, Object> retMap = new HashMap<>();
-        if (retCode != null) retMap.put(PayConstant.RETURN_PARAM_RETCODE, retCode);
-        if (retMsg != null) retMap.put(PayConstant.RETURN_PARAM_RETMSG, retMsg);
-        if (resCode != null) retMap.put(PayConstant.RESULT_PARAM_RESCODE, resCode);
-        if (errCode != null) retMap.put(PayConstant.RESULT_PARAM_ERRCODE, errCode);
-        if (errCodeDesc != null) retMap.put(PayConstant.RESULT_PARAM_ERRCODEDES, errCodeDesc);
+        if (retCode != null)
+            retMap.put(PayConstant.RETURN_PARAM_RETCODE, retCode);
+        if (retMsg != null)
+            retMap.put(PayConstant.RETURN_PARAM_RETMSG, retMsg);
+        if (resCode != null)
+            retMap.put(PayConstant.RESULT_PARAM_RESCODE, resCode);
+        if (errCode != null)
+            retMap.put(PayConstant.RESULT_PARAM_ERRCODE, errCode);
+        if (errCodeDesc != null)
+            retMap.put(PayConstant.RESULT_PARAM_ERRCODEDES, errCodeDesc);
         return retMap;
     }
 
     public static Map<String, Object> makeRetMap(String retCode, String retMsg, String resCode, PayEnum payEnum) {
-        Map<String, Object> retMap = new HashMap<>();
-        if (retCode != null) retMap.put(PayConstant.RETURN_PARAM_RETCODE, retCode);
-        if (retMsg != null) retMap.put(PayConstant.RETURN_PARAM_RETMSG, retMsg);
-        if (resCode != null) retMap.put(PayConstant.RESULT_PARAM_RESCODE, resCode);
-        if (payEnum != null) {
-            retMap.put(PayConstant.RESULT_PARAM_ERRCODE, payEnum.getCode());
-            retMap.put(PayConstant.RESULT_PARAM_ERRCODEDES, payEnum.getMessage());
-        }
-        return retMap;
+        return makeRetMap(retCode, retMsg, resCode, payEnum.getCode(), payEnum.getMessage());
     }
 
     public static String makeRetData(Map retMap, String resKey) {
@@ -67,10 +64,7 @@ public class XXPayUtil {
         String sign = (String) params.get("sign"); // 签名
         params.remove("sign");    // 不参与签名
         String checkSign = PayDigestUtil.getSign(params, key);
-        if (!checkSign.equalsIgnoreCase(sign)) {
-            return false;
-        }
-        return true;
+        return checkSign.equalsIgnoreCase(sign);
     }
 
     /**
@@ -88,10 +82,7 @@ public class XXPayUtil {
             }
         }
         String checkSign = PayDigestUtil.getSign(params, key);
-        if (!checkSign.equalsIgnoreCase(sign)) {
-            return false;
-        }
-        return true;
+        return checkSign.equalsIgnoreCase(sign);
     }
 
     public static String genUrlParams(Map<String, Object> paraMap) {

@@ -161,7 +161,7 @@ public class PayDigestUtil {
     }
 
     public static String getSign(Map<String, Object> map, String key) {
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             if (!"".equals(entry.getValue()) && null != entry.getValue()) {
                 list.add(entry.getKey() + "=" + entry.getValue() + "&");

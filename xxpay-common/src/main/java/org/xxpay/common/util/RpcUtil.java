@@ -44,13 +44,6 @@ public class RpcUtil {
         return resultMap;
     }
 
-    public static Map<String, Object> createBizResultWithDBError(RpcBaseParam baseParam, Object obj,
-                                                                 String dbErrorCode, String dbErrorMsg) {
-        Map<String, Object> resultMap = createResultMapWithDBError(baseParam, RetEnum.RET_SUCCESS, dbErrorCode, dbErrorMsg);
-        resultMap.put(Constant.BIZ_RESULT_KEY, obj);
-        return resultMap;
-    }
-
     /**
      * 构建失败返回结果
      *
@@ -59,44 +52,19 @@ public class RpcUtil {
      * @return
      */
     public static Map<String, Object> createFailResult(RpcBaseParam rpcBaseParam, RetEnum retEnum) {
-        if (retEnum == null) {
-            retEnum = RetEnum.RET_PARAM_NOT_FOUND;
-        }
+        retEnum = retEnum != null ? retEnum : RetEnum.RET_PARAM_NOT_FOUND;
         return createResultMap(rpcBaseParam, retEnum);
     }
 
-    public static Map<String, Object> createFailResultWithDBError(RpcBaseParam rpcBaseParam, RetEnum retEnum,
-                                                                  String dbErrorCode, String dbErrorMsg) {
-        if (retEnum == null) {
-            retEnum = RetEnum.RET_PARAM_NOT_FOUND;
-        }
-        return createResultMapWithDBError(rpcBaseParam, retEnum, dbErrorCode, dbErrorMsg);
-    }
-
     private static Map<String, Object> createResultMap(RpcBaseParam rpcBaseParam, RetEnum retEnum) {
-        Map<String, Object> resultMap = null;
+        Map<String, Object> resultMap;
         if (rpcBaseParam != null) {
             resultMap = rpcBaseParam.convert2Map();
         } else {
-            resultMap = new HashMap<String, Object>();
+            resultMap = new HashMap<>();
         }
         resultMap.put("rpcRetCode", retEnum.getCode());
         resultMap.put("rpcRetMsg", retEnum.getMessage());
-        return resultMap;
-    }
-
-    private static Map<String, Object> createResultMapWithDBError(RpcBaseParam rpcBaseParam, RetEnum retEnum,
-                                                                  String dbErrorCode, String dbErrorMsg) {
-        Map<String, Object> resultMap = null;
-        if (rpcBaseParam != null) {
-            resultMap = rpcBaseParam.convert2Map();
-        } else {
-            resultMap = new HashMap<String, Object>();
-        }
-        resultMap.put("rpcRetCode", retEnum.getCode());
-        resultMap.put("rpcRetMsg", retEnum.getMessage());
-        resultMap.put("dbErrorCode", dbErrorCode);
-        resultMap.put("dbErrorMsg", dbErrorMsg);
         return resultMap;
     }
 
@@ -106,7 +74,7 @@ public class RpcUtil {
         return baseParam.toJson();
     }
 
-    public static String mkRet(Map<String, Object> result) {
+    public static String mkRet(Map<?, ?> result) {
         //_log.info("调用dal返回result={}", result);
         if (result == null) return null;
         String retCode = (String) result.get("rpcRetCode");
@@ -120,7 +88,26 @@ public class RpcUtil {
     public static Boolean isSuccess(Map<String, Object> result) {
         if (result == null) return false;
         String retCode = (String) result.get("rpcRetCode");
-        if ("0000".equals(retCode) && result.get("bizResult") != null) return true;
-        return false;
+        return "0000".equals(retCode) && result.get("bizResult") != null;
     }
 }
+
+//    public static Map<String, Object> createBizResultWithDBError(RpcBaseParam baseParam, Object obj, String dbErrorCode, String dbErrorMsg) {
+//        Map<String, Object> resultMap = createResultMapWithDBError(baseParam, RetEnum.RET_SUCCESS, dbErrorCode, dbErrorMsg);
+//        resultMap.put(Constant.BIZ_RESULT_KEY, obj);
+//        return resultMap;
+//    }
+
+//    public static Map<String, Object> createFailResultWithDBError(RpcBaseParam rpcBaseParam, RetEnum retEnum, String dbErrorCode, String dbErrorMsg) {
+//        if (retEnum == null) {
+//            retEnum = RetEnum.RET_PARAM_NOT_FOUND;
+//        }
+//        return createResultMapWithDBError(rpcBaseParam, retEnum, dbErrorCode, dbErrorMsg);
+//    }
+
+//    private static Map<String, Object> createResultMapWithDBError(RpcBaseParam rpcBaseParam, RetEnum retEnum, String dbErrorCode, String dbErrorMsg) {
+//        Map<String, Object> resultMap = createResultMap(rpcBaseParam, retEnum);
+//        resultMap.put("dbErrorCode", dbErrorCode);
+//        resultMap.put("dbErrorMsg", dbErrorMsg);
+//        return resultMap;
+//    }
