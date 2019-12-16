@@ -11,14 +11,14 @@ import org.springframework.web.client.RestTemplate;
  *
  */
 @SpringBootApplication
-@ComponentScan(basePackages={"org.xxpay"})
+@ComponentScan(basePackages = {"org.xxpay"})
 public class XxPayBootAppliaction {
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-	   // Do any additional configuration here
-	   return builder.build();
-	}
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        // Do any additional configuration here
+        return builder.build();
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(XxPayBootAppliaction.class, args);

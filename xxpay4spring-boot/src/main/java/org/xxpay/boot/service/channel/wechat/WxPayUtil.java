@@ -15,6 +15,7 @@ public class WxPayUtil {
 
     /**
      * 获取微信支付配置
+     *
      * @param configParam
      * @param tradeType
      * @param certRootPath
@@ -35,6 +36,7 @@ public class WxPayUtil {
 
     /**
      * 获取微信支付配置
+     *
      * @param configParam
      * @return
      */
@@ -46,5 +48,4 @@ public class WxPayUtil {
         wxPayConfig.setMchKey(paramObj.getString("key"));
         return wxPayConfig;
     }
-
 }

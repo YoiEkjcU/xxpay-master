@@ -34,34 +34,34 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     private IPayChannel4AliService payChannel4AliService;
 
     public int createPayOrder(JSONObject payOrder) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("payOrder", payOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map<String, Object> result = createPayOrder(jsonParam);
         String s = RpcUtil.mkRet(result);
-        if(s == null) return 0;
+        if (s == null) return 0;
         return Integer.parseInt(s);
     }
 
     public JSONObject queryPayOrder(String mchId, String payOrderId, String mchOrderNo, String executeNotify) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         Map<String, Object> result;
-        if(StringUtils.isNotBlank(payOrderId)) {
+        if (StringUtils.isNotBlank(payOrderId)) {
             paramMap.put("mchId", mchId);
             paramMap.put("payOrderId", payOrderId);
             String jsonParam = RpcUtil.createBaseParam(paramMap);
             result = selectPayOrderByMchIdAndPayOrderId(jsonParam);
-        }else {
+        } else {
             paramMap.put("mchId", mchId);
             paramMap.put("mchOrderNo", mchOrderNo);
             String jsonParam = RpcUtil.createBaseParam(paramMap);
             result = selectPayOrderByMchIdAndMchOrderNo(jsonParam);
         }
         String s = RpcUtil.mkRet(result);
-        if(s == null) return null;
+        if (s == null) return null;
         boolean isNotify = Boolean.parseBoolean(executeNotify);
         JSONObject payOrder = JSONObject.parseObject(s);
-        if(isNotify) {
+        if (isNotify) {
             paramMap = new HashMap<>();
             paramMap.put("payOrderId", payOrderId);
             String jsonParam = RpcUtil.createBaseParam(paramMap);
@@ -73,13 +73,13 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     }
 
     public String doWxPayReq(String tradeType, JSONObject payOrder, String resKey) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("tradeType", tradeType);
         paramMap.put("payOrder", payOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map<String, Object> result = payChannel4WxService.doWxPayReq(jsonParam);
         String s = RpcUtil.mkRet(result);
-        if(s == null) {
+        if (s == null) {
             return XXPayUtil.makeRetData(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS, "", PayConstant.RETURN_VALUE_FAIL, "0111", "调用微信支付失败"), resKey);
         }
         Map<String, Object> map = XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS, "", PayConstant.RETURN_VALUE_SUCCESS, null);
@@ -88,21 +88,21 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     }
 
     public String doAliPayReq(String channelId, JSONObject payOrder, String resKey) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("payOrder", payOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map<String, Object> result;
         switch (channelId) {
-            case PayConstant.PAY_CHANNEL_ALIPAY_MOBILE :
+            case PayConstant.PAY_CHANNEL_ALIPAY_MOBILE:
                 result = payChannel4AliService.doAliPayMobileReq(jsonParam);
                 break;
-            case PayConstant.PAY_CHANNEL_ALIPAY_PC :
+            case PayConstant.PAY_CHANNEL_ALIPAY_PC:
                 result = payChannel4AliService.doAliPayPcReq(jsonParam);
                 break;
-            case PayConstant.PAY_CHANNEL_ALIPAY_WAP :
+            case PayConstant.PAY_CHANNEL_ALIPAY_WAP:
                 result = payChannel4AliService.doAliPayWapReq(jsonParam);
                 break;
-            case PayConstant.PAY_CHANNEL_ALIPAY_QR :
+            case PayConstant.PAY_CHANNEL_ALIPAY_QR:
                 result = payChannel4AliService.doAliPayQrReq(jsonParam);
                 break;
             default:
@@ -110,7 +110,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
                 break;
         }
         String s = RpcUtil.mkRet(result);
-        if(s == null) {
+        if (s == null) {
             return XXPayUtil.makeRetData(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS, "", PayConstant.RETURN_VALUE_FAIL, "0111", "调用支付宝支付失败"), resKey);
         }
         Map<String, Object> map = XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS, "", PayConstant.RETURN_VALUE_SUCCESS, null);
@@ -127,12 +127,12 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_NOT_FOUND);
         }
         JSONObject payOrderObj = baseParam.isNullValue("payOrder") ? null : JSONObject.parseObject(bizParamMap.get("payOrder").toString());
-        if(payOrderObj == null) {
+        if (payOrderObj == null) {
             _log.warn("新增支付订单失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         PayOrder payOrder = BeanConvertUtils.map2Bean(payOrderObj, PayOrder.class);
-        if(payOrder == null) {
+        if (payOrder == null) {
             _log.warn("新增支付订单失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
@@ -154,7 +154,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         PayOrder payOrder = super.baseSelectPayOrder(payOrderId);
-        if(payOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (payOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(payOrder);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }
@@ -174,7 +174,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         PayOrder payOrder = super.baseSelectPayOrderByMchIdAndPayOrderId(mchId, payOrderId);
-        if(payOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (payOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(payOrder);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }
@@ -194,7 +194,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         PayOrder payOrder = super.baseSelectPayOrderByMchIdAndMchOrderNo(mchId, mchOrderNo);
-        if(payOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (payOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(payOrder);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }
@@ -213,7 +213,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
             _log.warn("修改支付订单状态为支付中失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
-        int result =  super.baseUpdateStatus4Ing(payOrderId, channelOrderNo);
+        int result = super.baseUpdateStatus4Ing(payOrderId, channelOrderNo);
         return RpcUtil.createBizResult(baseParam, result);
     }
 
@@ -247,7 +247,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
             _log.warn("修改支付订单状态为支付完成失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
-        int result =  super.baseUpdateStatus4Complete(payOrderId);
+        int result = super.baseUpdateStatus4Complete(payOrderId);
         return RpcUtil.createBizResult(baseParam, result);
     }
 

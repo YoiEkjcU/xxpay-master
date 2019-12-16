@@ -16,5 +16,4 @@ public interface IPayChannel4AliService {
     Map doAliPayMobileReq(String jsonParam);
 
     Map doAliPayQrReq(String jsonParam);
-
 }

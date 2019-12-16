@@ -65,7 +65,7 @@ public class PayChannel4AliServiceImpl extends BaseService implements IPayChanne
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradeWapPayRequest alipay_request = new AlipayTradeWapPayRequest();
         // 封装请求支付信息
-        AlipayTradeWapPayModel model=new AlipayTradeWapPayModel();
+        AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -76,7 +76,7 @@ public class PayChannel4AliServiceImpl extends BaseService implements IPayChanne
         if (StringUtils.isNotEmpty(objParams)) {
             try {
                 JSONObject objParamsJson = JSON.parseObject(objParams);
-                if(StringUtils.isNotBlank(objParamsJson.getString("quit_url"))) {
+                if (StringUtils.isNotBlank(objParamsJson.getString("quit_url"))) {
                     model.setQuitUrl(objParamsJson.getString("quit_url"));
                 }
             } catch (Exception e) {
@@ -127,7 +127,7 @@ public class PayChannel4AliServiceImpl extends BaseService implements IPayChanne
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradePagePayRequest alipay_request = new AlipayTradePagePayRequest();
         // 封装请求支付信息
-        AlipayTradePagePayModel model=new AlipayTradePagePayModel();
+        AlipayTradePagePayModel model = new AlipayTradePagePayModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -192,7 +192,7 @@ public class PayChannel4AliServiceImpl extends BaseService implements IPayChanne
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradeAppPayRequest alipay_request = new AlipayTradeAppPayRequest();
         // 封装请求支付信息
-        AlipayTradeAppPayModel model=new AlipayTradeAppPayModel();
+        AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -241,7 +241,7 @@ public class PayChannel4AliServiceImpl extends BaseService implements IPayChanne
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradePrecreateRequest alipay_request = new AlipayTradePrecreateRequest();
         // 封装请求支付信息
-        AlipayTradePrecreateModel model=new AlipayTradePrecreateModel();
+        AlipayTradePrecreateModel model = new AlipayTradePrecreateModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -251,11 +251,11 @@ public class PayChannel4AliServiceImpl extends BaseService implements IPayChanne
         if (StringUtils.isNotEmpty(objParams)) {
             try {
                 JSONObject objParamsJson = JSON.parseObject(objParams);
-                if(StringUtils.isNotBlank(objParamsJson.getString("discountable_amount"))) {
+                if (StringUtils.isNotBlank(objParamsJson.getString("discountable_amount"))) {
                     //可打折金额
                     model.setDiscountableAmount(objParamsJson.getString("discountable_amount"));
                 }
-                if(StringUtils.isNotBlank(objParamsJson.getString("undiscountable_amount"))) {
+                if (StringUtils.isNotBlank(objParamsJson.getString("undiscountable_amount"))) {
                     //不可打折金额
                     model.setUndiscountableAmount(objParamsJson.getString("undiscountable_amount"));
                 }
@@ -283,5 +283,4 @@ public class PayChannel4AliServiceImpl extends BaseService implements IPayChanne
         map.put("payUrl", payUrl);
         return RpcUtil.createBizResult(baseParam, map);
     }
-
 }

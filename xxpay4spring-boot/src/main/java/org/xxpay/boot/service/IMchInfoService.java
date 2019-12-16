@@ -14,5 +14,4 @@ public interface IMchInfoService {
     Map selectMchInfo(String jsonParam);
 
     JSONObject getByMchId(String mchId);
-
 }

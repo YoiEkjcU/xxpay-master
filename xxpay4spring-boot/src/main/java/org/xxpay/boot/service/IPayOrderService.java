@@ -34,5 +34,4 @@ public interface IPayOrderService {
     String doWxPayReq(String tradeType, JSONObject payOrder, String resKey);
 
     String doAliPayReq(String channelId, JSONObject payOrder, String resKey);
-
 }

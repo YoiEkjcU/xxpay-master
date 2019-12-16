@@ -10,5 +10,4 @@ import java.util.Map;
 public interface IPayChannel4WxService {
 
     Map doWxPayReq(String jsonParam);
-
 }

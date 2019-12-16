@@ -28,7 +28,6 @@ public class BaseService {
     @Autowired
     private PayChannelMapper payChannelMapper;
 
-
     public MchInfo baseSelectMchInfo(String mchId) {
         return mchInfoMapper.selectByPrimaryKey(mchId);
     }
@@ -39,7 +38,7 @@ public class BaseService {
         criteria.andChannelIdEqualTo(channelId);
         criteria.andMchIdEqualTo(mchId);
         List<PayChannel> payChannelList = payChannelMapper.selectByExample(example);
-        if(CollectionUtils.isEmpty(payChannelList)) return null;
+        if (CollectionUtils.isEmpty(payChannelList)) return null;
         return payChannelList.get(0);
     }
 
@@ -72,7 +71,7 @@ public class BaseService {
     public int baseUpdateStatus4Ing(String payOrderId, String channelOrderNo) {
         PayOrder payOrder = new PayOrder();
         payOrder.setStatus(PayConstant.PAY_STATUS_PAYING);
-        if(channelOrderNo != null) payOrder.setChannelOrderNo(channelOrderNo);
+        if (channelOrderNo != null) payOrder.setChannelOrderNo(channelOrderNo);
         payOrder.setPaySuccTime(System.currentTimeMillis());
         PayOrderExample example = new PayOrderExample();
         PayOrderExample.Criteria criteria = example.createCriteria();
@@ -85,7 +84,7 @@ public class BaseService {
         PayOrder payOrder = new PayOrder();
         payOrder.setPayOrderId(payOrderId);
         payOrder.setStatus(PayConstant.PAY_STATUS_SUCCESS);
-        if(channelOrderNo != null) payOrder.setChannelOrderNo(channelOrderNo);
+        if (channelOrderNo != null) payOrder.setChannelOrderNo(channelOrderNo);
         payOrder.setPaySuccTime(System.currentTimeMillis());
         PayOrderExample example = new PayOrderExample();
         PayOrderExample.Criteria criteria = example.createCriteria();
@@ -116,5 +115,4 @@ public class BaseService {
     public int baseUpdateNotify(PayOrder payOrder) {
         return payOrderMapper.updateByPrimaryKeySelective(payOrder);
     }
-
 }

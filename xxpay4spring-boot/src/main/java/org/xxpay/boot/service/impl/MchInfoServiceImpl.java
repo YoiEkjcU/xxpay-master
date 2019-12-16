@@ -39,18 +39,18 @@ public class MchInfoServiceImpl extends BaseService implements IMchInfoService {
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         MchInfo mchInfo = super.baseSelectMchInfo(mchId);
-        if(mchInfo == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (mchInfo == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(mchInfo);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }
 
     public JSONObject getByMchId(String mchId) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("mchId", mchId);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map<String, Object> result = selectMchInfo(jsonParam);
         String s = RpcUtil.mkRet(result);
-        if(s==null) return null;
+        if (s == null) return null;
         return JSONObject.parseObject(s);
     }
 }
