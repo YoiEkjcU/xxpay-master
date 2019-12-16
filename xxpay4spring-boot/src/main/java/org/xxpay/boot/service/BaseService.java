@@ -28,11 +28,11 @@ public class BaseService {
     @Autowired
     private PayChannelMapper payChannelMapper;
 
-    public MchInfo baseSelectMchInfo(String mchId) {
+    protected MchInfo baseSelectMchInfo(String mchId) {
         return mchInfoMapper.selectByPrimaryKey(mchId);
     }
 
-    public PayChannel baseSelectPayChannel(String mchId, String channelId) {
+    protected PayChannel baseSelectPayChannel(String mchId, String channelId) {
         PayChannelExample example = new PayChannelExample();
         PayChannelExample.Criteria criteria = example.createCriteria();
         criteria.andChannelIdEqualTo(channelId);
@@ -42,15 +42,15 @@ public class BaseService {
         return payChannelList.get(0);
     }
 
-    public int baseCreatePayOrder(PayOrder payOrder) {
+    protected int baseCreatePayOrder(PayOrder payOrder) {
         return payOrderMapper.insertSelective(payOrder);
     }
 
-    public PayOrder baseSelectPayOrder(String payOrderId) {
+    protected PayOrder baseSelectPayOrder(String payOrderId) {
         return payOrderMapper.selectByPrimaryKey(payOrderId);
     }
 
-    public PayOrder baseSelectPayOrderByMchIdAndPayOrderId(String mchId, String payOrderId) {
+    protected PayOrder baseSelectPayOrderByMchIdAndPayOrderId(String mchId, String payOrderId) {
         PayOrderExample example = new PayOrderExample();
         PayOrderExample.Criteria criteria = example.createCriteria();
         criteria.andMchIdEqualTo(mchId);
@@ -59,7 +59,7 @@ public class BaseService {
         return CollectionUtils.isEmpty(payOrderList) ? null : payOrderList.get(0);
     }
 
-    public PayOrder baseSelectPayOrderByMchIdAndMchOrderNo(String mchId, String mchOrderNo) {
+    protected PayOrder baseSelectPayOrderByMchIdAndMchOrderNo(String mchId, String mchOrderNo) {
         PayOrderExample example = new PayOrderExample();
         PayOrderExample.Criteria criteria = example.createCriteria();
         criteria.andMchIdEqualTo(mchId);
@@ -80,7 +80,7 @@ public class BaseService {
         return payOrderMapper.updateByExampleSelective(payOrder, example);
     }
 
-    public int baseUpdateStatus4Success(String payOrderId, String channelOrderNo) {
+    protected int baseUpdateStatus4Success(String payOrderId, String channelOrderNo) {
         PayOrder payOrder = new PayOrder();
         payOrder.setPayOrderId(payOrderId);
         payOrder.setStatus(PayConstant.PAY_STATUS_SUCCESS);
@@ -93,7 +93,7 @@ public class BaseService {
         return payOrderMapper.updateByExampleSelective(payOrder, example);
     }
 
-    public int baseUpdateStatus4Complete(String payOrderId) {
+    protected int baseUpdateStatus4Complete(String payOrderId) {
         PayOrder payOrder = new PayOrder();
         payOrder.setPayOrderId(payOrderId);
         payOrder.setStatus(PayConstant.PAY_STATUS_COMPLETE);
@@ -104,7 +104,7 @@ public class BaseService {
         return payOrderMapper.updateByExampleSelective(payOrder, example);
     }
 
-    public int baseUpdateNotify(String payOrderId, byte count) {
+    protected int baseUpdateNotify(String payOrderId, byte count) {
         PayOrder newPayOrder = new PayOrder();
         newPayOrder.setNotifyCount(count);
         newPayOrder.setLastNotifyTime(System.currentTimeMillis());

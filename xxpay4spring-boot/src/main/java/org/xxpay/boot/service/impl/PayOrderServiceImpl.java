@@ -37,7 +37,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("payOrder", payOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map<String, Object> result = createPayOrder(jsonParam);
+        Map<?, ?> result = createPayOrder(jsonParam);
         String s = RpcUtil.mkRet(result);
         if (s == null) return 0;
         return Integer.parseInt(s);
@@ -120,7 +120,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     }
 
     @Override
-    public Map createPayOrder(String jsonParam) {
+    public Map<?, ?> createPayOrder(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {

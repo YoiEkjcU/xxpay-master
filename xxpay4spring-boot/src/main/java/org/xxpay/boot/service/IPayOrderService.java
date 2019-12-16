@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface IPayOrderService {
 
-    Map createPayOrder(String jsonParam);
+    Map<?, ?> createPayOrder(String jsonParam);
 
     Map selectPayOrder(String jsonParam);
 
