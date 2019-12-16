@@ -7,7 +7,7 @@
     <properties resource="generator.properties"></properties>
 
     <!-- 驱动包 -->
-    <classPathEntry location="${classPathEntry}" />
+    <classPathEntry location="${classPathEntry}"/>
 
     <context id="MysqlContext" targetRuntime="MyBatis3" defaultModelType="flat">
 
@@ -16,7 +16,7 @@
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
 
-        <property name="useActualColumnNames" value="false" />
+        <property name="useActualColumnNames" value="false"/>
 
         <!-- 为生成的Java模型创建一个toString方法 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
@@ -59,8 +59,12 @@
         <table tableName="t_mch_info" domainObjectName="MchInfo"><property name="useActualColumnNames" value="true" /></table>
         <table tableName="t_iap_receipt" domainObjectName="IapReceipt"><property name="useActualColumnNames" value="true" /></table>-->
 
-        <table tableName="t_trans_order" domainObjectName="TransOrder"><property name="useActualColumnNames" value="true" /></table>
-        <table tableName="t_refund_order" domainObjectName="RefundOrder"><property name="useActualColumnNames" value="true" /></table>
+        <table tableName="t_trans_order" domainObjectName="TransOrder">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
+        <table tableName="t_refund_order" domainObjectName="RefundOrder">
+            <property name="useActualColumnNames" value="true"/>
+        </table>
         <!--<table tableName="t_mch_notify" domainObjectName="MchNotify"><property name="useActualColumnNames" value="true" /></table>-->
     </context>
 </generatorConfiguration>
