@@ -28,10 +28,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @Description: 业务通知MQ实现
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description: 业务通知MQ实现
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @Component
@@ -55,6 +55,7 @@ public class Mq4PayNotify {
 
     /**
      * 发送延迟消息
+     *
      * @param msg
      * @param delay
      */
@@ -64,7 +65,7 @@ public class Mq4PayNotify {
             public Message createMessage(Session session) throws JMSException {
                 TextMessage tm = session.createTextMessage(msg);
                 tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1*1000);
+                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1 * 1000);
                 tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
                 return tm;
             }
@@ -82,7 +83,7 @@ public class Mq4PayNotify {
         }
 
         public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[] {};
+            return new X509Certificate[]{};
         }
     }
 
@@ -93,7 +94,7 @@ public class Mq4PayNotify {
         String respUrl = msgObj.getString("url");
         String orderId = msgObj.getString("orderId");
         int count = msgObj.getInteger("count");
-        if(StringUtils.isEmpty(respUrl)) {
+        if (StringUtils.isEmpty(respUrl)) {
             _log.warn("notify url is empty. respUrl={}", respUrl);
             return;
         }
@@ -101,9 +102,9 @@ public class Mq4PayNotify {
             StringBuffer sb = new StringBuffer();
             URL console = new URL(respUrl);
             _log.info("==>MQ通知业务系统开始[orderId：{}][count：{}][time：{}]", orderId, count, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-            if("https".equals(console.getProtocol())) {
+            if ("https".equals(console.getProtocol())) {
                 SSLContext sc = SSLContext.getInstance("SSL");
-                sc.init(null, new TrustManager[] { new TrustAnyTrustManager() },
+                sc.init(null, new TrustManager[]{new TrustAnyTrustManager()},
                         new java.security.SecureRandom());
                 HttpsURLConnection con = (HttpsURLConnection) console.openConnection();
                 con.setSSLSocketFactory(sc.getSocketFactory());
@@ -114,7 +115,7 @@ public class Mq4PayNotify {
                 con.setConnectTimeout(10 * 1000);
                 con.setReadTimeout(5 * 1000);
                 con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()), 1024*1024);
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()), 1024 * 1024);
                 while (true) {
                     String line = in.readLine();
                     if (line == null) {
@@ -123,7 +124,7 @@ public class Mq4PayNotify {
                     sb.append(line);
                 }
                 in.close();
-            }else if("http".equals(console.getProtocol())) {
+            } else if ("http".equals(console.getProtocol())) {
                 HttpURLConnection con = (HttpURLConnection) console.openConnection();
                 con.setRequestMethod("POST");
                 con.setDoInput(true);
@@ -132,7 +133,7 @@ public class Mq4PayNotify {
                 con.setConnectTimeout(10 * 1000);
                 con.setReadTimeout(5 * 1000);
                 con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()), 1024*1024);
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()), 1024 * 1024);
                 while (true) {
                     String line = in.readLine();
                     if (line == null) {
@@ -141,14 +142,14 @@ public class Mq4PayNotify {
                     sb.append(line);
                 }
                 in.close();
-            }else {
+            } else {
                 _log.error("not do protocol. protocol=%s", console.getProtocol());
                 return;
             }
             _log.info("<==MQ通知业务系统结束[orderId：{}][count：{}][time：{}]", orderId, count, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             // 验证结果
             _log.info("notify response , OrderID={}", orderId);
-            if(sb.toString().trim().equalsIgnoreCase("success")){
+            if (sb.toString().trim().equalsIgnoreCase("success")) {
                 //_log.info("{} notify success, url:{}", _notifyInfo.getBusiId(), respUrl);
                 //修改订单表
                 try {
@@ -161,31 +162,31 @@ public class Mq4PayNotify {
                 try {
                     int result = payOrderService.updateNotify(orderId, (byte) 1);
                     _log.info("修改payOrderId={},通知业务系统次数->{}", orderId, result == 1 ? "成功" : "失败");
-                }catch (Exception e) {
+                } catch (Exception e) {
                     _log.error(e, "修改通知次数异常");
                 }
-                return ; // 通知成功结束
-            }else {
+                return; // 通知成功结束
+            } else {
                 // 通知失败，延时再通知
-                int cnt = count+1;
+                int cnt = count + 1;
                 _log.info("notify count={}", cnt);
                 // 修改通知次数
                 try {
                     int result = payOrderService.updateNotify(orderId, (byte) cnt);
                     _log.info("修改payOrderId={},通知业务系统次数->{}", orderId, result == 1 ? "成功" : "失败");
-                }catch (Exception e) {
+                } catch (Exception e) {
                     _log.error(e, "修改通知次数异常");
                 }
 
                 if (cnt > 5) {
                     _log.info("notify count>5 stop. url={}", respUrl);
-                    return ;
+                    return;
                 }
                 msgObj.put("count", cnt);
                 this.send(msgObj.toJSONString(), cnt * 60 * 1000);
             }
             _log.warn("notify failed. url:{}, response body:{}", respUrl, sb.toString());
-        } catch(Exception e) {
+        } catch (Exception e) {
             _log.info("<==MQ通知业务系统结束[orderId：{}][count：{}][time：{}]", orderId, count, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             _log.error(e, "notify exception. url:%s", respUrl);
         }

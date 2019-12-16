@@ -21,5 +21,4 @@ public class MchInfoService {
     public MchInfo selectMchInfo(String mchId) {
         return mchInfoMapper.selectByPrimaryKey(mchId);
     }
-
 }

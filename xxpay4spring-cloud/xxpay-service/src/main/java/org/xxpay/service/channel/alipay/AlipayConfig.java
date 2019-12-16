@@ -43,6 +43,7 @@ public class AlipayConfig {
 
     /**
      * 初始化支付宝配置
+     *
      * @param configParam
      * @return
      */
@@ -53,7 +54,7 @@ public class AlipayConfig {
         this.setRsa_private_key(paramObj.getString("private_key"));
         this.setAlipay_public_key(paramObj.getString("alipay_public_key"));
         this.setIsSandbox(paramObj.getShortValue("isSandbox"));
-        if(this.getIsSandbox() == 1) this.setUrl("https://openapi.alipaydev.com/gateway.do");
+        if (this.getIsSandbox() == 1) this.setUrl("https://openapi.alipaydev.com/gateway.do");
         return this;
     }
 
@@ -113,4 +114,3 @@ public class AlipayConfig {
         this.alipay_public_key = alipay_public_key;
     }
 }
-

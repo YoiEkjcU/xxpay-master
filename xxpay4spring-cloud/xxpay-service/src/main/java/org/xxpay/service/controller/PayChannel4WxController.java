@@ -33,14 +33,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Description: 支付渠道接口:微信
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description: 支付渠道接口:微信
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @RestController
-public class PayChannel4WxController{
+public class PayChannel4WxController {
 
     private final MyLog _log = MyLog.getLog(PayChannel4WxController.class);
 
@@ -58,12 +58,13 @@ public class PayChannel4WxController{
 
     /**
      * 发起微信支付(统一下单)
+     *
      * @param
      * @return
      */
     @RequestMapping(value = "/pay/channel/wx")
     public String doWxPayReq(@RequestParam String jsonParam) {
-        try{
+        try {
             JSONObject paramObj = JSON.parseObject(new String(MyBase64.decode(jsonParam)));
             PayOrder payOrder = paramObj.getObject("payOrder", PayOrder.class);
             String tradeType = paramObj.getString("tradeType");
@@ -72,7 +73,8 @@ public class PayChannel4WxController{
             String channelId = payOrder.getChannelId();
             MchInfo mchInfo = mchInfoService.selectMchInfo(mchId);
             String resKey = mchInfo == null ? "" : mchInfo.getResKey();
-            if("".equals(resKey)) return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
+            if ("".equals(resKey))
+                return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
             PayChannel payChannel = payChannelService.selectPayChannel(channelId, mchId);
             WxPayConfig wxPayConfig = WxPayUtil.getWxPayConfig(payChannel.getParam(), tradeType, wxPayProperties.getCertRootPath(), wxPayProperties.getNotifyUrl());
             WxPayService wxPayService = new WxPayServiceImpl();
@@ -89,11 +91,11 @@ public class PayChannel4WxController{
                 int result = payOrderService.updateStatus4Ing(payOrderId, wxPayUnifiedOrderResult.getPrepayId());
                 _log.info("更新第三方支付订单号:payOrderId={},prepayId={},result={}", payOrderId, wxPayUnifiedOrderResult.getPrepayId(), result);
                 switch (tradeType) {
-                    case PayConstant.WxConstant.TRADE_TYPE_NATIVE : {
+                    case PayConstant.WxConstant.TRADE_TYPE_NATIVE: {
                         map.put("codeUrl", wxPayUnifiedOrderResult.getCodeURL());   // 二维码支付链接
                         break;
                     }
-                    case PayConstant.WxConstant.TRADE_TYPE_APP : {
+                    case PayConstant.WxConstant.TRADE_TYPE_APP: {
                         Map<String, String> payInfo = new HashMap<>();
                         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
                         String nonceStr = String.valueOf(System.currentTimeMillis());
@@ -120,7 +122,7 @@ public class PayChannel4WxController{
                         map.put("payParams", payInfo);
                         break;
                     }
-                    case PayConstant.WxConstant.TRADE_TYPE_JSPAI : {
+                    case PayConstant.WxConstant.TRADE_TYPE_JSPAI: {
                         Map<String, String> payInfo = new HashMap<>();
                         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
                         String nonceStr = String.valueOf(System.currentTimeMillis());
@@ -134,7 +136,7 @@ public class PayChannel4WxController{
                         map.put("payParams", payInfo);
                         break;
                     }
-                    case PayConstant.WxConstant.TRADE_TYPE_MWEB : {
+                    case PayConstant.WxConstant.TRADE_TYPE_MWEB: {
                         map.put("payUrl", wxPayUnifiedOrderResult.getMwebUrl());    // h5支付链接地址
                         break;
                     }
@@ -148,7 +150,7 @@ public class PayChannel4WxController{
                 _log.info("err_code_des:{}", e.getErrCodeDes());
                 return XXPayUtil.makeRetData(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS, "", PayConstant.RETURN_VALUE_FAIL, "0111", "调用微信支付失败," + e.getErrCode() + ":" + e.getErrCodeDes()), resKey);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             _log.error(e, "微信支付统一下单异常");
             return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
         }
@@ -156,6 +158,7 @@ public class PayChannel4WxController{
 
     /**
      * 构建微信统一下单请求数据
+     *
      * @param payOrder
      * @param wxPayConfig
      * @return
@@ -176,12 +179,15 @@ public class PayChannel4WxController{
         String goodsTag = null;
         String notifyUrl = wxPayConfig.getNotifyUrl();
         String productId = null;
-        if(tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_NATIVE)) productId = JSON.parseObject(payOrder.getExtra()).getString("productId");
+        if (tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_NATIVE))
+            productId = JSON.parseObject(payOrder.getExtra()).getString("productId");
         String limitPay = null;
         String openId = null;
-        if(tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_JSPAI)) openId = JSON.parseObject(payOrder.getExtra()).getString("openId");
+        if (tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_JSPAI))
+            openId = JSON.parseObject(payOrder.getExtra()).getString("openId");
         String sceneInfo = null;
-        if(tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_MWEB)) sceneInfo = JSON.parseObject(payOrder.getExtra()).getString("sceneInfo");
+        if (tradeType.equals(PayConstant.WxConstant.TRADE_TYPE_MWEB))
+            sceneInfo = JSON.parseObject(payOrder.getExtra()).getString("sceneInfo");
         // 微信统一下单请求对象
         WxPayUnifiedOrderRequest request = new WxPayUnifiedOrderRequest();
         request.setDeviceInfo(deviceInfo);

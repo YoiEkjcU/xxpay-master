@@ -16,25 +16,25 @@ import javax.annotation.Resource;
 @Service
 public class WxPayProperties {
 
-	@Value("${cert.root.path}")
-	private String certRootPath;
+    @Value("${cert.root.path}")
+    private String certRootPath;
 
-	@Value("${wx.notify_url}")
-	private String notifyUrl;
+    @Value("${wx.notify_url}")
+    private String notifyUrl;
 
-	public String getCertRootPath() {
-		return certRootPath;
-	}
+    public String getCertRootPath() {
+        return certRootPath;
+    }
 
-	public void setCertRootPath(String certRootPath) {
-		this.certRootPath = certRootPath;
-	}
+    public void setCertRootPath(String certRootPath) {
+        this.certRootPath = certRootPath;
+    }
 
-	public String getNotifyUrl() {
-		return notifyUrl;
-	}
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
 
-	public void setNotifyUrl(String notifyUrl) {
-		this.notifyUrl = notifyUrl;
-	}
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+    }
 }

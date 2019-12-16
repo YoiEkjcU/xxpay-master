@@ -14,10 +14,10 @@ import org.xxpay.dal.dao.model.PayChannel;
 import org.xxpay.service.service.PayChannelService;
 
 /**
- * @Description: 支付渠道接口
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description: 支付渠道接口
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @RestController
@@ -34,7 +34,7 @@ public class PayChannelServiceController {
         _log.info("selectPayChannel << {}", jsonParam);
         JSONObject retObj = new JSONObject();
         retObj.put("code", "0000");
-        if(StringUtils.isBlank(jsonParam)) {
+        if (StringUtils.isBlank(jsonParam)) {
             retObj.put("code", "0001"); // 参数错误
             retObj.put("msg", "缺少参数");
             return retObj.toJSONString();
@@ -43,7 +43,7 @@ public class PayChannelServiceController {
         String channelId = paramObj.getString("channelId");
         String mchId = paramObj.getString("mchId");
         PayChannel payChannel = payChannelService.selectPayChannel(channelId, mchId);
-        if(payChannel == null) {
+        if (payChannel == null) {
             retObj.put("code", "0002");
             retObj.put("msg", "数据对象不存在");
             return retObj.toJSONString();
@@ -52,6 +52,4 @@ public class PayChannelServiceController {
         _log.info("selectPayChannel >> {}", retObj);
         return retObj.toJSONString();
     }
-
-
 }

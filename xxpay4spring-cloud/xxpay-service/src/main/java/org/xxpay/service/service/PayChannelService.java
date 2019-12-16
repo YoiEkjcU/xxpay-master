@@ -10,10 +10,10 @@ import org.xxpay.dal.dao.model.PayChannelExample;
 import java.util.List;
 
 /**
- * @Description:
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description:
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @Component
@@ -28,8 +28,7 @@ public class PayChannelService {
         criteria.andChannelIdEqualTo(channelId);
         criteria.andMchIdEqualTo(mchId);
         List<PayChannel> payChannelList = payChannelMapper.selectByExample(example);
-        if(CollectionUtils.isEmpty(payChannelList)) return null;
+        if (CollectionUtils.isEmpty(payChannelList)) return null;
         return payChannelList.get(0);
     }
-
 }

@@ -22,5 +22,4 @@ public class MqConfig {
     public Queue payNotifyQueue() {
         return new ActiveMQQueue(PAY_NOTIFY_QUEUE_NAME);
     }
-
 }

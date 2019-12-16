@@ -11,10 +11,10 @@ import org.xxpay.dal.dao.model.PayOrderExample;
 import java.util.List;
 
 /**
- * @Description:
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description:
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @Component
@@ -52,7 +52,7 @@ public class PayOrderService {
     public int updateStatus4Ing(String payOrderId, String channelOrderNo) {
         PayOrder payOrder = new PayOrder();
         payOrder.setStatus(PayConstant.PAY_STATUS_PAYING);
-        if(channelOrderNo != null) payOrder.setChannelOrderNo(channelOrderNo);
+        if (channelOrderNo != null) payOrder.setChannelOrderNo(channelOrderNo);
         payOrder.setPaySuccTime(System.currentTimeMillis());
         PayOrderExample example = new PayOrderExample();
         PayOrderExample.Criteria criteria = example.createCriteria();
@@ -96,5 +96,4 @@ public class PayOrderService {
     public int updateNotify(PayOrder payOrder) {
         return payOrderMapper.updateByPrimaryKeySelective(payOrder);
     }
-
 }

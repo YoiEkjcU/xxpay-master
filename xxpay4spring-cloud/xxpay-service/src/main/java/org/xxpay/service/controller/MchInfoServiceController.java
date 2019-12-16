@@ -13,10 +13,10 @@ import org.xxpay.dal.dao.model.MchInfo;
 import org.xxpay.service.service.MchInfoService;
 
 /**
- * @Description: 商户信息接口
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description: 商户信息接口
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @RestController
@@ -36,12 +36,12 @@ public class MchInfoServiceController {
         MchInfo mchInfo = mchInfoService.selectMchInfo(mchId);
         JSONObject retObj = new JSONObject();
         retObj.put("code", "0000");
-        if(StringUtils.isBlank(jsonParam)) {
+        if (StringUtils.isBlank(jsonParam)) {
             retObj.put("code", "0001"); // 参数错误
             retObj.put("msg", "缺少参数");
             return retObj.toJSONString();
         }
-        if(mchInfo == null) {
+        if (mchInfo == null) {
             retObj.put("code", "0002");
             retObj.put("msg", "数据对象不存在");
             return retObj.toJSONString();
@@ -50,7 +50,4 @@ public class MchInfoServiceController {
         _log.info("result:{}", retObj.toJSONString());
         return retObj.toJSONString();
     }
-
-
-
 }

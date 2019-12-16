@@ -36,10 +36,10 @@ import org.xxpay.service.service.PayOrderService;
 import java.util.Map;
 
 /**
- * @Description: 支付渠道接口:支付宝
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description: 支付渠道接口:支付宝
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @RestController
@@ -62,6 +62,7 @@ public class PayChannel4AlipayController {
     /**
      * 支付宝手机网站支付
      * 文档：https://docs.open.alipay.com/203/107090/
+     *
      * @param jsonParam
      * @return
      */
@@ -75,13 +76,14 @@ public class PayChannel4AlipayController {
         String channelId = payOrder.getChannelId();
         MchInfo mchInfo = mchInfoService.selectMchInfo(mchId);
         String resKey = mchInfo == null ? "" : mchInfo.getResKey();
-        if("".equals(resKey)) return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
+        if ("".equals(resKey))
+            return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
         PayChannel payChannel = payChannelService.selectPayChannel(channelId, mchId);
         alipayConfig.init(payChannel.getParam());
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradeWapPayRequest alipay_request = new AlipayTradeWapPayRequest();
         // 封装请求支付信息
-        AlipayTradeWapPayModel model=new AlipayTradeWapPayModel();
+        AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -92,7 +94,7 @@ public class PayChannel4AlipayController {
         if (StringUtils.isNotEmpty(objParams)) {
             try {
                 JSONObject objParamsJson = JSON.parseObject(objParams);
-                if(StringUtils.isNotBlank(objParamsJson.getString("quit_url"))) {
+                if (StringUtils.isNotBlank(objParamsJson.getString("quit_url"))) {
                     model.setQuitUrl(objParamsJson.getString("quit_url"));
                 }
             } catch (Exception e) {
@@ -123,6 +125,7 @@ public class PayChannel4AlipayController {
     /**
      * 支付宝电脑网站支付
      * 文档：https://docs.open.alipay.com/270/105899/
+     *
      * @param jsonParam
      * @return
      */
@@ -136,13 +139,14 @@ public class PayChannel4AlipayController {
         String channelId = payOrder.getChannelId();
         MchInfo mchInfo = mchInfoService.selectMchInfo(mchId);
         String resKey = mchInfo == null ? "" : mchInfo.getResKey();
-        if("".equals(resKey)) return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
+        if ("".equals(resKey))
+            return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
         PayChannel payChannel = payChannelService.selectPayChannel(channelId, mchId);
         alipayConfig.init(payChannel.getParam());
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradePagePayRequest alipay_request = new AlipayTradePagePayRequest();
         // 封装请求支付信息
-        AlipayTradePagePayModel model=new AlipayTradePagePayModel();
+        AlipayTradePagePayModel model = new AlipayTradePagePayModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -187,6 +191,7 @@ public class PayChannel4AlipayController {
     /**
      * 支付宝APP支付,生产签名及请求支付宝的参数(注:不会向支付宝发请求)
      * 文档: https://docs.open.alipay.com/204/105465/
+     *
      * @param jsonParam
      * @return
      */
@@ -200,13 +205,14 @@ public class PayChannel4AlipayController {
         String channelId = payOrder.getChannelId();
         MchInfo mchInfo = mchInfoService.selectMchInfo(mchId);
         String resKey = mchInfo == null ? "" : mchInfo.getResKey();
-        if("".equals(resKey)) return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
+        if ("".equals(resKey))
+            return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
         PayChannel payChannel = payChannelService.selectPayChannel(channelId, mchId);
         alipayConfig.init(payChannel.getParam());
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradeAppPayRequest alipay_request = new AlipayTradeAppPayRequest();
         // 封装请求支付信息
-        AlipayTradeAppPayModel model=new AlipayTradeAppPayModel();
+        AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -235,6 +241,7 @@ public class PayChannel4AlipayController {
     /**
      * 支付宝当面付之扫码支付
      * 文档：https://docs.open.alipay.com/api_1/alipay.trade.precreate
+     *
      * @param jsonParam
      * @return
      */
@@ -248,13 +255,14 @@ public class PayChannel4AlipayController {
         String channelId = payOrder.getChannelId();
         MchInfo mchInfo = mchInfoService.selectMchInfo(mchId);
         String resKey = mchInfo == null ? "" : mchInfo.getResKey();
-        if("".equals(resKey)) return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
+        if ("".equals(resKey))
+            return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "", PayConstant.RETURN_VALUE_FAIL, PayEnum.ERR_0001));
         PayChannel payChannel = payChannelService.selectPayChannel(channelId, mchId);
         alipayConfig.init(payChannel.getParam());
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradePrecreateRequest alipay_request = new AlipayTradePrecreateRequest();
         // 封装请求支付信息
-        AlipayTradePrecreateModel model=new AlipayTradePrecreateModel();
+        AlipayTradePrecreateModel model = new AlipayTradePrecreateModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -264,11 +272,11 @@ public class PayChannel4AlipayController {
         if (StringUtils.isNotEmpty(objParams)) {
             try {
                 JSONObject objParamsJson = JSON.parseObject(objParams);
-                if(StringUtils.isNotBlank(objParamsJson.getString("discountable_amount"))) {
+                if (StringUtils.isNotBlank(objParamsJson.getString("discountable_amount"))) {
                     //可打折金额
                     model.setDiscountableAmount(objParamsJson.getString("discountable_amount"));
                 }
-                if(StringUtils.isNotBlank(objParamsJson.getString("undiscountable_amount"))) {
+                if (StringUtils.isNotBlank(objParamsJson.getString("undiscountable_amount"))) {
                     //不可打折金额
                     model.setUndiscountableAmount(objParamsJson.getString("undiscountable_amount"));
                 }
@@ -296,5 +304,4 @@ public class PayChannel4AlipayController {
         map.put("payUrl", payUrl);
         return XXPayUtil.makeRetData(map, resKey);
     }
-
 }

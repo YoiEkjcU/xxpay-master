@@ -14,10 +14,10 @@ import org.xxpay.dal.dao.model.PayOrder;
 import org.xxpay.service.service.PayOrderService;
 
 /**
- * @Description: 支付订单接口
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description: 支付订单接口
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @RestController
@@ -33,7 +33,7 @@ public class PayOrderServiceController extends Notify4BasePay {
         _log.info("接收创建支付订单请求,jsonParam={}", jsonParam);
         JSONObject retObj = new JSONObject();
         retObj.put("code", "0000");
-        if(StringUtils.isBlank(jsonParam)) {
+        if (StringUtils.isBlank(jsonParam)) {
             retObj.put("code", "0001");
             retObj.put("msg", "缺少参数");
             return retObj.toJSONString();
@@ -42,7 +42,7 @@ public class PayOrderServiceController extends Notify4BasePay {
             PayOrder payOrder = JSON.parseObject(new String(MyBase64.decode(jsonParam)), PayOrder.class);
             int result = payOrderService.createPayOrder(payOrder);
             retObj.put("result", result);
-        }catch (Exception e) {
+        } catch (Exception e) {
             retObj.put("code", "9999"); // 系统错误
             retObj.put("msg", "系统错误");
         }
@@ -54,7 +54,7 @@ public class PayOrderServiceController extends Notify4BasePay {
         _log.info("selectPayOrder << {}", jsonParam);
         JSONObject retObj = new JSONObject();
         retObj.put("code", "0000");
-        if(StringUtils.isBlank(jsonParam)) {
+        if (StringUtils.isBlank(jsonParam)) {
             retObj.put("code", "0001"); // 参数错误
             retObj.put("msg", "缺少参数");
             return retObj.toJSONString();
@@ -64,12 +64,12 @@ public class PayOrderServiceController extends Notify4BasePay {
         String payOrderId = paramObj.getString("payOrderId");
         String mchOrderNo = paramObj.getString("mchOrderNo");
         PayOrder payOrder;
-        if(StringUtils.isNotBlank(payOrderId)) {
+        if (StringUtils.isNotBlank(payOrderId)) {
             payOrder = payOrderService.selectPayOrderByMchIdAndPayOrderId(mchId, payOrderId);
-        }else {
+        } else {
             payOrder = payOrderService.selectPayOrderByMchIdAndMchOrderNo(mchId, mchOrderNo);
         }
-        if(payOrder == null) {
+        if (payOrder == null) {
             retObj.put("code", "0002");
             retObj.put("msg", "支付订单不存在");
             return retObj.toJSONString();
@@ -78,12 +78,11 @@ public class PayOrderServiceController extends Notify4BasePay {
         //
         boolean executeNotify = paramObj.getBooleanValue("executeNotify");
         // 如果选择回调且支付状态为支付成功,则回调业务系统
-        if(executeNotify && payOrder.getStatus() == PayConstant.PAY_STATUS_SUCCESS) {
+        if (executeNotify && payOrder.getStatus() == PayConstant.PAY_STATUS_SUCCESS) {
             this.doNotify(payOrder);
         }
         retObj.put("result", JSON.toJSON(payOrder));
         _log.info("selectPayOrder >> {}", retObj);
         return retObj.toJSONString();
     }
-
 }
