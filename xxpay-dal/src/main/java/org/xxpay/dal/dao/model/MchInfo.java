@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class MchInfo implements Serializable {
+
     /**
      * 商户ID
      *
@@ -157,13 +158,13 @@ public class MchInfo implements Serializable {
         }
         MchInfo other = (MchInfo) that;
         return (this.getMchId() == null ? other.getMchId() == null : this.getMchId().equals(other.getMchId()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-            && (this.getReqKey() == null ? other.getReqKey() == null : this.getReqKey().equals(other.getReqKey()))
-            && (this.getResKey() == null ? other.getResKey() == null : this.getResKey().equals(other.getResKey()))
-            && (this.getState() == null ? other.getState() == null : this.getState().equals(other.getState()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
+                && (this.getReqKey() == null ? other.getReqKey() == null : this.getReqKey().equals(other.getReqKey()))
+                && (this.getResKey() == null ? other.getResKey() == null : this.getResKey().equals(other.getResKey()))
+                && (this.getState() == null ? other.getState() == null : this.getState().equals(other.getState()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public class TransOrderExample implements Serializable {
+
     protected String orderByClause;
 
     protected boolean distinct;

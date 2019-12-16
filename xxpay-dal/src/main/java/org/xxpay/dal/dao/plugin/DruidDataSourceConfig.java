@@ -23,10 +23,10 @@ import java.util.Arrays;
 import java.util.Properties;
 
 /**
- * @Description:
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description:
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @Configuration

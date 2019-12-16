@@ -3,10 +3,10 @@ package org.xxpay.dal.dao.plugin;
 import java.util.List;
 
 /**
- * @Description:
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description:
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 public class PageModel<T> {

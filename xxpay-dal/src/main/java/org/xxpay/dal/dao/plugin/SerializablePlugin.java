@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * @Description: Example类和model类实现序列化插件
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description: Example类和model类实现序列化插件
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 public class SerializablePlugin extends PluginAdapter {
+
     private FullyQualifiedJavaType serializable = new FullyQualifiedJavaType("java.io.Serializable");
     private FullyQualifiedJavaType gwtSerializable = new FullyQualifiedJavaType("com.google.gwt.user.client.rpc.IsSerializable");
     private boolean addGWTInterface;
@@ -49,12 +50,12 @@ public class SerializablePlugin extends PluginAdapter {
     }
 
     protected void makeSerializable(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-        if(this.addGWTInterface) {
+        if (this.addGWTInterface) {
             topLevelClass.addImportedType(this.gwtSerializable);
             topLevelClass.addSuperInterface(this.gwtSerializable);
         }
 
-        if(!this.suppressJavaInterface) {
+        if (!this.suppressJavaInterface) {
             topLevelClass.addImportedType(this.serializable);
             topLevelClass.addSuperInterface(this.serializable);
             Field field = new Field();
@@ -72,12 +73,13 @@ public class SerializablePlugin extends PluginAdapter {
 
     /**
      * 添加给Example类序列化的方法
+     *
      * @param topLevelClass
      * @param introspectedTable
      * @return
      */
     @Override
-    public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable){
+    public boolean modelExampleClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         makeSerializable(topLevelClass, introspectedTable);
 
         for (InnerClass innerClass : topLevelClass.getInnerClasses()) {
@@ -94,5 +96,4 @@ public class SerializablePlugin extends PluginAdapter {
 
         return true;
     }
-
 }

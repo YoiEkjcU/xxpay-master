@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class RefundOrder implements Serializable {
+
     /**
      * 退款订单号
      *
@@ -477,33 +478,33 @@ public class RefundOrder implements Serializable {
         }
         RefundOrder other = (RefundOrder) that;
         return (this.getRefundOrderId() == null ? other.getRefundOrderId() == null : this.getRefundOrderId().equals(other.getRefundOrderId()))
-            && (this.getPayOrderId() == null ? other.getPayOrderId() == null : this.getPayOrderId().equals(other.getPayOrderId()))
-            && (this.getChannelPayOrderNo() == null ? other.getChannelPayOrderNo() == null : this.getChannelPayOrderNo().equals(other.getChannelPayOrderNo()))
-            && (this.getMchId() == null ? other.getMchId() == null : this.getMchId().equals(other.getMchId()))
-            && (this.getMchRefundNo() == null ? other.getMchRefundNo() == null : this.getMchRefundNo().equals(other.getMchRefundNo()))
-            && (this.getChannelId() == null ? other.getChannelId() == null : this.getChannelId().equals(other.getChannelId()))
-            && (this.getPayAmount() == null ? other.getPayAmount() == null : this.getPayAmount().equals(other.getPayAmount()))
-            && (this.getRefundAmount() == null ? other.getRefundAmount() == null : this.getRefundAmount().equals(other.getRefundAmount()))
-            && (this.getCurrency() == null ? other.getCurrency() == null : this.getCurrency().equals(other.getCurrency()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getResult() == null ? other.getResult() == null : this.getResult().equals(other.getResult()))
-            && (this.getClientIp() == null ? other.getClientIp() == null : this.getClientIp().equals(other.getClientIp()))
-            && (this.getDevice() == null ? other.getDevice() == null : this.getDevice().equals(other.getDevice()))
-            && (this.getRemarkInfo() == null ? other.getRemarkInfo() == null : this.getRemarkInfo().equals(other.getRemarkInfo()))
-            && (this.getChannelUser() == null ? other.getChannelUser() == null : this.getChannelUser().equals(other.getChannelUser()))
-            && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
-            && (this.getChannelMchId() == null ? other.getChannelMchId() == null : this.getChannelMchId().equals(other.getChannelMchId()))
-            && (this.getChannelOrderNo() == null ? other.getChannelOrderNo() == null : this.getChannelOrderNo().equals(other.getChannelOrderNo()))
-            && (this.getChannelErrCode() == null ? other.getChannelErrCode() == null : this.getChannelErrCode().equals(other.getChannelErrCode()))
-            && (this.getChannelErrMsg() == null ? other.getChannelErrMsg() == null : this.getChannelErrMsg().equals(other.getChannelErrMsg()))
-            && (this.getExtra() == null ? other.getExtra() == null : this.getExtra().equals(other.getExtra()))
-            && (this.getNotifyUrl() == null ? other.getNotifyUrl() == null : this.getNotifyUrl().equals(other.getNotifyUrl()))
-            && (this.getParam1() == null ? other.getParam1() == null : this.getParam1().equals(other.getParam1()))
-            && (this.getParam2() == null ? other.getParam2() == null : this.getParam2().equals(other.getParam2()))
-            && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()))
-            && (this.getRefundSuccTime() == null ? other.getRefundSuccTime() == null : this.getRefundSuccTime().equals(other.getRefundSuccTime()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
+                && (this.getPayOrderId() == null ? other.getPayOrderId() == null : this.getPayOrderId().equals(other.getPayOrderId()))
+                && (this.getChannelPayOrderNo() == null ? other.getChannelPayOrderNo() == null : this.getChannelPayOrderNo().equals(other.getChannelPayOrderNo()))
+                && (this.getMchId() == null ? other.getMchId() == null : this.getMchId().equals(other.getMchId()))
+                && (this.getMchRefundNo() == null ? other.getMchRefundNo() == null : this.getMchRefundNo().equals(other.getMchRefundNo()))
+                && (this.getChannelId() == null ? other.getChannelId() == null : this.getChannelId().equals(other.getChannelId()))
+                && (this.getPayAmount() == null ? other.getPayAmount() == null : this.getPayAmount().equals(other.getPayAmount()))
+                && (this.getRefundAmount() == null ? other.getRefundAmount() == null : this.getRefundAmount().equals(other.getRefundAmount()))
+                && (this.getCurrency() == null ? other.getCurrency() == null : this.getCurrency().equals(other.getCurrency()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getResult() == null ? other.getResult() == null : this.getResult().equals(other.getResult()))
+                && (this.getClientIp() == null ? other.getClientIp() == null : this.getClientIp().equals(other.getClientIp()))
+                && (this.getDevice() == null ? other.getDevice() == null : this.getDevice().equals(other.getDevice()))
+                && (this.getRemarkInfo() == null ? other.getRemarkInfo() == null : this.getRemarkInfo().equals(other.getRemarkInfo()))
+                && (this.getChannelUser() == null ? other.getChannelUser() == null : this.getChannelUser().equals(other.getChannelUser()))
+                && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
+                && (this.getChannelMchId() == null ? other.getChannelMchId() == null : this.getChannelMchId().equals(other.getChannelMchId()))
+                && (this.getChannelOrderNo() == null ? other.getChannelOrderNo() == null : this.getChannelOrderNo().equals(other.getChannelOrderNo()))
+                && (this.getChannelErrCode() == null ? other.getChannelErrCode() == null : this.getChannelErrCode().equals(other.getChannelErrCode()))
+                && (this.getChannelErrMsg() == null ? other.getChannelErrMsg() == null : this.getChannelErrMsg().equals(other.getChannelErrMsg()))
+                && (this.getExtra() == null ? other.getExtra() == null : this.getExtra().equals(other.getExtra()))
+                && (this.getNotifyUrl() == null ? other.getNotifyUrl() == null : this.getNotifyUrl().equals(other.getNotifyUrl()))
+                && (this.getParam1() == null ? other.getParam1() == null : this.getParam1().equals(other.getParam1()))
+                && (this.getParam2() == null ? other.getParam2() == null : this.getParam2().equals(other.getParam2()))
+                && (this.getExpireTime() == null ? other.getExpireTime() == null : this.getExpireTime().equals(other.getExpireTime()))
+                && (this.getRefundSuccTime() == null ? other.getRefundSuccTime() == null : this.getRefundSuccTime().equals(other.getRefundSuccTime()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override

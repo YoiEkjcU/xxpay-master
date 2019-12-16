@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public class PayChannelExample implements Serializable {
+
     protected String orderByClause;
 
     protected boolean distinct;

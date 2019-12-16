@@ -157,13 +157,13 @@ public class IapReceipt implements Serializable {
         }
         IapReceipt other = (IapReceipt) that;
         return (this.getPayOrderId() == null ? other.getPayOrderId() == null : this.getPayOrderId().equals(other.getPayOrderId()))
-            && (this.getMchId() == null ? other.getMchId() == null : this.getMchId().equals(other.getMchId()))
-            && (this.getTransactionId() == null ? other.getTransactionId() == null : this.getTransactionId().equals(other.getTransactionId()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getHandleCount() == null ? other.getHandleCount() == null : this.getHandleCount().equals(other.getHandleCount()))
-            && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
-            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getReceiptData() == null ? other.getReceiptData() == null : this.getReceiptData().equals(other.getReceiptData()));
+                && (this.getMchId() == null ? other.getMchId() == null : this.getMchId().equals(other.getMchId()))
+                && (this.getTransactionId() == null ? other.getTransactionId() == null : this.getTransactionId().equals(other.getTransactionId()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getHandleCount() == null ? other.getHandleCount() == null : this.getHandleCount().equals(other.getHandleCount()))
+                && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
+                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
+                && (this.getReceiptData() == null ? other.getReceiptData() == null : this.getReceiptData().equals(other.getReceiptData()));
     }
 
     @Override
