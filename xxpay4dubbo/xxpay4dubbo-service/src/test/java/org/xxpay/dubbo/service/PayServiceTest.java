@@ -30,7 +30,7 @@ public class PayServiceTest {
     @Autowired
     IPayChannel4WxService payChannel4WxService;
 
-    String TransOrderId = System.currentTimeMillis()+"";
+    String TransOrderId = System.currentTimeMillis() + "";
 
     @Test
     public void testDoAliTransReq() {
@@ -41,7 +41,7 @@ public class PayServiceTest {
         transOrder.setChannelUser("jmdhappy@126.com");
         transOrder.setAmount(10l);
         transOrder.setRemarkInfo("测试XxPay转账");
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map map = payChannel4AliService.doAliTransReq(jsonParam);
@@ -56,7 +56,7 @@ public class PayServiceTest {
         transOrder.setMchId("20001223");
         transOrder.setChannelId("ALIPAY_PC");
 
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map map = payChannel4AliService.getAliTransReq(jsonParam);
@@ -75,8 +75,7 @@ public class PayServiceTest {
         refundOrder.setChannelId("ALIPAY_PC");
         refundOrder.setChannelUser("jmdhappy@126.com");
 
-
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("refundOrder", refundOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map map = payChannel4AliService.doAliRefundReq(jsonParam);
@@ -95,8 +94,7 @@ public class PayServiceTest {
         refundOrder.setChannelId("ALIPAY_PC");
         refundOrder.setChannelUser("jmdhappy@126.com");
 
-
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("refundOrder", refundOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map map = payChannel4AliService.getAliRefundReq(jsonParam);
@@ -115,7 +113,7 @@ public class PayServiceTest {
         transOrder.setRemarkInfo("测试XxPay转账");
         transOrder.setExtra("{\"checkName\":\"FORCE_CHECK\"}");  // 附加参数
         transOrder.setClientIp("210.73.211.141");
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map map = payChannel4WxService.doWxTransReq(jsonParam);
@@ -130,7 +128,7 @@ public class PayServiceTest {
         transOrder.setMchId("20001222");
         transOrder.setChannelId("WX_JSAPI");
 
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map map = payChannel4WxService.getWxTransReq(jsonParam);
@@ -149,8 +147,7 @@ public class PayServiceTest {
         refundOrder.setChannelId("WX_JSAPI");
         refundOrder.setChannelUser("oIkQuwhPgPUgl-TvQ48_UUpZUwMs");
 
-
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("refundOrder", refundOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map map = payChannel4WxService.doWxRefundReq(jsonParam);
@@ -167,12 +164,10 @@ public class PayServiceTest {
         refundOrder.setMchId("20001223");
         refundOrder.setChannelId("WX_JSAPI");
 
-
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("refundOrder", refundOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map map = payChannel4WxService.getWxRefundReq(jsonParam);
         System.out.println("map=" + map);
     }
-
 }

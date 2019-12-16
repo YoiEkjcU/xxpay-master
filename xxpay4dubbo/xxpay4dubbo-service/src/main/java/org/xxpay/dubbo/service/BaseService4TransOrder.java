@@ -20,7 +20,7 @@ import java.util.List;
  * @description:
  */
 @Service
-public class BaseService4TransOrder extends BaseService{
+public class BaseService4TransOrder extends BaseService {
 
     @Autowired
     private TransOrderMapper transOrderMapper;
@@ -54,7 +54,7 @@ public class BaseService4TransOrder extends BaseService{
     public int baseUpdateStatus4Ing(String transOrderId, String channelOrderNo) {
         TransOrder transOrder = new TransOrder();
         transOrder.setStatus(PayConstant.TRANS_STATUS_TRANING);
-        if(channelOrderNo != null) transOrder.setChannelOrderNo(channelOrderNo);
+        if (channelOrderNo != null) transOrder.setChannelOrderNo(channelOrderNo);
         transOrder.setTransSuccTime(new Date());
         TransOrderExample example = new TransOrderExample();
         TransOrderExample.Criteria criteria = example.createCriteria();
@@ -76,7 +76,7 @@ public class BaseService4TransOrder extends BaseService{
         transOrder.setStatus(PayConstant.TRANS_STATUS_SUCCESS);
         transOrder.setResult(PayConstant.TRANS_RESULT_SUCCESS);
         transOrder.setTransSuccTime(new Date());
-        if(StringUtils.isNotBlank(channelOrderNo)) transOrder.setChannelOrderNo(channelOrderNo);
+        if (StringUtils.isNotBlank(channelOrderNo)) transOrder.setChannelOrderNo(channelOrderNo);
         TransOrderExample example = new TransOrderExample();
         TransOrderExample.Criteria criteria = example.createCriteria();
         criteria.andTransOrderIdEqualTo(transOrderId);
@@ -91,7 +91,7 @@ public class BaseService4TransOrder extends BaseService{
         TransOrderExample example = new TransOrderExample();
         TransOrderExample.Criteria criteria = example.createCriteria();
         criteria.andTransOrderIdEqualTo(transOrderId);
-        List values = CollectionUtils.arrayToList(new Byte[] {
+        List values = CollectionUtils.arrayToList(new Byte[]{
                 PayConstant.TRANS_STATUS_SUCCESS, PayConstant.TRANS_STATUS_FAIL
         });
         criteria.andStatusIn(values);
@@ -102,13 +102,12 @@ public class BaseService4TransOrder extends BaseService{
         TransOrder transOrder = new TransOrder();
         transOrder.setStatus(PayConstant.TRANS_STATUS_FAIL);
         transOrder.setResult(PayConstant.TRANS_RESULT_FAIL);
-        if(channelErrCode != null) transOrder.setChannelErrCode(channelErrCode);
-        if(channelErrMsg != null) transOrder.setChannelErrMsg(channelErrMsg);
+        if (channelErrCode != null) transOrder.setChannelErrCode(channelErrCode);
+        if (channelErrMsg != null) transOrder.setChannelErrMsg(channelErrMsg);
         TransOrderExample example = new TransOrderExample();
         TransOrderExample.Criteria criteria = example.createCriteria();
         criteria.andTransOrderIdEqualTo(transOrderId);
         criteria.andStatusEqualTo(PayConstant.TRANS_STATUS_TRANING);
         return transOrderMapper.updateByExampleSelective(transOrder, example);
     }
-
 }

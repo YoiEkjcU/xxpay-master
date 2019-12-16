@@ -26,12 +26,12 @@ public class TransOrderService {
     private RpcCommonService rpcCommonService;
 
     public int create(JSONObject transOrder) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map<String, Object> result = rpcCommonService.rpcTransOrderService.create(jsonParam);
         String s = RpcUtil.mkRet(result);
-        if(s == null) return 0;
+        if (s == null) return 0;
         return Integer.parseInt(s);
     }
 
@@ -39,31 +39,31 @@ public class TransOrderService {
         JSONObject object = new JSONObject();
         object.put("transOrderId", transOrderId);
         object.put("channelName", channelName);
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("msg", object);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         rpcCommonService.rpcTransOrderService.sendTransNotify(jsonParam);
     }
 
     public JSONObject query(String mchId, String transOrderId, String mchTransNo, String executeNotify) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         Map<String, Object> result;
-        if(StringUtils.isNotBlank(transOrderId)) {
+        if (StringUtils.isNotBlank(transOrderId)) {
             paramMap.put("mchId", mchId);
             paramMap.put("transOrderId", transOrderId);
             String jsonParam = RpcUtil.createBaseParam(paramMap);
             result = rpcCommonService.rpcTransOrderService.selectByMchIdAndTransOrderId(jsonParam);
-        }else {
+        } else {
             paramMap.put("mchId", mchId);
             paramMap.put("mchTransNo", mchTransNo);
             String jsonParam = RpcUtil.createBaseParam(paramMap);
             result = rpcCommonService.rpcTransOrderService.selectByMchIdAndMchTransNo(jsonParam);
         }
         String s = RpcUtil.mkRet(result);
-        if(s == null) return null;
+        if (s == null) return null;
         boolean isNotify = Boolean.parseBoolean(executeNotify);
         JSONObject payOrder = JSONObject.parseObject(s);
-        if(isNotify) {
+        if (isNotify) {
             paramMap = new HashMap<>();
             paramMap.put("transOrderId", transOrderId);
             String jsonParam = RpcUtil.createBaseParam(paramMap);
@@ -75,19 +75,17 @@ public class TransOrderService {
     }
 
     public String doWxTransReq(String tradeType, JSONObject payOrder, String resKey) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("tradeType", tradeType);
         paramMap.put("payOrder", payOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map<String, Object> result = rpcCommonService.rpcPayChannel4WxService.doWxPayReq(jsonParam);
         String s = RpcUtil.mkRet(result);
-        if(s == null) {
+        if (s == null) {
             return XXPayUtil.makeRetData(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS, "", PayConstant.RETURN_VALUE_FAIL, "0111", "调用微信支付失败"), resKey);
         }
         Map<String, Object> map = XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS, "", PayConstant.RETURN_VALUE_SUCCESS, null);
         map.putAll((Map) result.get("bizResult"));
         return XXPayUtil.makeRetData(map, resKey);
     }
-
-
 }

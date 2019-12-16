@@ -78,7 +78,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradeWapPayRequest alipay_request = new AlipayTradeWapPayRequest();
         // 封装请求支付信息
-        AlipayTradeWapPayModel model=new AlipayTradeWapPayModel();
+        AlipayTradeWapPayModel model = new AlipayTradeWapPayModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -89,7 +89,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         if (StringUtils.isNotEmpty(objParams)) {
             try {
                 JSONObject objParamsJson = JSON.parseObject(objParams);
-                if(StringUtils.isNotBlank(objParamsJson.getString("quit_url"))) {
+                if (StringUtils.isNotBlank(objParamsJson.getString("quit_url"))) {
                     model.setQuitUrl(objParamsJson.getString("quit_url"));
                 }
             } catch (Exception e) {
@@ -140,7 +140,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradePagePayRequest alipay_request = new AlipayTradePagePayRequest();
         // 封装请求支付信息
-        AlipayTradePagePayModel model=new AlipayTradePagePayModel();
+        AlipayTradePagePayModel model = new AlipayTradePagePayModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -205,7 +205,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradeAppPayRequest alipay_request = new AlipayTradeAppPayRequest();
         // 封装请求支付信息
-        AlipayTradeAppPayModel model=new AlipayTradeAppPayModel();
+        AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -254,7 +254,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         AlipayClient client = new DefaultAlipayClient(alipayConfig.getUrl(), alipayConfig.getApp_id(), alipayConfig.getRsa_private_key(), AlipayConfig.FORMAT, AlipayConfig.CHARSET, alipayConfig.getAlipay_public_key(), AlipayConfig.SIGNTYPE);
         AlipayTradePrecreateRequest alipay_request = new AlipayTradePrecreateRequest();
         // 封装请求支付信息
-        AlipayTradePrecreateModel model=new AlipayTradePrecreateModel();
+        AlipayTradePrecreateModel model = new AlipayTradePrecreateModel();
         model.setOutTradeNo(payOrderId);
         model.setSubject(payOrder.getSubject());
         model.setTotalAmount(AmountUtil.convertCent2Dollar(payOrder.getAmount().toString()));
@@ -264,11 +264,11 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         if (StringUtils.isNotEmpty(objParams)) {
             try {
                 JSONObject objParamsJson = JSON.parseObject(objParams);
-                if(StringUtils.isNotBlank(objParamsJson.getString("discountable_amount"))) {
+                if (StringUtils.isNotBlank(objParamsJson.getString("discountable_amount"))) {
                     //可打折金额
                     model.setDiscountableAmount(objParamsJson.getString("discountable_amount"));
                 }
-                if(StringUtils.isNotBlank(objParamsJson.getString("undiscountable_amount"))) {
+                if (StringUtils.isNotBlank(objParamsJson.getString("undiscountable_amount"))) {
                     //不可打折金额
                     model.setUndiscountableAmount(objParamsJson.getString("undiscountable_amount"));
                 }
@@ -299,6 +299,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
 
     /**
      * 支付宝转账,文档:https://docs.open.alipay.com/api_28/alipay.fund.trans.toaccount.transfer
+     *
      * @param jsonParam
      * @return
      */
@@ -338,10 +339,10 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         map.put("isSuccess", false);
         try {
             AlipayFundTransToaccountTransferResponse response = client.execute(request);
-            if(response.isSuccess()) {
+            if (response.isSuccess()) {
                 map.put("isSuccess", true);
                 map.put("channelOrderNo", response.getOrderId());
-            }else {
+            } else {
                 //出现业务错误
                 _log.info("{}返回失败", logPrefix);
                 _log.info("sub_code:{},sub_msg:{}", response.getSubCode(), response.getSubMsg());
@@ -384,10 +385,10 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         map.put("transOrderId", transOrderId);
         try {
             AlipayFundTransOrderQueryResponse response = client.execute(request);
-            if(response.isSuccess()){
+            if (response.isSuccess()) {
                 map.putAll((Map) JSON.toJSON(response));
                 map.put("isSuccess", true);
-            }else {
+            } else {
                 _log.info("{}返回失败", logPrefix);
                 _log.info("sub_code:{},sub_msg:{}", response.getSubCode(), response.getSubMsg());
                 map.put("channelErrCode", response.getSubCode());
@@ -433,10 +434,10 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         map.put("isSuccess", false);
         try {
             AlipayTradeRefundResponse response = client.execute(request);
-            if(response.isSuccess()){
+            if (response.isSuccess()) {
                 map.put("isSuccess", true);
                 map.put("channelOrderNo", response.getTradeNo());
-            }else {
+            } else {
                 _log.info("{}返回失败", logPrefix);
                 _log.info("sub_code:{},sub_msg:{}", response.getSubCode(), response.getSubMsg());
                 map.put("channelErrCode", response.getSubCode());
@@ -479,10 +480,10 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         map.put("refundOrderId", refundOrderId);
         try {
             AlipayTradeFastpayRefundQueryResponse response = client.execute(request);
-            if(response.isSuccess()){
+            if (response.isSuccess()) {
                 map.putAll((Map) JSON.toJSON(response));
                 map.put("isSuccess", true);
-            }else {
+            } else {
                 _log.info("{}返回失败", logPrefix);
                 _log.info("sub_code:{},sub_msg:{}", response.getSubCode(), response.getSubMsg());
                 map.put("channelErrCode", response.getSubCode());
@@ -493,5 +494,4 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
         }
         return RpcUtil.createBizResult(baseParam, map);
     }
-
 }

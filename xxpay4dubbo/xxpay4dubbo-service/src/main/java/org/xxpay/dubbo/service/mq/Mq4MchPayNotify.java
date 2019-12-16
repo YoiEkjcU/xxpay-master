@@ -14,10 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @Description: 商户通知MQ统一处理
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-10-31
  * @version V1.0
+ * @Description: 商户通知MQ统一处理
+ * @date 2017-10-31
  * @Copyright: www.xxpay.org
  */
 @Component
@@ -43,14 +43,14 @@ public class Mq4MchPayNotify extends Mq4MchNotify {
         String respUrl = msgObj.getString("url");
         String orderId = msgObj.getString("orderId");
         int count = msgObj.getInteger("count");
-        if(StringUtils.isEmpty(respUrl)) {
+        if (StringUtils.isEmpty(respUrl)) {
             _log.warn("{}商户通知URL为空,respUrl={}", logPrefix, respUrl);
             return;
         }
         String httpResult = httpPost(respUrl);
         int cnt = count + 1;
         _log.info("{}notifyCount={}", logPrefix, cnt);
-        if("success".equalsIgnoreCase(httpResult)){
+        if ("success".equalsIgnoreCase(httpResult)) {
             // 修改支付订单表
             try {
                 int result = baseService4PayOrder.baseUpdateStatus4Complete(orderId);
@@ -62,21 +62,21 @@ public class Mq4MchPayNotify extends Mq4MchNotify {
             try {
                 int result = super.baseUpdateMchNotifySuccess(orderId, httpResult, (byte) cnt);
                 _log.info("{}修改商户通知,orderId={},result={},notifyCount={},结果:{}", logPrefix, orderId, httpResult, cnt, result == 1 ? "成功" : "失败");
-            }catch (Exception e) {
+            } catch (Exception e) {
                 _log.error(e, "修改商户支付通知异常");
             }
-            return ; // 通知成功结束
-        }else {
+            return; // 通知成功结束
+        } else {
             // 修改通知次数
             try {
                 int result = super.baseUpdateMchNotifyFail(orderId, httpResult, (byte) cnt);
                 _log.info("{}修改商户通知,orderId={},result={},notifyCount={},结果:{}", logPrefix, orderId, httpResult, cnt, result == 1 ? "成功" : "失败");
-            }catch (Exception e) {
+            } catch (Exception e) {
                 _log.error(e, "修改商户支付通知异常");
             }
             if (cnt > 5) {
                 _log.info("{}通知次数notifyCount()>5,停止通知", respUrl, cnt);
-                return ;
+                return;
             }
             // 通知失败，延时再通知
             msgObj.put("count", cnt);

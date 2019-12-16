@@ -20,14 +20,13 @@ public class PayChannelService {
     private RpcCommonService rpcCommonService;
 
     public JSONObject getByMchIdAndChannelId(String mchId, String channelId) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("mchId", mchId);
         paramMap.put("channelId", channelId);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map<String, Object> result = rpcCommonService.rpcPayChannelService.selectPayChannel(jsonParam);
         String s = RpcUtil.mkRet(result);
-        if(s == null) return null;
+        if (s == null) return null;
         return JSONObject.parseObject(s);
     }
-
 }

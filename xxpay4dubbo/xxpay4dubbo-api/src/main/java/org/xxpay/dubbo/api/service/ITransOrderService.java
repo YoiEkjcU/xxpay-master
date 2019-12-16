@@ -24,5 +24,4 @@ public interface ITransOrderService {
     Map updateStatus4Complete(String jsonParam);
 
     Map sendTransNotify(String jsonParam);
-
 }

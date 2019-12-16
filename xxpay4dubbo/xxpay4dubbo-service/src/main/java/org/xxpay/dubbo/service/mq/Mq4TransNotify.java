@@ -37,10 +37,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Description: 业务通知MQ实现
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-10-30
  * @version V1.0
+ * @Description: 业务通知MQ实现
+ * @date 2017-10-30
  * @Copyright: www.xxpay.org
  */
 @Component
@@ -70,6 +70,7 @@ public class Mq4TransNotify extends BaseService4TransOrder {
 
     /**
      * 发送延迟消息
+     *
      * @param msg
      * @param delay
      */
@@ -79,7 +80,7 @@ public class Mq4TransNotify extends BaseService4TransOrder {
             public Message createMessage(Session session) throws JMSException {
                 TextMessage tm = session.createTextMessage(msg);
                 tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1*1000);
+                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1 * 1000);
                 tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
                 return tm;
             }
@@ -93,46 +94,46 @@ public class Mq4TransNotify extends BaseService4TransOrder {
         String transOrderId = msgObj.getString("transOrderId");
         String channelName = msgObj.getString("channelName");
         TransOrder transOrder = baseSelectTransOrder(transOrderId);
-        if(transOrder == null) {
+        if (transOrder == null) {
             _log.warn("查询转账订单为空,不能转账.transOrderId={}", transOrderId);
             return;
         }
-        if(transOrder.getStatus() != PayConstant.TRANS_STATUS_INIT) {
+        if (transOrder.getStatus() != PayConstant.TRANS_STATUS_INIT) {
             _log.warn("转账状态不是初始({})或失败({}),不能转账.transOrderId={}", PayConstant.TRANS_STATUS_INIT, PayConstant.TRANS_STATUS_FAIL, transOrderId);
             return;
         }
         int result = this.baseUpdateStatus4Ing(transOrderId, "");
-        if(result != 1) {
+        if (result != 1) {
             _log.warn("更改转账为转账中({})失败,不能转账.transOrderId={}", PayConstant.TRANS_STATUS_TRANING, transOrderId);
             return;
         }
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map resultMap;
-        if(PayConstant.CHANNEL_NAME_WX.equalsIgnoreCase(channelName)) {
+        if (PayConstant.CHANNEL_NAME_WX.equalsIgnoreCase(channelName)) {
             resultMap = payChannel4WxService.doWxTransReq(jsonParam);
-        }else if(PayConstant.CHANNEL_NAME_ALIPAY.equalsIgnoreCase(channelName)) {
+        } else if (PayConstant.CHANNEL_NAME_ALIPAY.equalsIgnoreCase(channelName)) {
             resultMap = payChannel4AliService.doAliTransReq(jsonParam);
-        }else {
+        } else {
             _log.warn("不支持的转账渠道,停止转账处理.transOrderId={},channelName={}", transOrderId, channelName);
             return;
         }
-        if(!RpcUtil.isSuccess(resultMap)) {
+        if (!RpcUtil.isSuccess(resultMap)) {
             _log.warn("发起转账返回异常,停止转账处理.transOrderId={}", transOrderId);
             return;
         }
         Map bizResult = (Map) resultMap.get("bizResult");
         Boolean isSuccess = false;
-        if(bizResult.get("isSuccess") != null) isSuccess = Boolean.parseBoolean(bizResult.get("isSuccess").toString());
-        if(isSuccess) {
+        if (bizResult.get("isSuccess") != null) isSuccess = Boolean.parseBoolean(bizResult.get("isSuccess").toString());
+        if (isSuccess) {
             // 更新转账状态为成功
             String channelOrderNo = bizResult.get("channelOrderNo") == null ? "" : bizResult.get("channelOrderNo").toString();
             result = baseUpdateStatus4Success(transOrderId, channelOrderNo);
             _log.info("更新转账订单状态为成功({}),transOrderId={},返回结果:{}", PayConstant.TRANS_STATUS_SUCCESS, transOrderId, result);
             // 发送商户通知
             baseNotify4MchTrans.doNotify(transOrder, true);
-        }else {
+        } else {
             // 更新转账状态为成功
             String channelErrCode = bizResult.get("channelErrCode") == null ? "" : bizResult.get("channelErrCode").toString();
             String channelErrMsg = bizResult.get("channelErrMsg") == null ? "" : bizResult.get("channelErrMsg").toString();
@@ -141,6 +142,5 @@ public class Mq4TransNotify extends BaseService4TransOrder {
             // 发送商户通知
             baseNotify4MchTrans.doNotify(transOrder, true);
         }
-
     }
 }

@@ -35,12 +35,12 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_NOT_FOUND);
         }
         JSONObject refundOrderObj = baseParam.isNullValue("refundOrder") ? null : JSONObject.parseObject(bizParamMap.get("refundOrder").toString());
-        if(refundOrderObj == null) {
+        if (refundOrderObj == null) {
             _log.warn("新增退款订单失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         RefundOrder refundOrder = BeanConvertUtils.map2Bean(refundOrderObj, RefundOrder.class);
-        if(refundOrder == null) {
+        if (refundOrder == null) {
             _log.warn("新增退款订单失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
@@ -62,7 +62,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         RefundOrder refundOrder = super.baseSelectRefundOrder(refundOrderId);
-        if(refundOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (refundOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(refundOrder);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }
@@ -82,7 +82,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         RefundOrder refundOrder = super.baseSelectByMchIdAndRefundOrderId(mchId, refundOrderId);
-        if(refundOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (refundOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(refundOrder);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }
@@ -102,7 +102,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         RefundOrder refundOrder = super.baseSelectByMchIdAndMchRefundNo(mchId, mchRefundNo);
-        if(refundOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (refundOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(refundOrder);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }
@@ -121,7 +121,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
             _log.warn("修改退款订单状态失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
-        int result =  super.baseUpdateStatus4Ing(refundOrderId, channelOrderNo);
+        int result = super.baseUpdateStatus4Ing(refundOrderId, channelOrderNo);
         return RpcUtil.createBizResult(baseParam, result);
     }
 
@@ -138,7 +138,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
             _log.warn("修改退款订单状态失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
-        int result =  super.baseUpdateStatus4Success(refundOrderId);
+        int result = super.baseUpdateStatus4Success(refundOrderId);
         return RpcUtil.createBizResult(baseParam, result);
     }
 
@@ -155,7 +155,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
             _log.warn("修改退款订单状态失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
-        int result =  super.baseUpdateStatus4Complete(refundOrderId);
+        int result = super.baseUpdateStatus4Complete(refundOrderId);
         return RpcUtil.createBizResult(baseParam, result);
     }
 
@@ -175,11 +175,10 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
         int result = 1;
         try {
             mq4RefundNotify.send(msg);
-        }catch (Exception e) {
+        } catch (Exception e) {
             _log.error(e, "");
             result = 0;
         }
         return RpcUtil.createBizResult(baseParam, result);
     }
-
 }

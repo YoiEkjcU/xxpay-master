@@ -24,5 +24,4 @@ public interface IPayOrderService {
     Map updateStatus4Complete(String jsonParam);
 
     Map updateNotify(String jsonParam);
-
 }

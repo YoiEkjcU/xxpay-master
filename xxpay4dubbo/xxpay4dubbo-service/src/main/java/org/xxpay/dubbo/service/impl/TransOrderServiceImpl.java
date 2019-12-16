@@ -36,12 +36,12 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_NOT_FOUND);
         }
         JSONObject transOrderObj = baseParam.isNullValue("transOrder") ? null : JSONObject.parseObject(bizParamMap.get("transOrder").toString());
-        if(transOrderObj == null) {
+        if (transOrderObj == null) {
             _log.warn("新增转账订单失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         TransOrder transOrder = BeanConvertUtils.map2Bean(transOrderObj, TransOrder.class);
-        if(transOrder == null) {
+        if (transOrder == null) {
             _log.warn("新增转账订单失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
@@ -63,7 +63,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         TransOrder transOrder = super.baseSelectTransOrder(transOrderId);
-        if(transOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (transOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(transOrder);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }
@@ -83,7 +83,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         TransOrder transOrder = super.baseSelectByMchIdAndTransOrderId(mchId, transOrderId);
-        if(transOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (transOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(transOrder);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }
@@ -103,7 +103,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         TransOrder transOrder = super.baseSelectByMchIdAndMchTransNo(mchId, mchTransNo);
-        if(transOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (transOrder == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(transOrder);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }
@@ -122,7 +122,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
             _log.warn("修改转账订单状态失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
-        int result =  super.baseUpdateStatus4Ing(transOrderId, channelOrderNo);
+        int result = super.baseUpdateStatus4Ing(transOrderId, channelOrderNo);
         return RpcUtil.createBizResult(baseParam, result);
     }
 
@@ -139,7 +139,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
             _log.warn("修改转账订单状态失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
-        int result =  super.baseUpdateStatus4Success(transOrderId);
+        int result = super.baseUpdateStatus4Success(transOrderId);
         return RpcUtil.createBizResult(baseParam, result);
     }
 
@@ -156,7 +156,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
             _log.warn("修改转账订单状态失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
-        int result =  super.baseUpdateStatus4Complete(transOrderId);
+        int result = super.baseUpdateStatus4Complete(transOrderId);
         return RpcUtil.createBizResult(baseParam, result);
     }
 
@@ -176,7 +176,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
         int result = 1;
         try {
             mq4TransNotify.send(msg);
-        }catch (Exception e) {
+        } catch (Exception e) {
             _log.error(e, "");
             result = 0;
         }

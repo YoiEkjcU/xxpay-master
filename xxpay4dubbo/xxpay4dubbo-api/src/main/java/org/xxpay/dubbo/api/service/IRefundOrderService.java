@@ -24,5 +24,4 @@ public interface IRefundOrderService {
     Map updateStatus4Complete(String jsonParam);
 
     Map sendRefundNotify(String jsonParam);
-
 }

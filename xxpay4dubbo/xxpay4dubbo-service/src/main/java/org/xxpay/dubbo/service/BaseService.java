@@ -41,7 +41,7 @@ public class BaseService {
         criteria.andChannelIdEqualTo(channelId);
         criteria.andMchIdEqualTo(mchId);
         List<PayChannel> payChannelList = payChannelMapper.selectByExample(example);
-        if(CollectionUtils.isEmpty(payChannelList)) return null;
+        if (CollectionUtils.isEmpty(payChannelList)) return null;
         return payChannelList.get(0);
     }
 
@@ -89,6 +89,4 @@ public class BaseService {
         values.add(PayConstant.MCH_NOTIFY_STATUS_FAIL);
         return mchNotifyMapper.updateByExampleSelective(mchNotify, example);
     }
-
-
 }

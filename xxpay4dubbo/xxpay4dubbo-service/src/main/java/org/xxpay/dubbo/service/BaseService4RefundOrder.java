@@ -21,7 +21,7 @@ import java.util.List;
  * @description:
  */
 @Service
-public class BaseService4RefundOrder extends BaseService{
+public class BaseService4RefundOrder extends BaseService {
 
     @Autowired
     private RefundOrderMapper refundOrderMapper;
@@ -55,7 +55,7 @@ public class BaseService4RefundOrder extends BaseService{
     public int baseUpdateStatus4Ing(String refundOrderId, String channelOrderNo) {
         RefundOrder refundOrder = new RefundOrder();
         refundOrder.setStatus(PayConstant.REFUND_STATUS_REFUNDING);
-        if(channelOrderNo != null) refundOrder.setChannelOrderNo(channelOrderNo);
+        if (channelOrderNo != null) refundOrder.setChannelOrderNo(channelOrderNo);
         refundOrder.setRefundSuccTime(new Date());
         RefundOrderExample example = new RefundOrderExample();
         RefundOrderExample.Criteria criteria = example.createCriteria();
@@ -74,7 +74,7 @@ public class BaseService4RefundOrder extends BaseService{
         refundOrder.setStatus(PayConstant.REFUND_STATUS_SUCCESS);
         refundOrder.setResult(PayConstant.REFUND_RESULT_SUCCESS);
         refundOrder.setRefundSuccTime(new Date());
-        if(StringUtils.isNotBlank(channelOrderNo)) refundOrder.setChannelOrderNo(channelOrderNo);
+        if (StringUtils.isNotBlank(channelOrderNo)) refundOrder.setChannelOrderNo(channelOrderNo);
         RefundOrderExample example = new RefundOrderExample();
         RefundOrderExample.Criteria criteria = example.createCriteria();
         criteria.andRefundOrderIdEqualTo(refundOrderId);
@@ -89,7 +89,7 @@ public class BaseService4RefundOrder extends BaseService{
         RefundOrderExample example = new RefundOrderExample();
         RefundOrderExample.Criteria criteria = example.createCriteria();
         criteria.andRefundOrderIdEqualTo(refundOrderId);
-        List values = CollectionUtils.arrayToList(new Byte[] {
+        List values = CollectionUtils.arrayToList(new Byte[]{
                 PayConstant.REFUND_STATUS_SUCCESS, PayConstant.REFUND_STATUS_FAIL
         });
         criteria.andStatusIn(values);
@@ -100,13 +100,12 @@ public class BaseService4RefundOrder extends BaseService{
         RefundOrder refundOrder = new RefundOrder();
         refundOrder.setStatus(PayConstant.REFUND_STATUS_FAIL);
         refundOrder.setResult(PayConstant.REFUND_RESULT_FAIL);
-        if(channelErrCode != null) refundOrder.setChannelErrCode(channelErrCode);
-        if(channelErrMsg != null) refundOrder.setChannelErrMsg(channelErrMsg);
+        if (channelErrCode != null) refundOrder.setChannelErrCode(channelErrCode);
+        if (channelErrMsg != null) refundOrder.setChannelErrMsg(channelErrMsg);
         RefundOrderExample example = new RefundOrderExample();
         RefundOrderExample.Criteria criteria = example.createCriteria();
         criteria.andRefundOrderIdEqualTo(refundOrderId);
         criteria.andStatusEqualTo(PayConstant.REFUND_STATUS_REFUNDING);
         return refundOrderMapper.updateByExampleSelective(refundOrder, example);
     }
-
 }

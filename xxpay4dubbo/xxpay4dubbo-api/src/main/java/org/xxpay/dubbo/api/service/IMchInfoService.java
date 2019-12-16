@@ -10,5 +10,4 @@ import java.util.Map;
 public interface IMchInfoService {
 
     Map selectMchInfo(String jsonParam);
-
 }

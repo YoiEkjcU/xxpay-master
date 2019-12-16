@@ -20,24 +20,23 @@ public class NotifyPayService {
     private RpcCommonService rpcCommonService;
 
     public String doAliPayNotify(Map params) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("params", params);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         Map<String, Object> result = rpcCommonService.rpcNotifyPayService.doAliPayNotify(jsonParam);
         String s = RpcUtil.mkRet(result);
-        if(s == null) {
+        if (s == null) {
             return PayConstant.RETURN_ALIPAY_VALUE_FAIL;
         }
         return s;
     }
 
     public String doWxPayNotify(String xmlResult) {
-        Map<String,Object> paramMap = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("xmlResult", xmlResult);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         // 返回给微信的数据格式已经有service处理(包括正确与错误),肯定会返回result
         Map<String, Object> result = rpcCommonService.rpcNotifyPayService.doWxPayNotify(jsonParam);
         return RpcUtil.mkRet(result);
     }
-
 }

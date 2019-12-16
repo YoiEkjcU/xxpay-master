@@ -17,7 +17,7 @@ import java.util.List;
  * @description:
  */
 @Service
-public class BaseService4PayOrder extends BaseService{
+public class BaseService4PayOrder extends BaseService {
 
     @Autowired
     private PayOrderMapper payOrderMapper;
@@ -51,7 +51,7 @@ public class BaseService4PayOrder extends BaseService{
     public int baseUpdateStatus4Ing(String payOrderId, String channelOrderNo) {
         PayOrder payOrder = new PayOrder();
         payOrder.setStatus(PayConstant.PAY_STATUS_PAYING);
-        if(channelOrderNo != null) payOrder.setChannelOrderNo(channelOrderNo);
+        if (channelOrderNo != null) payOrder.setChannelOrderNo(channelOrderNo);
         payOrder.setPaySuccTime(System.currentTimeMillis());
         PayOrderExample example = new PayOrderExample();
         PayOrderExample.Criteria criteria = example.createCriteria();
@@ -69,7 +69,7 @@ public class BaseService4PayOrder extends BaseService{
         payOrder.setPayOrderId(payOrderId);
         payOrder.setStatus(PayConstant.PAY_STATUS_SUCCESS);
         payOrder.setPaySuccTime(System.currentTimeMillis());
-        if(StringUtils.isNotBlank(channelOrderNo)) payOrder.setChannelOrderNo(channelOrderNo);
+        if (StringUtils.isNotBlank(channelOrderNo)) payOrder.setChannelOrderNo(channelOrderNo);
         PayOrderExample example = new PayOrderExample();
         PayOrderExample.Criteria criteria = example.createCriteria();
         criteria.andPayOrderIdEqualTo(payOrderId);
@@ -95,5 +95,4 @@ public class BaseService4PayOrder extends BaseService{
         newPayOrder.setPayOrderId(payOrderId);
         return payOrderMapper.updateByPrimaryKeySelective(newPayOrder);
     }
-
 }

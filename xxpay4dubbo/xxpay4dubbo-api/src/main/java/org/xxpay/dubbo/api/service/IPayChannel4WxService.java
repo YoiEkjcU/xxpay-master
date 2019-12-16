@@ -18,5 +18,4 @@ public interface IPayChannel4WxService {
     Map doWxRefundReq(String jsonParam);
 
     Map getWxRefundReq(String jsonParam);
-
 }

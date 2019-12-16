@@ -18,10 +18,10 @@ import org.xxpay.dubbo.web.service.TransOrderService;
 import java.util.Map;
 
 /**
- * @Description: 转账订单
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-10-30
  * @version V1.0
+ * @Description: 转账订单
+ * @date 2017-10-30
  * @Copyright: www.xxpay.org
  */
 @RestController
@@ -44,6 +44,7 @@ public class TransOrderController {
      * 2)验证通过创建支付订单
      * 3)根据商户选择渠道,调用支付服务进行下单
      * 4)返回下单数据
+     *
      * @param params
      * @return
      */
@@ -62,10 +63,11 @@ public class TransOrderController {
                 return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, object.toString(), null, null));
             }
             if (object instanceof JSONObject) transOrder = (JSONObject) object;
-            if(transOrder == null) return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "支付中心转账失败", null, null));
+            if (transOrder == null)
+                return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "支付中心转账失败", null, null));
             int result = transOrderService.create(transOrder);
             _log.info("{}创建转账订单,结果:{}", logPrefix, result);
-            if(result != 1) {
+            if (result != 1) {
                 return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "创建转账订单失败", null, null));
             }
             // 发送异步转账消息
@@ -76,7 +78,7 @@ public class TransOrderController {
             Map<String, Object> map = XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS, "", PayConstant.RETURN_VALUE_SUCCESS, null);
             map.put("transOrderId", transOrderId);
             return XXPayUtil.makeRetData(map, transContext.getString("resKey"));
-        }catch (Exception e) {
+        } catch (Exception e) {
             _log.error(e, "");
             return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "支付中心系统异常", null, null));
         }
@@ -84,6 +86,7 @@ public class TransOrderController {
 
     /**
      * 验证创建订单请求参数,参数通过返回JSONObject对象,否则返回错误文本信息
+     *
      * @param params
      * @return
      */
@@ -91,51 +94,51 @@ public class TransOrderController {
         // 验证请求参数,参数有问题返回错误提示
         String errorMessage;
         // 支付参数
-        String mchId = params.getString("mchId"); 			    // 商户ID
-        String mchTransNo = params.getString("mchTransNo"); 	// 商户转账单号
-        String channelId = params.getString("channelId"); 	    // 渠道ID
-        String amount = params.getString("amount"); 		    // 转账金额（单位分）
+        String mchId = params.getString("mchId");                // 商户ID
+        String mchTransNo = params.getString("mchTransNo");    // 商户转账单号
+        String channelId = params.getString("channelId");        // 渠道ID
+        String amount = params.getString("amount");            // 转账金额（单位分）
         String currency = params.getString("currency");         // 币种
-        String clientIp = params.getString("clientIp");	        // 客户端IP
-        String device = params.getString("device"); 	        // 设备
-        String extra = params.getString("extra");		        // 特定渠道发起时额外参数
-        String param1 = params.getString("param1"); 		    // 扩展参数1
-        String param2 = params.getString("param2"); 		    // 扩展参数2
-        String notifyUrl = params.getString("notifyUrl"); 		// 转账结果回调URL
-        String sign = params.getString("sign"); 				// 签名
-        String channelUser = params.getString("channelUser");	// 渠道用户标识,如微信openId,支付宝账号
-        String userName = params.getString("userName");	        // 用户姓名
-        String remarkInfo = params.getString("remarkInfo");	    // 备注
+        String clientIp = params.getString("clientIp");            // 客户端IP
+        String device = params.getString("device");            // 设备
+        String extra = params.getString("extra");                // 特定渠道发起时额外参数
+        String param1 = params.getString("param1");            // 扩展参数1
+        String param2 = params.getString("param2");            // 扩展参数2
+        String notifyUrl = params.getString("notifyUrl");        // 转账结果回调URL
+        String sign = params.getString("sign");                // 签名
+        String channelUser = params.getString("channelUser");    // 渠道用户标识,如微信openId,支付宝账号
+        String userName = params.getString("userName");            // 用户姓名
+        String remarkInfo = params.getString("remarkInfo");        // 备注
         // 验证请求参数有效性（必选项）
-        if(StringUtils.isBlank(mchId)) {
+        if (StringUtils.isBlank(mchId)) {
             errorMessage = "request params[mchId] error.";
             return errorMessage;
         }
-        if(StringUtils.isBlank(mchTransNo)) {
+        if (StringUtils.isBlank(mchTransNo)) {
             errorMessage = "request params[mchTransNo] error.";
             return errorMessage;
         }
-        if(StringUtils.isBlank(channelId)) {
+        if (StringUtils.isBlank(channelId)) {
             errorMessage = "request params[channelId] error.";
             return errorMessage;
         }
-        if(!NumberUtils.isNumber(amount)) {
+        if (!NumberUtils.isNumber(amount)) {
             errorMessage = "request params[amount] error.";
             return errorMessage;
         }
-        if(StringUtils.isBlank(currency)) {
+        if (StringUtils.isBlank(currency)) {
             errorMessage = "request params[currency] error.";
             return errorMessage;
         }
-        if(StringUtils.isBlank(notifyUrl)) {
+        if (StringUtils.isBlank(notifyUrl)) {
             errorMessage = "request params[notifyUrl] error.";
             return errorMessage;
         }
-        if(StringUtils.isBlank(channelUser)) {
+        if (StringUtils.isBlank(channelUser)) {
             errorMessage = "request params[channelUser] error.";
             return errorMessage;
         }
-        if(StringUtils.isBlank(remarkInfo)) {
+        if (StringUtils.isBlank(remarkInfo)) {
             errorMessage = "request params[remarkInfo] error.";
             return errorMessage;
         }
@@ -148,37 +151,37 @@ public class TransOrderController {
 
         // 查询商户信息
         JSONObject mchInfo = mchInfoService.getByMchId(mchId);
-        if(mchInfo == null) {
-            errorMessage = "Can't found mchInfo[mchId="+mchId+"] record in db.";
+        if (mchInfo == null) {
+            errorMessage = "Can't found mchInfo[mchId=" + mchId + "] record in db.";
             return errorMessage;
         }
-        if(mchInfo.getByte("state") != 1) {
-            errorMessage = "mchInfo not available [mchId="+mchId+"] record in db.";
+        if (mchInfo.getByte("state") != 1) {
+            errorMessage = "mchInfo not available [mchId=" + mchId + "] record in db.";
             return errorMessage;
         }
 
         String reqKey = mchInfo.getString("reqKey");
         if (StringUtils.isBlank(reqKey)) {
-            errorMessage = "reqKey is null[mchId="+mchId+"] record in db.";
+            errorMessage = "reqKey is null[mchId=" + mchId + "] record in db.";
             return errorMessage;
         }
         transContext.put("resKey", mchInfo.getString("resKey"));
 
         // 查询商户对应的支付渠道
         JSONObject payChannel = payChannelService.getByMchIdAndChannelId(mchId, channelId);
-        if(payChannel == null) {
-            errorMessage = "Can't found payChannel[channelId="+channelId+",mchId="+mchId+"] record in db.";
+        if (payChannel == null) {
+            errorMessage = "Can't found payChannel[channelId=" + channelId + ",mchId=" + mchId + "] record in db.";
             return errorMessage;
         }
-        if(payChannel.getByte("state") != 1) {
-            errorMessage = "channel not available [channelId="+channelId+",mchId="+mchId+"]";
+        if (payChannel.getByte("state") != 1) {
+            errorMessage = "channel not available [channelId=" + channelId + ",mchId=" + mchId + "]";
             return errorMessage;
         }
         transContext.put("channelName", payChannel.getString("channelName"));
 
         // 验证签名数据
         boolean verifyFlag = XXPayUtil.verifyPaySign(params, reqKey);
-        if(!verifyFlag) {
+        if (!verifyFlag) {
             errorMessage = "Verify XX trans sign failed.";
             return errorMessage;
         }
@@ -202,5 +205,4 @@ public class TransOrderController {
         transOrder.put("notifyUrl", notifyUrl);
         return transOrder;
     }
-
 }

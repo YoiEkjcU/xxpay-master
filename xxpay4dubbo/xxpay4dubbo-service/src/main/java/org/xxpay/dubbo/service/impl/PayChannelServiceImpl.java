@@ -40,7 +40,7 @@ public class PayChannelServiceImpl extends BaseService implements IPayChannelSer
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
         PayChannel payChannel = super.baseSelectPayChannel(mchId, channelId);
-        if(payChannel == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
+        if (payChannel == null) return RpcUtil.createFailResult(baseParam, RetEnum.RET_BIZ_DATA_NOT_EXISTS);
         String jsonResult = JsonUtil.object2Json(payChannel);
         return RpcUtil.createBizResult(baseParam, jsonResult);
     }

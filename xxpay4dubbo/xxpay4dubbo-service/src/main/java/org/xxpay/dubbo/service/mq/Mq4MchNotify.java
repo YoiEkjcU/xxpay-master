@@ -21,10 +21,10 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 /**
- * @Description: 商户通知MQ统一处理
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-10-31
  * @version V1.0
+ * @Description: 商户通知MQ统一处理
+ * @date 2017-10-31
  * @Copyright: www.xxpay.org
  */
 @Component
@@ -42,6 +42,7 @@ public class Mq4MchNotify extends BaseService4PayOrder {
 
     /**
      * 发送延迟消息
+     *
      * @param msg
      * @param delay
      */
@@ -51,7 +52,7 @@ public class Mq4MchNotify extends BaseService4PayOrder {
             public Message createMessage(Session session) throws JMSException {
                 TextMessage tm = session.createTextMessage(msg);
                 tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1*1000);
+                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1 * 1000);
                 tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
                 return tm;
             }
@@ -62,11 +63,13 @@ public class Mq4MchNotify extends BaseService4PayOrder {
         public void checkClientTrusted(X509Certificate[] chain, String authType)
                 throws CertificateException {
         }
+
         public void checkServerTrusted(X509Certificate[] chain, String authType)
                 throws CertificateException {
         }
+
         public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[] {};
+            return new X509Certificate[]{};
         }
     }
 
@@ -74,9 +77,9 @@ public class Mq4MchNotify extends BaseService4PayOrder {
         StringBuffer sb = new StringBuffer();
         try {
             URL console = new URL(url);
-            if("https".equals(console.getProtocol())) {
+            if ("https".equals(console.getProtocol())) {
                 SSLContext sc = SSLContext.getInstance("SSL");
-                sc.init(null, new TrustManager[] { new TrustAnyTrustManager() },
+                sc.init(null, new TrustManager[]{new TrustAnyTrustManager()},
                         new java.security.SecureRandom());
                 HttpsURLConnection con = (HttpsURLConnection) console.openConnection();
                 con.setSSLSocketFactory(sc.getSocketFactory());
@@ -87,7 +90,7 @@ public class Mq4MchNotify extends BaseService4PayOrder {
                 con.setConnectTimeout(30 * 1000);
                 con.setReadTimeout(60 * 1000);
                 con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()), 1024*1024);
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()), 1024 * 1024);
                 while (true) {
                     String line = in.readLine();
                     if (line == null) {
@@ -96,7 +99,7 @@ public class Mq4MchNotify extends BaseService4PayOrder {
                     sb.append(line);
                 }
                 in.close();
-            }else if("http".equals(console.getProtocol())) {
+            } else if ("http".equals(console.getProtocol())) {
                 HttpURLConnection con = (HttpURLConnection) console.openConnection();
                 con.setRequestMethod("POST");
                 con.setDoInput(true);
@@ -105,7 +108,7 @@ public class Mq4MchNotify extends BaseService4PayOrder {
                 con.setConnectTimeout(30 * 1000);
                 con.setReadTimeout(60 * 1000);
                 con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()), 1024*1024);
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()), 1024 * 1024);
                 while (true) {
                     String line = in.readLine();
                     if (line == null) {
@@ -114,13 +117,12 @@ public class Mq4MchNotify extends BaseService4PayOrder {
                     sb.append(line);
                 }
                 in.close();
-            }else {
+            } else {
                 _log.error("not do protocol. protocol=%s", console.getProtocol());
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             _log.error(e, "httpPost exception. url:%s", url);
         }
         return sb.toString();
     }
-
 }

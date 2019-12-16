@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import javax.jms.Queue;
 
 /**
- * @Description:
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description:
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @Configuration
@@ -64,5 +64,4 @@ public class MqConfig {
     public Queue mchRefundNotifyQueue() {
         return new ActiveMQQueue(MCH_REFUND_NOTIFY_QUEUE_NAME);
     }
-
 }
