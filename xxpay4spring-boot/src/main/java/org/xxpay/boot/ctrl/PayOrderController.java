@@ -68,7 +68,8 @@ public class PayOrderController {
                 _log.info("{}参数校验不通过:{}", logPrefix, object);
                 return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, object.toString(), null, null));
             }
-            if (object instanceof JSONObject) payOrder = (JSONObject) object;
+            if (object instanceof JSONObject)
+                payOrder = (JSONObject) object;
             if (payOrder == null)
                 return XXPayUtil.makeRetFail(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_FAIL, "支付中心下单失败", null, null));
             int result = payOrderService.createPayOrder(payOrder);
@@ -87,11 +88,8 @@ public class PayOrderController {
                 case PayConstant.PAY_CHANNEL_WX_MWEB:
                     return payOrderService.doWxPayReq(PayConstant.WxConstant.TRADE_TYPE_MWEB, payOrder, payContext.getString("resKey"));
                 case PayConstant.PAY_CHANNEL_ALIPAY_MOBILE:
-                    return payOrderService.doAliPayReq(channelId, payOrder, payContext.getString("resKey"));
                 case PayConstant.PAY_CHANNEL_ALIPAY_PC:
-                    return payOrderService.doAliPayReq(channelId, payOrder, payContext.getString("resKey"));
                 case PayConstant.PAY_CHANNEL_ALIPAY_WAP:
-                    return payOrderService.doAliPayReq(channelId, payOrder, payContext.getString("resKey"));
                 case PayConstant.PAY_CHANNEL_ALIPAY_QR:
                     return payOrderService.doAliPayReq(channelId, payOrder, payContext.getString("resKey"));
                 default:
@@ -111,136 +109,77 @@ public class PayOrderController {
      */
     private Object validateParams(JSONObject params, JSONObject payContext) {
         // 验证请求参数,参数有问题返回错误提示
-        String errorMessage;
         // 支付参数
-        String mchId = params.getString("mchId");                // 商户ID
-        String mchOrderNo = params.getString("mchOrderNo");    // 商户订单号
-        String channelId = params.getString("channelId");        // 渠道ID
-        String amount = params.getString("amount");            // 支付金额（单位分）
-        String currency = params.getString("currency");         // 币种
-        String clientIp = params.getString("clientIp");            // 客户端IP
-        String device = params.getString("device");            // 设备
-        String extra = params.getString("extra");                // 特定渠道发起时额外参数
-        String param1 = params.getString("param1");            // 扩展参数1
-        String param2 = params.getString("param2");            // 扩展参数2
-        String notifyUrl = params.getString("notifyUrl");        // 支付结果回调URL
-        String sign = params.getString("sign");                // 签名
-        String subject = params.getString("subject");            // 商品主题
-        String body = params.getString("body");                    // 商品描述信息
+        String mchId      = params.getString("mchId");      // 商户ID
+        String mchOrderNo = params.getString("mchOrderNo"); // 商户订单号
+        String channelId  = params.getString("channelId");  // 渠道ID
+        String amount     = params.getString("amount");     // 支付金额（单位分）
+        String currency   = params.getString("currency");   // 币种
+        String clientIp   = params.getString("clientIp");   // 客户端IP
+        String device     = params.getString("device");     // 设备
+        String extra      = params.getString("extra");      // 特定渠道发起时额外参数
+        String param1     = params.getString("param1");     // 扩展参数1
+        String param2     = params.getString("param2");     // 扩展参数2
+        String notifyUrl  = params.getString("notifyUrl");  // 支付结果回调URL
+        String sign       = params.getString("sign");       // 签名
+        String subject    = params.getString("subject");    // 商品主题
+        String body       = params.getString("body");       // 商品描述信息
         // 验证请求参数有效性（必选项）
-        if (StringUtils.isBlank(mchId)) {
-            errorMessage = "request params[mchId] error.";
-            return errorMessage;
-        }
-        if (StringUtils.isBlank(mchOrderNo)) {
-            errorMessage = "request params[mchOrderNo] error.";
-            return errorMessage;
-        }
-        if (StringUtils.isBlank(channelId)) {
-            errorMessage = "request params[channelId] error.";
-            return errorMessage;
-        }
-        if (!NumberUtils.isNumber(amount)) {
-            errorMessage = "request params[amount] error.";
-            return errorMessage;
-        }
-        if (StringUtils.isBlank(currency)) {
-            errorMessage = "request params[currency] error.";
-            return errorMessage;
-        }
-        if (StringUtils.isBlank(notifyUrl)) {
-            errorMessage = "request params[notifyUrl] error.";
-            return errorMessage;
-        }
-        if (StringUtils.isBlank(subject)) {
-            errorMessage = "request params[subject] error.";
-            return errorMessage;
-        }
-        if (StringUtils.isBlank(body)) {
-            errorMessage = "request params[body] error.";
-            return errorMessage;
-        }
+        if (StringUtils.isBlank(mchId))      return "request params[mchId] error.";
+        if (StringUtils.isBlank(mchOrderNo)) return "request params[mchOrderNo] error.";
+        if (StringUtils.isBlank(channelId))  return "request params[channelId] error.";
+        if (!NumberUtils.isNumber(amount))   return "request params[amount] error.";
+        if (StringUtils.isBlank(currency))   return "request params[currency] error.";
+        if (StringUtils.isBlank(notifyUrl))  return "request params[notifyUrl] error.";
+        if (StringUtils.isBlank(subject))    return "request params[subject] error.";
+        if (StringUtils.isBlank(body))       return "request params[body] error.";
+        if (StringUtils.isEmpty(sign))       return "request params[sign] error.";
+
         // 根据不同渠道,判断extra参数
-        if (PayConstant.PAY_CHANNEL_WX_JSAPI.equalsIgnoreCase(channelId)) {
-            if (StringUtils.isEmpty(extra)) {
-                errorMessage = "request params[extra] error.";
-                return errorMessage;
-            }
+        if (channelId.equalsIgnoreCase(PayConstant.PAY_CHANNEL_WX_JSAPI)) {
+            if (StringUtils.isEmpty(extra))  return "request params[extra] error.";
+
             JSONObject extraObject = JSON.parseObject(extra);
             String openId = extraObject.getString("openId");
-            if (StringUtils.isBlank(openId)) {
-                errorMessage = "request params[extra.openId] error.";
-                return errorMessage;
-            }
-        } else if (PayConstant.PAY_CHANNEL_WX_NATIVE.equalsIgnoreCase(channelId)) {
-            if (StringUtils.isEmpty(extra)) {
-                errorMessage = "request params[extra] error.";
-                return errorMessage;
-            }
-            JSONObject extraObject = JSON.parseObject(extra);
-            String productId = extraObject.getString("productId");
-            if (StringUtils.isBlank(productId)) {
-                errorMessage = "request params[extra.productId] error.";
-                return errorMessage;
-            }
-        } else if (PayConstant.PAY_CHANNEL_WX_MWEB.equalsIgnoreCase(channelId)) {
-            if (StringUtils.isEmpty(extra)) {
-                errorMessage = "request params[extra] error.";
-                return errorMessage;
-            }
-            JSONObject extraObject = JSON.parseObject(extra);
-            String productId = extraObject.getString("sceneInfo");
-            if (StringUtils.isBlank(productId)) {
-                errorMessage = "request params[extra.sceneInfo] error.";
-                return errorMessage;
-            }
-            if (StringUtils.isBlank(clientIp)) {
-                errorMessage = "request params[clientIp] error.";
-                return errorMessage;
-            }
-        }
+            if (StringUtils.isBlank(openId)) return "request params[extra.openId] error.";
 
-        // 签名信息
-        if (StringUtils.isEmpty(sign)) {
-            errorMessage = "request params[sign] error.";
-            return errorMessage;
+        } else if (channelId.equalsIgnoreCase(PayConstant.PAY_CHANNEL_WX_NATIVE)) {
+            if (StringUtils.isEmpty(extra))  return "request params[extra] error.";
+
+            JSONObject extraObject = JSON.parseObject(extra);
+            String prodId = extraObject.getString("productId");
+            if (StringUtils.isBlank(prodId)) return "request params[extra.productId] error.";
+
+
+        } else if (channelId.equalsIgnoreCase(PayConstant.PAY_CHANNEL_WX_MWEB)) {
+            if (StringUtils.isEmpty(extra))  return "request params[extra] error.";
+
+            JSONObject extraObject = JSON.parseObject(extra);
+            String prodId = extraObject.getString("sceneInfo");
+            if (StringUtils.isBlank(prodId))    return "request params[extra.sceneInfo] error.";
+            if (StringUtils.isBlank(clientIp))  return "request params[clientIp] error.";
         }
 
         // 查询商户信息
         JSONObject mchInfo = mchInfoService.getByMchId(mchId);
-        if (mchInfo == null) {
-            errorMessage = "Can't found mchInfo[mchId=" + mchId + "] record in db.";
-            return errorMessage;
-        }
-        if (mchInfo.getByte("state") != 1) {
-            errorMessage = "mchInfo not available [mchId=" + mchId + "] record in db.";
-            return errorMessage;
-        }
+        if (mchInfo == null)                return "Can't found mchInfo[mchId=" + mchId + "] record in db.";
+
+        if (mchInfo.getByte("state") != 1)  return "mchInfo not available [mchId=" + mchId + "] record in db.";
 
         String reqKey = mchInfo.getString("reqKey");
-        if (StringUtils.isBlank(reqKey)) {
-            errorMessage = "reqKey is null[mchId=" + mchId + "] record in db.";
-            return errorMessage;
-        }
+        if (StringUtils.isBlank(reqKey))    return "reqKey is null[mchId=" + mchId + "] record in db.";
         payContext.put("resKey", mchInfo.getString("resKey"));
 
         // 查询商户对应的支付渠道
         JSONObject payChannel = payChannelService.getByMchIdAndChannelId(mchId, channelId);
-        if (payChannel == null) {
-            errorMessage = "Can't found payChannel[channelId=" + channelId + ",mchId=" + mchId + "] record in db.";
-            return errorMessage;
-        }
-        if (payChannel.getByte("state") != 1) {
-            errorMessage = "channel not available [channelId=" + channelId + ",mchId=" + mchId + "]";
-            return errorMessage;
-        }
+        if (payChannel == null)             return "Can't found payChannel[channelId=" + channelId + ",mchId=" + mchId + "] record in db.";
+
+        if (payChannel.getByte("state") != 1) return "channel not available [channelId=" + channelId + ",mchId=" + mchId + "]";
 
         // 验证签名数据
         boolean verifyFlag = XXPayUtil.verifyPaySign(params, reqKey);
-        if (!verifyFlag) {
-            errorMessage = "Verify XX pay sign failed.";
-            return errorMessage;
-        }
+        if (!verifyFlag)                    return "Verify XX pay sign failed.";
+
         // 验证参数通过,返回JSONObject对象
         JSONObject payOrder = new JSONObject();
         payOrder.put("payOrderId", MySeq.getPay());
