@@ -7,10 +7,10 @@ import org.springframework.web.client.RestTemplate;
 import org.xxpay.common.util.MyBase64;
 
 /**
- * @Description:
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description:
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @Service
@@ -21,6 +21,7 @@ public class PayOrderServiceClient {
 
     /**
      * 创建支付订单
+     *
      * @param jsonParam
      * @return
      */
@@ -35,6 +36,7 @@ public class PayOrderServiceClient {
 
     /**
      * 查询支付订单
+     *
      * @param jsonParam
      * @return
      */
@@ -49,6 +51,7 @@ public class PayOrderServiceClient {
 
     /**
      * 处理微信支付
+     *
      * @param jsonParam
      * @return
      */
@@ -63,6 +66,7 @@ public class PayOrderServiceClient {
 
     /**
      * 处理支付宝wap支付
+     *
      * @param jsonParam
      * @return
      */
@@ -77,6 +81,7 @@ public class PayOrderServiceClient {
 
     /**
      * 处理支付宝即时到账支付
+     *
      * @param jsonParam
      * @return
      */
@@ -91,6 +96,7 @@ public class PayOrderServiceClient {
 
     /**
      * 处理支付宝手机支付
+     *
      * @param jsonParam
      * @return
      */
@@ -105,6 +111,7 @@ public class PayOrderServiceClient {
 
     /**
      * 处理支付宝当面付扫码支付
+     *
      * @param jsonParam
      * @return
      */
@@ -116,5 +123,4 @@ public class PayOrderServiceClient {
     public String doAliPayQrReqFallback(String jsonParam) {
         return "error";
     }
-
 }

@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * @Description: xxpay支付产品服务,提供各商户支付产品接口
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description: xxpay支付产品服务, 提供各商户支付产品接口
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @SpringBootApplication
@@ -22,14 +22,13 @@ import org.springframework.web.client.RestTemplate;
 @EnableCircuitBreaker
 public class XxPayWebApplication {
 
-	@Bean
-	@LoadBalanced
-	RestTemplate restTemplate() {
-		return new RestTemplate();
-	}
+    @Bean
+    @LoadBalanced
+    RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(XxPayWebApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(XxPayWebApplication.class, args);
+    }
 }

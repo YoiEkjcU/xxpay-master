@@ -7,10 +7,10 @@ import org.springframework.web.client.RestTemplate;
 import org.xxpay.common.util.MyBase64;
 
 /**
- * @Description:
  * @author dingzhiwei jmdhappy@126.com
- * @date 2017-07-05
  * @version V1.0
+ * @Description:
+ * @date 2017-07-05
  * @Copyright: www.xxpay.org
  */
 @Service
@@ -27,5 +27,4 @@ public class MchInfoServiceClient {
     public String selectMchInfoFallback(String jsonParam) {
         return "error";
     }
-
 }
