@@ -9,13 +9,13 @@ import java.util.Map;
  */
 public interface INotifyPayService {
 
-    Map doAliPayNotify(String jsonParam);
+    Map<?, ?> doAliPayNotify(String jsonParam);
 
-    Map doWxPayNotify(String jsonParam);
+    Map<?, ?> doWxPayNotify(String jsonParam);
 
-    Map sendBizPayNotify(String jsonParam);
+    Map<?, ?> sendBizPayNotify(String jsonParam);
 
-    String handleAliPayNotify(Map params);
+    String handleAliPayNotify(Map<String, String> params);
 
     String handleWxPayNotify(String xmlResult);
 }

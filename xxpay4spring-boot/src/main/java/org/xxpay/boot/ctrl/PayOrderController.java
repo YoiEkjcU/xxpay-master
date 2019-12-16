@@ -115,15 +115,16 @@ public class PayOrderController {
         String channelId  = params.getString("channelId");  // 渠道ID
         String amount     = params.getString("amount");     // 支付金额（单位分）
         String currency   = params.getString("currency");   // 币种
+        String notifyUrl  = params.getString("notifyUrl");  // 支付结果回调URL
+        String subject    = params.getString("subject");    // 商品主题
+        String body       = params.getString("body");       // 商品描述信息
+        String sign       = params.getString("sign");       // 签名
+
         String clientIp   = params.getString("clientIp");   // 客户端IP
         String device     = params.getString("device");     // 设备
         String extra      = params.getString("extra");      // 特定渠道发起时额外参数
         String param1     = params.getString("param1");     // 扩展参数1
         String param2     = params.getString("param2");     // 扩展参数2
-        String notifyUrl  = params.getString("notifyUrl");  // 支付结果回调URL
-        String sign       = params.getString("sign");       // 签名
-        String subject    = params.getString("subject");    // 商品主题
-        String body       = params.getString("body");       // 商品描述信息
         // 验证请求参数有效性（必选项）
         if (StringUtils.isBlank(mchId))      return "request params[mchId] error.";
         if (StringUtils.isBlank(mchOrderNo)) return "request params[mchOrderNo] error.";

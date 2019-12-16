@@ -43,7 +43,7 @@ public class NotifyPayServiceImpl extends Notify4BasePay implements INotifyPaySe
     private AlipayConfig alipayConfig;
 
     @Override
-    public Map doAliPayNotify(String jsonParam) {
+    public Map<?, ?> doAliPayNotify(String jsonParam) {
         String logPrefix = "【处理支付宝支付回调】";
         _log.info("====== 开始处理支付宝支付回调通知 ======");
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
@@ -95,7 +95,7 @@ public class NotifyPayServiceImpl extends Notify4BasePay implements INotifyPaySe
     }
 
     @Override
-    public Map doWxPayNotify(String jsonParam) {
+    public Map<?, ?> doWxPayNotify(String jsonParam) {
         String logPrefix = "【处理微信支付回调】";
         _log.info("====== 开始处理微信支付回调通知 ======");
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
@@ -155,7 +155,7 @@ public class NotifyPayServiceImpl extends Notify4BasePay implements INotifyPaySe
     }
 
     @Override
-    public Map sendBizPayNotify(String jsonParam) {
+    public Map<?, ?> sendBizPayNotify(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -183,7 +183,7 @@ public class NotifyPayServiceImpl extends Notify4BasePay implements INotifyPaySe
      *
      * @return
      */
-    public boolean verifyAliPayParams(Map<String, Object> payContext) {
+    private boolean verifyAliPayParams(Map<String, Object> payContext) {
         Map<String, String> params = (Map<String, String>) payContext.get("parameters");
         String out_trade_no = params.get("out_trade_no");        // 商户订单号
         String total_amount = params.get("total_amount");        // 支付金额
@@ -294,11 +294,11 @@ public class NotifyPayServiceImpl extends Notify4BasePay implements INotifyPaySe
         return true;
     }
 
-    public String handleAliPayNotify(Map params) {
+    public String handleAliPayNotify(Map<String, String> params) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("params", params);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map<String, Object> result = doAliPayNotify(jsonParam);
+        Map<?, ?> result = doAliPayNotify(jsonParam);
         String s = RpcUtil.mkRet(result);
         if (s == null) {
             return PayConstant.RETURN_ALIPAY_VALUE_FAIL;
@@ -311,7 +311,7 @@ public class NotifyPayServiceImpl extends Notify4BasePay implements INotifyPaySe
         paramMap.put("xmlResult", xmlResult);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
         // 返回给微信的数据格式已经有service处理(包括正确与错误),肯定会返回result
-        Map<String, Object> result = doWxPayNotify(jsonParam);
+        Map<?, ?> result = doWxPayNotify(jsonParam);
         return RpcUtil.mkRet(result);
     }
 }
