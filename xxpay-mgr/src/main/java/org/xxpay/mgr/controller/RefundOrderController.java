@@ -39,14 +39,15 @@ public class RefundOrderController {
     public String list(@ModelAttribute RefundOrder refundOrder, Integer pageIndex, Integer pageSize) {
         PageModel pageModel = new PageModel();
         int count = refundOrderService.count(refundOrder);
-        if(count <= 0) return JSON.toJSONString(pageModel);
-        List<RefundOrder> refundOrderList = refundOrderService.getRefundOrderList((pageIndex-1)*pageSize, pageSize, refundOrder);
-        if(!CollectionUtils.isEmpty(refundOrderList)) {
+        if (count <= 0) return JSON.toJSONString(pageModel);
+        List<RefundOrder> refundOrderList = refundOrderService.getRefundOrderList((pageIndex - 1) * pageSize, pageSize, refundOrder);
+        if (!CollectionUtils.isEmpty(refundOrderList)) {
             JSONArray array = new JSONArray();
-            for(RefundOrder po : refundOrderList) {
+            for (RefundOrder po : refundOrderList) {
                 JSONObject object = (JSONObject) JSONObject.toJSON(po);
-                if(po.getCreateTime() != null) object.put("createTime", DateUtil.date2Str(po.getCreateTime()));
-                if(po.getRefundAmount() != null) object.put("amount", AmountUtil.convertCent2Dollar(po.getRefundAmount()+""));
+                if (po.getCreateTime() != null) object.put("createTime", DateUtil.date2Str(po.getCreateTime()));
+                if (po.getRefundAmount() != null)
+                    object.put("amount", AmountUtil.convertCent2Dollar(po.getRefundAmount() + ""));
                 array.add(object);
             }
             pageModel.setList(array);
@@ -60,20 +61,22 @@ public class RefundOrderController {
     @RequestMapping("/view.html")
     public String viewInput(String refundOrderId, ModelMap model) {
         RefundOrder item = null;
-        if(StringUtils.isNotBlank(refundOrderId)) {
+        if (StringUtils.isNotBlank(refundOrderId)) {
             item = refundOrderService.selectRefundOrder(refundOrderId);
         }
-        if(item == null) {
+        if (item == null) {
             item = new RefundOrder();
             model.put("item", item);
             return "refund_order/view";
         }
         JSONObject object = (JSONObject) JSON.toJSON(item);
-        if(item.getRefundSuccTime() != null) object.put("refundSuccTime", DateUtil.date2Str(item.getRefundSuccTime()));
-        if(item.getExpireTime() != null) object.put("expireTime", DateUtil.date2Str(item.getExpireTime()));
-        if(item.getRefundAmount() != null) object.put("amount", AmountUtil.convertCent2Dollar(item.getRefundAmount()+""));
+        if (item.getRefundSuccTime() != null)
+            object.put("refundSuccTime", DateUtil.date2Str(item.getRefundSuccTime()));
+        if (item.getExpireTime() != null)
+            object.put("expireTime", DateUtil.date2Str(item.getExpireTime()));
+        if (item.getRefundAmount() != null)
+            object.put("amount", AmountUtil.convertCent2Dollar(item.getRefundAmount() + ""));
         model.put("item", object);
         return "refund_order/view";
     }
-
 }

@@ -40,14 +40,18 @@ public class MchNotifyService {
         return mchNotifyMapper.countByExample(example);
     }
 
-    void setCriteria(MchNotifyExample.Criteria criteria, MchNotify mchNotify) {
-        if(mchNotify != null) {
-            if(StringUtils.isNotBlank(mchNotify.getMchId())) criteria.andMchIdEqualTo(mchNotify.getMchId());
-            if(StringUtils.isNotBlank(mchNotify.getOrderId())) criteria.andOrderIdEqualTo(mchNotify.getOrderId());
-            if(StringUtils.isNotBlank(mchNotify.getOrderType())) criteria.andOrderTypeEqualTo(mchNotify.getOrderType());
-            if(StringUtils.isNotBlank(mchNotify.getMchOrderNo())) criteria.andMchOrderNoEqualTo(mchNotify.getMchOrderNo());
-            if(mchNotify.getStatus() != null && mchNotify.getStatus() != -99) criteria.andStatusEqualTo(mchNotify.getStatus());
+    private void setCriteria(MchNotifyExample.Criteria criteria, MchNotify mchNotify) {
+        if (mchNotify != null) {
+            if (StringUtils.isNotBlank(mchNotify.getMchId()))
+                criteria.andMchIdEqualTo(mchNotify.getMchId());
+            if (StringUtils.isNotBlank(mchNotify.getOrderId()))
+                criteria.andOrderIdEqualTo(mchNotify.getOrderId());
+            if (StringUtils.isNotBlank(mchNotify.getOrderType()))
+                criteria.andOrderTypeEqualTo(mchNotify.getOrderType());
+            if (StringUtils.isNotBlank(mchNotify.getMchOrderNo()))
+                criteria.andMchOrderNoEqualTo(mchNotify.getMchOrderNo());
+            if (mchNotify.getStatus() != null && mchNotify.getStatus() != -99)
+                criteria.andStatusEqualTo(mchNotify.getStatus());
         }
     }
-
 }

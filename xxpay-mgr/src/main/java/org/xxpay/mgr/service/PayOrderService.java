@@ -40,14 +40,18 @@ public class PayOrderService {
         return payOrderMapper.countByExample(example);
     }
 
-    void setCriteria(PayOrderExample.Criteria criteria, PayOrder payOrder) {
-        if(payOrder != null) {
-            if(StringUtils.isNotBlank(payOrder.getMchId())) criteria.andMchIdEqualTo(payOrder.getMchId());
-            if(StringUtils.isNotBlank(payOrder.getPayOrderId())) criteria.andPayOrderIdEqualTo(payOrder.getPayOrderId());
-            if(StringUtils.isNotBlank(payOrder.getMchOrderNo())) criteria.andMchOrderNoEqualTo(payOrder.getMchOrderNo());
-            if(StringUtils.isNotBlank(payOrder.getChannelOrderNo())) criteria.andChannelOrderNoEqualTo(payOrder.getChannelOrderNo());
-            if(payOrder.getStatus() != null && payOrder.getStatus() != -99) criteria.andStatusEqualTo(payOrder.getStatus());
+    private void setCriteria(PayOrderExample.Criteria criteria, PayOrder payOrder) {
+        if (payOrder != null) {
+            if (StringUtils.isNotBlank(payOrder.getMchId()))
+                criteria.andMchIdEqualTo(payOrder.getMchId());
+            if (StringUtils.isNotBlank(payOrder.getPayOrderId()))
+                criteria.andPayOrderIdEqualTo(payOrder.getPayOrderId());
+            if (StringUtils.isNotBlank(payOrder.getMchOrderNo()))
+                criteria.andMchOrderNoEqualTo(payOrder.getMchOrderNo());
+            if (StringUtils.isNotBlank(payOrder.getChannelOrderNo()))
+                criteria.andChannelOrderNoEqualTo(payOrder.getChannelOrderNo());
+            if (payOrder.getStatus() != null && payOrder.getStatus() != -99)
+                criteria.andStatusEqualTo(payOrder.getStatus());
         }
     }
-
 }

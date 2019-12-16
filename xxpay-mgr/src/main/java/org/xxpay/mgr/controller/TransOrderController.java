@@ -40,14 +40,14 @@ public class TransOrderController {
     public String list(@ModelAttribute TransOrder transOrder, Integer pageIndex, Integer pageSize) {
         PageModel pageModel = new PageModel();
         int count = transOrderService.count(transOrder);
-        if(count <= 0) return JSON.toJSONString(pageModel);
-        List<TransOrder> transOrderList = transOrderService.getTransOrderList((pageIndex-1)*pageSize, pageSize, transOrder);
-        if(!CollectionUtils.isEmpty(transOrderList)) {
+        if (count <= 0) return JSON.toJSONString(pageModel);
+        List<TransOrder> transOrderList = transOrderService.getTransOrderList((pageIndex - 1) * pageSize, pageSize, transOrder);
+        if (!CollectionUtils.isEmpty(transOrderList)) {
             JSONArray array = new JSONArray();
-            for(TransOrder po : transOrderList) {
+            for (TransOrder po : transOrderList) {
                 JSONObject object = (JSONObject) JSONObject.toJSON(po);
-                if(po.getCreateTime() != null) object.put("createTime", DateUtil.date2Str(po.getCreateTime()));
-                if(po.getAmount() != null) object.put("amount", AmountUtil.convertCent2Dollar(po.getAmount()+""));
+                if (po.getCreateTime() != null) object.put("createTime", DateUtil.date2Str(po.getCreateTime()));
+                if (po.getAmount() != null) object.put("amount", AmountUtil.convertCent2Dollar(po.getAmount() + ""));
                 array.add(object);
             }
             pageModel.setList(array);
@@ -61,20 +61,22 @@ public class TransOrderController {
     @RequestMapping("/view.html")
     public String viewInput(String transOrderId, ModelMap model) {
         TransOrder item = null;
-        if(StringUtils.isNotBlank(transOrderId)) {
+        if (StringUtils.isNotBlank(transOrderId)) {
             item = transOrderService.selectTransOrder(transOrderId);
         }
-        if(item == null) {
+        if (item == null) {
             item = new TransOrder();
             model.put("item", item);
             return "trans_order/view";
         }
         JSONObject object = (JSONObject) JSON.toJSON(item);
-        if(item.getTransSuccTime() != null) object.put("transSuccTime", DateUtil.date2Str(item.getTransSuccTime()));
-        if(item.getExpireTime() != null) object.put("expireTime", DateUtil.date2Str(item.getExpireTime()));
-        if(item.getAmount() != null) object.put("amount", AmountUtil.convertCent2Dollar(item.getAmount()+""));
+        if (item.getTransSuccTime() != null)
+            object.put("transSuccTime", DateUtil.date2Str(item.getTransSuccTime()));
+        if (item.getExpireTime() != null)
+            object.put("expireTime", DateUtil.date2Str(item.getExpireTime()));
+        if (item.getAmount() != null)
+            object.put("amount", AmountUtil.convertCent2Dollar(item.getAmount() + ""));
         model.put("item", object);
         return "trans_order/view";
     }
-
 }

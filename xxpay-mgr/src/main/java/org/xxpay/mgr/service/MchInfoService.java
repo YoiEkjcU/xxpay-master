@@ -26,7 +26,7 @@ public class MchInfoService {
         example.setLimit(1);
         List<MchInfo> mchInfos = mchInfoMapper.selectByExample(example);
         String mchId = "10000000";
-        if(!CollectionUtils.isEmpty(mchInfos)) {
+        if (!CollectionUtils.isEmpty(mchInfos)) {
             mchId = String.valueOf(Integer.parseInt(mchInfos.get(0).getMchId()) + 1);
         }
         mchInfo.setMchId(mchId);
@@ -58,11 +58,11 @@ public class MchInfoService {
         return mchInfoMapper.countByExample(example);
     }
 
-    void setCriteria(MchInfoExample.Criteria criteria, MchInfo mchInfo) {
-        if(mchInfo != null) {
-            if(StringUtils.isNotBlank(mchInfo.getMchId())) criteria.andMchIdEqualTo(mchInfo.getMchId());
-            if(mchInfo.getType() != null && !"-99".equals(mchInfo.getType())) criteria.andTypeEqualTo(mchInfo.getType());
+    private void setCriteria(MchInfoExample.Criteria criteria, MchInfo mchInfo) {
+        if (mchInfo != null) {
+            if (StringUtils.isNotBlank(mchInfo.getMchId())) criteria.andMchIdEqualTo(mchInfo.getMchId());
+            if (mchInfo.getType() != null && !"-99".equals(mchInfo.getType()))
+                criteria.andTypeEqualTo(mchInfo.getType());
         }
     }
-
 }

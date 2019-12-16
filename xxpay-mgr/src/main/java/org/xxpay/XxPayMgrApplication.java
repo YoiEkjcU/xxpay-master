@@ -19,5 +19,4 @@ public class XxPayMgrApplication extends SpringBootServletInitializer {
     }
 
     private static Class<XxPayMgrApplication> applicationClass = XxPayMgrApplication.class;
-
 }

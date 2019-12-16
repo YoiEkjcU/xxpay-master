@@ -33,7 +33,7 @@ public class PayChannelService {
         criteria.andChannelIdEqualTo(channelId);
         criteria.andMchIdEqualTo(mchId);
         List<PayChannel> payChannelList = payChannelMapper.selectByExample(example);
-        if(CollectionUtils.isEmpty(payChannelList)) return null;
+        if (CollectionUtils.isEmpty(payChannelList)) return null;
         return payChannelList.get(0);
     }
 
@@ -58,11 +58,12 @@ public class PayChannelService {
         return payChannelMapper.countByExample(example);
     }
 
-    void setCriteria(PayChannelExample.Criteria criteria, PayChannel payChannel) {
-        if(payChannel != null) {
-            if(StringUtils.isNotBlank(payChannel.getMchId())) criteria.andMchIdEqualTo(payChannel.getMchId());
-            if(StringUtils.isNotBlank(payChannel.getChannelId())) criteria.andChannelIdEqualTo(payChannel.getChannelId());
+    private void setCriteria(PayChannelExample.Criteria criteria, PayChannel payChannel) {
+        if (payChannel != null) {
+            if (StringUtils.isNotBlank(payChannel.getMchId()))
+                criteria.andMchIdEqualTo(payChannel.getMchId());
+            if (StringUtils.isNotBlank(payChannel.getChannelId()))
+                criteria.andChannelIdEqualTo(payChannel.getChannelId());
         }
     }
-
 }

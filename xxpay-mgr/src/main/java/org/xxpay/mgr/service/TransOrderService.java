@@ -39,14 +39,18 @@ public class TransOrderService {
         return transOrderMapper.countByExample(example);
     }
 
-    void setCriteria(TransOrderExample.Criteria criteria, TransOrder transOrder) {
-        if(transOrder != null) {
-            if(StringUtils.isNotBlank(transOrder.getMchId())) criteria.andMchIdEqualTo(transOrder.getMchId());
-            if(StringUtils.isNotBlank(transOrder.getTransOrderId())) criteria.andTransOrderIdEqualTo(transOrder.getTransOrderId());
-            if(StringUtils.isNotBlank(transOrder.getMchTransNo())) criteria.andMchTransNoEqualTo(transOrder.getMchTransNo());
-            if(StringUtils.isNotBlank(transOrder.getChannelOrderNo())) criteria.andChannelOrderNoEqualTo(transOrder.getChannelOrderNo());
-            if(transOrder.getStatus() != null && transOrder.getStatus() != -99) criteria.andStatusEqualTo(transOrder.getStatus());
+    private void setCriteria(TransOrderExample.Criteria criteria, TransOrder transOrder) {
+        if (transOrder != null) {
+            if (StringUtils.isNotBlank(transOrder.getMchId()))
+                criteria.andMchIdEqualTo(transOrder.getMchId());
+            if (StringUtils.isNotBlank(transOrder.getTransOrderId()))
+                criteria.andTransOrderIdEqualTo(transOrder.getTransOrderId());
+            if (StringUtils.isNotBlank(transOrder.getMchTransNo()))
+                criteria.andMchTransNoEqualTo(transOrder.getMchTransNo());
+            if (StringUtils.isNotBlank(transOrder.getChannelOrderNo()))
+                criteria.andChannelOrderNoEqualTo(transOrder.getChannelOrderNo());
+            if (transOrder.getStatus() != null && transOrder.getStatus() != -99)
+                criteria.andStatusEqualTo(transOrder.getStatus());
         }
     }
-
 }

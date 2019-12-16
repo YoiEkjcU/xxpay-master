@@ -121,5 +121,4 @@ public class PayChannelController {
         model.put("item", item);
         return "pay_channel/view";
     }
-
 }

@@ -39,14 +39,18 @@ public class RefundOrderService {
         return refundOrderMapper.countByExample(example);
     }
 
-    void setCriteria(RefundOrderExample.Criteria criteria, RefundOrder refundOrder) {
-        if(refundOrder != null) {
-            if(StringUtils.isNotBlank(refundOrder.getMchId())) criteria.andMchIdEqualTo(refundOrder.getMchId());
-            if(StringUtils.isNotBlank(refundOrder.getRefundOrderId())) criteria.andRefundOrderIdEqualTo(refundOrder.getRefundOrderId());
-            if(StringUtils.isNotBlank(refundOrder.getRefundOrderId())) criteria.andMchRefundNoEqualTo(refundOrder.getMchRefundNo());
-            if(StringUtils.isNotBlank(refundOrder.getChannelOrderNo())) criteria.andChannelOrderNoEqualTo(refundOrder.getChannelOrderNo());
-            if(refundOrder.getStatus() != null && refundOrder.getStatus() != -99) criteria.andStatusEqualTo(refundOrder.getStatus());
+    private void setCriteria(RefundOrderExample.Criteria criteria, RefundOrder refundOrder) {
+        if (refundOrder != null) {
+            if (StringUtils.isNotBlank(refundOrder.getMchId()))
+                criteria.andMchIdEqualTo(refundOrder.getMchId());
+            if (StringUtils.isNotBlank(refundOrder.getRefundOrderId()))
+                criteria.andRefundOrderIdEqualTo(refundOrder.getRefundOrderId());
+            if (StringUtils.isNotBlank(refundOrder.getRefundOrderId()))
+                criteria.andMchRefundNoEqualTo(refundOrder.getMchRefundNo());
+            if (StringUtils.isNotBlank(refundOrder.getChannelOrderNo()))
+                criteria.andChannelOrderNoEqualTo(refundOrder.getChannelOrderNo());
+            if (refundOrder.getStatus() != null && refundOrder.getStatus() != -99)
+                criteria.andStatusEqualTo(refundOrder.getStatus());
         }
     }
-
 }
