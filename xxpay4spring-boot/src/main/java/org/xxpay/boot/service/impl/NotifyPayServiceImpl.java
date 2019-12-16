@@ -247,7 +247,7 @@ public class NotifyPayServiceImpl extends Notify4BasePay implements INotifyPaySe
      *
      * @return
      */
-    public boolean verifyWxPayParams(Map<String, Object> payContext) {
+    private boolean verifyWxPayParams(Map<String, Object> payContext) {
         WxPayOrderNotifyResult params = (WxPayOrderNotifyResult) payContext.get("parameters");
 
         //校验结果是否成功
