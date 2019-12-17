@@ -48,14 +48,12 @@ public class Mq4MchNotify extends BaseService4PayOrder {
      */
     public void send(Queue queue, String msg, long delay) {
         _log.info("发送MQ延时消息:msg={},delay={}", msg, delay);
-        jmsTemplate.send(queue, new MessageCreator() {
-            public Message createMessage(Session session) throws JMSException {
-                TextMessage tm = session.createTextMessage(msg);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1 * 1000);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
-                return tm;
-            }
+        jmsTemplate.send(queue, session -> {
+            TextMessage tm = session.createTextMessage(msg);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1000);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
+            return tm;
         });
     }
 

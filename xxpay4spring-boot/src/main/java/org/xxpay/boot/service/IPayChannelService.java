@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface IPayChannelService {
 
-    Map selectPayChannel(String jsonParam);
+    Map<?, ?> selectPayChannel(String jsonParam);
 
     JSONObject getByMchIdAndChannelId(String mchId, String channelId);
 }

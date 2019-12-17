@@ -26,7 +26,7 @@ public class PayChannelServiceImpl extends BaseService implements IPayChannelSer
     private static final MyLog _log = MyLog.getLog(PayChannelServiceImpl.class);
 
     @Override
-    public Map selectPayChannel(String jsonParam) {
+    public Map<?, ?> selectPayChannel(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {

@@ -26,7 +26,7 @@ public class PayChannelServiceImpl extends BaseService implements IPayChannelSer
     private static final MyLog _log = MyLog.getLog(PayChannelServiceImpl.class);
 
     @Override
-    public Map selectPayChannel(String jsonParam) {
+    public Map<?, ?> selectPayChannel(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -50,7 +50,7 @@ public class PayChannelServiceImpl extends BaseService implements IPayChannelSer
         paramMap.put("mchId", mchId);
         paramMap.put("channelId", channelId);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map<String, Object> result = selectPayChannel(jsonParam);
+        Map<?, ?> result = selectPayChannel(jsonParam);
         String s = RpcUtil.mkRet(result);
         if (s == null) return null;
         return JSONObject.parseObject(s);

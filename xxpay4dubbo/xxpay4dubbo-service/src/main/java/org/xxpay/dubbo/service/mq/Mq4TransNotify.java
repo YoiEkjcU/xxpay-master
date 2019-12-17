@@ -76,14 +76,12 @@ public class Mq4TransNotify extends BaseService4TransOrder {
      */
     public void send(String msg, long delay) {
         _log.info("发送MQ延时消息:msg={},delay={}", msg, delay);
-        jmsTemplate.send(this.transNotifyQueue, new MessageCreator() {
-            public Message createMessage(Session session) throws JMSException {
-                TextMessage tm = session.createTextMessage(msg);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1 * 1000);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
-                return tm;
-            }
+        this.jmsTemplate.send(this.transNotifyQueue, session -> {
+            TextMessage tm = session.createTextMessage(msg);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1000);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
+            return tm;
         });
     }
 
@@ -110,7 +108,7 @@ public class Mq4TransNotify extends BaseService4TransOrder {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map resultMap;
+        Map<?, ?> resultMap;
         if (PayConstant.CHANNEL_NAME_WX.equalsIgnoreCase(channelName)) {
             resultMap = payChannel4WxService.doWxTransReq(jsonParam);
         } else if (PayConstant.CHANNEL_NAME_ALIPAY.equalsIgnoreCase(channelName)) {
@@ -123,9 +121,10 @@ public class Mq4TransNotify extends BaseService4TransOrder {
             _log.warn("发起转账返回异常,停止转账处理.transOrderId={}", transOrderId);
             return;
         }
-        Map bizResult = (Map) resultMap.get("bizResult");
-        Boolean isSuccess = false;
-        if (bizResult.get("isSuccess") != null) isSuccess = Boolean.parseBoolean(bizResult.get("isSuccess").toString());
+        Map<?, ?> bizResult = (Map<?, ?>) resultMap.get("bizResult");
+        boolean isSuccess = false;
+        if (bizResult.get("isSuccess") != null)
+            isSuccess = Boolean.parseBoolean(bizResult.get("isSuccess").toString());
         if (isSuccess) {
             // 更新转账状态为成功
             String channelOrderNo = bizResult.get("channelOrderNo") == null ? "" : bizResult.get("channelOrderNo").toString();

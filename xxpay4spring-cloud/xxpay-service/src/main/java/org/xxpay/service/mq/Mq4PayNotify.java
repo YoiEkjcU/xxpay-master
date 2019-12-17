@@ -61,14 +61,12 @@ public class Mq4PayNotify {
      */
     public void send(String msg, long delay) {
         _log.info("发送MQ延时消息:msg={},delay={}", msg, delay);
-        jmsTemplate.send(this.payNotifyQueue, new MessageCreator() {
-            public Message createMessage(Session session) throws JMSException {
-                TextMessage tm = session.createTextMessage(msg);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1 * 1000);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
-                return tm;
-            }
+        jmsTemplate.send(this.payNotifyQueue, session -> {
+            TextMessage tm = session.createTextMessage(msg);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1000);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
+            return tm;
         });
     }
 
@@ -104,8 +102,7 @@ public class Mq4PayNotify {
             _log.info("==>MQ通知业务系统开始[orderId：{}][count：{}][time：{}]", orderId, count, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
             if ("https".equals(console.getProtocol())) {
                 SSLContext sc = SSLContext.getInstance("SSL");
-                sc.init(null, new TrustManager[]{new TrustAnyTrustManager()},
-                        new java.security.SecureRandom());
+                sc.init(null, new TrustManager[]{new TrustAnyTrustManager()}, new java.security.SecureRandom());
                 HttpsURLConnection con = (HttpsURLConnection) console.openConnection();
                 con.setSSLSocketFactory(sc.getSocketFactory());
                 con.setRequestMethod("POST");

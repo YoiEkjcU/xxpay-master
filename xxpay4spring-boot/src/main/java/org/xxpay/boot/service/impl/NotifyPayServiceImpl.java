@@ -52,7 +52,7 @@ public class NotifyPayServiceImpl extends Notify4BasePay implements INotifyPaySe
             _log.warn("处理支付宝支付回调失败, {}. jsonParam={}", RetEnum.RET_PARAM_NOT_FOUND.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_NOT_FOUND);
         }
-        Map params = baseParam.isNullValue("params") ? null : (Map) bizParamMap.get("params");
+        Map<?, ?> params = baseParam.isNullValue("params") ? null : (Map<?, ?>) bizParamMap.get("params");
         if (ObjectValidUtil.isInvalid(params)) {
             _log.warn("处理支付宝支付回调失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);

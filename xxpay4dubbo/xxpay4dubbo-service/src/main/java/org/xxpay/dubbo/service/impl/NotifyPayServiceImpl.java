@@ -41,7 +41,7 @@ public class NotifyPayServiceImpl extends BaseNotify4MchPay implements INotifyPa
     private AlipayConfig alipayConfig;
 
     @Override
-    public Map doAliPayNotify(String jsonParam) {
+    public Map<?, ?> doAliPayNotify(String jsonParam) {
         String logPrefix = "【处理支付宝支付回调】";
         _log.info("====== 开始处理支付宝支付回调通知 ======");
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
@@ -50,12 +50,12 @@ public class NotifyPayServiceImpl extends BaseNotify4MchPay implements INotifyPa
             _log.warn("处理支付宝支付回调失败, {}. jsonParam={}", RetEnum.RET_PARAM_NOT_FOUND.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_NOT_FOUND);
         }
-        Map params = baseParam.isNullValue("params") ? null : (Map) bizParamMap.get("params");
+        Map<?, ?> params = baseParam.isNullValue("params") ? null : (Map<?, ?>) bizParamMap.get("params");
         if (ObjectValidUtil.isInvalid(params)) {
             _log.warn("处理支付宝支付回调失败, {}. jsonParam={}", RetEnum.RET_PARAM_INVALID.getMessage(), jsonParam);
             return RpcUtil.createFailResult(baseParam, RetEnum.RET_PARAM_INVALID);
         }
-        Map<String, Object> payContext = new HashMap();
+        Map<String, Object> payContext = new HashMap<>();
         PayOrder payOrder;
         payContext.put("parameters", params);
         if (!verifyAliPayParams(payContext)) {
@@ -91,7 +91,7 @@ public class NotifyPayServiceImpl extends BaseNotify4MchPay implements INotifyPa
     }
 
     @Override
-    public Map doWxPayNotify(String jsonParam) {
+    public Map<?, ?> doWxPayNotify(String jsonParam) {
         String logPrefix = "【处理微信支付回调】";
         _log.info("====== 开始处理微信支付回调通知 ======");
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
@@ -110,7 +110,7 @@ public class NotifyPayServiceImpl extends BaseNotify4MchPay implements INotifyPa
             }
             WxPayService wxPayService = new WxPayServiceImpl();
             WxPayOrderNotifyResult result = WxPayOrderNotifyResult.fromXML(xmlResult);
-            Map<String, Object> payContext = new HashMap();
+            Map<String, Object> payContext = new HashMap<>();
             payContext.put("parameters", result);
             // 验证业务数据是否正确,验证通过后返回PayOrder和WxPayConfig对象
             if (!verifyWxPayParams(payContext)) {
@@ -150,7 +150,7 @@ public class NotifyPayServiceImpl extends BaseNotify4MchPay implements INotifyPa
     }
 
     @Override
-    public Map sendBizPayNotify(String jsonParam) {
+    public Map<?, ?> sendBizPayNotify(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {

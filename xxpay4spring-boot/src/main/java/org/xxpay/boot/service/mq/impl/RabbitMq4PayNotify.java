@@ -51,11 +51,9 @@ public class RabbitMq4PayNotify extends Mq4PayNotify {
     @Override
     public void send(String msg, long delay) {
         _log.info("发送MQ延时消息:msg={},delay={}", msg, delay);
-        rabbitTemplate.convertAndSend(PAY_NOTIFY_EXCHANGE_NAME, PAY_NOTIFY_QUEUE_NAME, msg, new MessagePostProcessor() {
-            public Message postProcessMessage(Message message) throws AmqpException {
-                message.getMessageProperties().setDelay((int) delay);
-                return message;
-            }
+        rabbitTemplate.convertAndSend(PAY_NOTIFY_EXCHANGE_NAME, PAY_NOTIFY_QUEUE_NAME, message -> {
+            message.getMessageProperties().setDelay((int) delay);
+            return message;
         });
     }
 

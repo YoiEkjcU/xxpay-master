@@ -72,30 +72,36 @@ public class Notify4AliPayController extends Notify4BasePay {
 
     }
 
-    public String doAliPayRes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private String doAliPayRes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String logPrefix = "【支付宝支付回调通知】";
         _log.info("====== 开始接收支付宝支付回调通知 ======");
         //获取支付宝POST过来反馈信息
         Map<String, String> params = new HashMap<String, String>();
-        Map requestParams = request.getParameterMap();
-        for (Iterator iter = requestParams.keySet().iterator(); iter.hasNext(); ) {
-            String name = (String) iter.next();
-            String[] values = (String[]) requestParams.get(name);
-            String valueStr = "";
-            for (int i = 0; i < values.length; i++) {
-                valueStr = (i == values.length - 1) ? valueStr + values[i]
-                        : valueStr + values[i] + ",";
+        Map<String, String[]> requestParams = request.getParameterMap();
+        Iterator<String> iter = requestParams.keySet().iterator();
+        while (iter.hasNext()) {
+            String name = iter.next();
+            String[] values = requestParams.get(name);
+            StringBuffer valueStr = new StringBuffer();
+            int len = values.length;
+            if (len > 0) {
+                for (int i = 0; i < len; i++) {
+                    valueStr.append(values[i]);
+                    if (!(i == len - 1)) {
+                        valueStr.append(",");
+                    }
+                }
             }
             //乱码解决，这段代码在出现乱码时使用。如果mysign和sign不相等也可以使用这段代码转化
             //valueStr = new String(valueStr.getBytes("ISO-8859-1"), "gbk");
-            params.put(name, valueStr);
+            params.put(name, valueStr.toString());
         }
         _log.info("{}通知请求数据:reqStr={}", logPrefix, params);
         if (params.isEmpty()) {
             _log.error("{}请求参数为空", logPrefix);
             return PayConstant.RETURN_ALIPAY_VALUE_FAIL;
         }
-        Map<String, Object> payContext = new HashMap();
+        Map<String, Object> payContext = new HashMap<>();
         PayOrder payOrder;
         payContext.put("parameters", params);
 

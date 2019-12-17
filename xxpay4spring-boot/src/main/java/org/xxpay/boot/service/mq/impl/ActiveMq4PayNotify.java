@@ -40,14 +40,12 @@ public class ActiveMq4PayNotify extends Mq4PayNotify {
     @Override
     public void send(String msg, long delay) {
         _log.info("发送MQ延时消息:msg={},delay={}", msg, delay);
-        jmsTemplate.send(this.payNotifyQueue, new MessageCreator() {
-            public Message createMessage(Session session) throws JMSException {
-                TextMessage tm = session.createTextMessage(msg);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1 * 1000);
-                tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
-                return tm;
-            }
+        jmsTemplate.send(this.payNotifyQueue, session -> {
+            TextMessage tm = session.createTextMessage(msg);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1000);
+            tm.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 1);
+            return tm;
         });
     }
 

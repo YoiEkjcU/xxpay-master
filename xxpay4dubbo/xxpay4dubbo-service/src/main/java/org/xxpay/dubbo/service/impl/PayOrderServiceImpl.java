@@ -22,7 +22,7 @@ public class PayOrderServiceImpl extends BaseService4PayOrder implements IPayOrd
     private static final MyLog _log = MyLog.getLog(PayOrderServiceImpl.class);
 
     @Override
-    public Map create(String jsonParam) {
+    public Map<?, ?> create(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -44,7 +44,7 @@ public class PayOrderServiceImpl extends BaseService4PayOrder implements IPayOrd
     }
 
     @Override
-    public Map select(String jsonParam) {
+    public Map<?, ?> select(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -63,7 +63,7 @@ public class PayOrderServiceImpl extends BaseService4PayOrder implements IPayOrd
     }
 
     @Override
-    public Map selectByMchIdAndPayOrderId(String jsonParam) {
+    public Map<?, ?> selectByMchIdAndPayOrderId(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -83,7 +83,7 @@ public class PayOrderServiceImpl extends BaseService4PayOrder implements IPayOrd
     }
 
     @Override
-    public Map selectByMchIdAndMchOrderNo(String jsonParam) {
+    public Map<?, ?> selectByMchIdAndMchOrderNo(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -103,7 +103,7 @@ public class PayOrderServiceImpl extends BaseService4PayOrder implements IPayOrd
     }
 
     @Override
-    public Map updateStatus4Ing(String jsonParam) {
+    public Map<?, ?> updateStatus4Ing(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -121,7 +121,7 @@ public class PayOrderServiceImpl extends BaseService4PayOrder implements IPayOrd
     }
 
     @Override
-    public Map updateStatus4Success(String jsonParam) {
+    public Map<?, ?> updateStatus4Success(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -138,7 +138,7 @@ public class PayOrderServiceImpl extends BaseService4PayOrder implements IPayOrd
     }
 
     @Override
-    public Map updateStatus4Complete(String jsonParam) {
+    public Map<?, ?> updateStatus4Complete(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -155,7 +155,7 @@ public class PayOrderServiceImpl extends BaseService4PayOrder implements IPayOrd
     }
 
     @Override
-    public Map updateNotify(String jsonParam) {
+    public Map<?, ?> updateNotify(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {

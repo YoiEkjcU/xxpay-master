@@ -56,7 +56,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
     private BaseService4RefundOrder baseService4RefundOrder;
 
     @Override
-    public Map doAliPayWapReq(String jsonParam) {
+    public Map<?, ?> doAliPayWapReq(String jsonParam) {
         String logPrefix = "【支付宝WAP支付下单】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -118,7 +118,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
     }
 
     @Override
-    public Map doAliPayPcReq(String jsonParam) {
+    public Map<?, ?> doAliPayPcReq(String jsonParam) {
         String logPrefix = "【支付宝PC支付下单】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -183,7 +183,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
     }
 
     @Override
-    public Map doAliPayMobileReq(String jsonParam) {
+    public Map<?, ?> doAliPayMobileReq(String jsonParam) {
         String logPrefix = "【支付宝APP支付下单】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -232,7 +232,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
     }
 
     @Override
-    public Map doAliPayQrReq(String jsonParam) {
+    public Map<?, ?> doAliPayQrReq(String jsonParam) {
         String logPrefix = "【支付宝当面付之扫码支付下单】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -304,7 +304,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
      * @return
      */
     @Override
-    public Map doAliTransReq(String jsonParam) {
+    public Map<?, ?> doAliTransReq(String jsonParam) {
         String logPrefix = "【支付宝转账】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -356,7 +356,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
     }
 
     @Override
-    public Map getAliTransReq(String jsonParam) {
+    public Map<?, ?> getAliTransReq(String jsonParam) {
         String logPrefix = "【支付宝转账查询】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -401,7 +401,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
     }
 
     @Override
-    public Map doAliRefundReq(String jsonParam) {
+    public Map<?, ?> doAliRefundReq(String jsonParam) {
         String logPrefix = "【支付宝退款】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -450,7 +450,7 @@ public class PayChannel4AliServiceImpl implements IPayChannel4AliService {
     }
 
     @Override
-    public Map getAliRefundReq(String jsonParam) {
+    public Map<?, ?> getAliRefundReq(String jsonParam) {
         String logPrefix = "【支付宝退款查询】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();

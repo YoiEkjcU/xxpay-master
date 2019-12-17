@@ -28,7 +28,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
     private Mq4TransNotify mq4TransNotify;
 
     @Override
-    public Map create(String jsonParam) {
+    public Map<?, ?> create(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -50,7 +50,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
     }
 
     @Override
-    public Map select(String jsonParam) {
+    public Map<?, ?> select(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -69,7 +69,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
     }
 
     @Override
-    public Map selectByMchIdAndTransOrderId(String jsonParam) {
+    public Map<?, ?> selectByMchIdAndTransOrderId(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -89,7 +89,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
     }
 
     @Override
-    public Map selectByMchIdAndMchTransNo(String jsonParam) {
+    public Map<?, ?> selectByMchIdAndMchTransNo(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -109,7 +109,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
     }
 
     @Override
-    public Map updateStatus4Ing(String jsonParam) {
+    public Map<?, ?> updateStatus4Ing(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -127,7 +127,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
     }
 
     @Override
-    public Map updateStatus4Success(String jsonParam) {
+    public Map<?, ?> updateStatus4Success(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -144,7 +144,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
     }
 
     @Override
-    public Map updateStatus4Complete(String jsonParam) {
+    public Map<?, ?> updateStatus4Complete(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -161,7 +161,7 @@ public class TransOrderServiceImpl extends BaseService4TransOrder implements ITr
     }
 
     @Override
-    public Map sendTransNotify(String jsonParam) {
+    public Map<?, ?> sendTransNotify(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {

@@ -27,7 +27,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
     private Mq4RefundNotify mq4RefundNotify;
 
     @Override
-    public Map create(String jsonParam) {
+    public Map<?, ?> create(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -49,7 +49,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
     }
 
     @Override
-    public Map select(String jsonParam) {
+    public Map<?, ?> select(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -68,7 +68,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
     }
 
     @Override
-    public Map selectByMchIdAndRefundOrderId(String jsonParam) {
+    public Map<?, ?> selectByMchIdAndRefundOrderId(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -88,7 +88,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
     }
 
     @Override
-    public Map selectByMchIdAndMchRefundNo(String jsonParam) {
+    public Map<?, ?> selectByMchIdAndMchRefundNo(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -108,7 +108,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
     }
 
     @Override
-    public Map updateStatus4Ing(String jsonParam) {
+    public Map<?, ?> updateStatus4Ing(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -126,7 +126,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
     }
 
     @Override
-    public Map updateStatus4Success(String jsonParam) {
+    public Map<?, ?> updateStatus4Success(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -143,7 +143,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
     }
 
     @Override
-    public Map updateStatus4Complete(String jsonParam) {
+    public Map<?, ?> updateStatus4Complete(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -160,7 +160,7 @@ public class RefundOrderServiceImpl extends BaseService4RefundOrder implements I
     }
 
     @Override
-    public Map sendRefundNotify(String jsonParam) {
+    public Map<?, ?> sendRefundNotify(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {

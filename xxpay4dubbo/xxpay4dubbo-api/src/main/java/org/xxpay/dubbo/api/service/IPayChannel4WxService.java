@@ -9,13 +9,13 @@ import java.util.Map;
  */
 public interface IPayChannel4WxService {
 
-    Map doWxPayReq(String jsonParam);
+    Map<?, ?> doWxPayReq(String jsonParam);
 
-    Map doWxTransReq(String jsonParam);
+    Map<?, ?> doWxTransReq(String jsonParam);
 
-    Map getWxTransReq(String jsonParam);
+    Map<?, ?> getWxTransReq(String jsonParam);
 
-    Map doWxRefundReq(String jsonParam);
+    Map<?, ?> doWxRefundReq(String jsonParam);
 
-    Map getWxRefundReq(String jsonParam);
+    Map<?, ?> getWxRefundReq(String jsonParam);
 }

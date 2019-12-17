@@ -44,7 +44,7 @@ public class PayServiceTest {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map map = payChannel4AliService.doAliTransReq(jsonParam);
+        Map<?, ?> map = payChannel4AliService.doAliTransReq(jsonParam);
         System.out.println("map=" + map);
     }
 
@@ -59,7 +59,7 @@ public class PayServiceTest {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map map = payChannel4AliService.getAliTransReq(jsonParam);
+        Map<?, ?> map = payChannel4AliService.getAliTransReq(jsonParam);
         System.out.println("map=" + map);
     }
 
@@ -78,7 +78,7 @@ public class PayServiceTest {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("refundOrder", refundOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map map = payChannel4AliService.doAliRefundReq(jsonParam);
+        Map<?, ?> map = payChannel4AliService.doAliRefundReq(jsonParam);
         System.out.println("map=" + map);
     }
 
@@ -97,7 +97,7 @@ public class PayServiceTest {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("refundOrder", refundOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map map = payChannel4AliService.getAliRefundReq(jsonParam);
+        Map<?, ?> map = payChannel4AliService.getAliRefundReq(jsonParam);
         System.out.println("map=" + map);
     }
 
@@ -116,7 +116,7 @@ public class PayServiceTest {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map map = payChannel4WxService.doWxTransReq(jsonParam);
+        Map<?, ?> map = payChannel4WxService.doWxTransReq(jsonParam);
         System.out.println("map=" + map);
     }
     //
@@ -131,7 +131,7 @@ public class PayServiceTest {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("transOrder", transOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map map = payChannel4WxService.getWxTransReq(jsonParam);
+        Map<?, ?> map = payChannel4WxService.getWxTransReq(jsonParam);
         System.out.println("map=" + map);
     }
 
@@ -150,7 +150,7 @@ public class PayServiceTest {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("refundOrder", refundOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map map = payChannel4WxService.doWxRefundReq(jsonParam);
+        Map<?, ?> map = payChannel4WxService.doWxRefundReq(jsonParam);
         System.out.println("map=" + map);
     }
 
@@ -167,7 +167,7 @@ public class PayServiceTest {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("refundOrder", refundOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map map = payChannel4WxService.getWxRefundReq(jsonParam);
+        Map<?, ?> map = payChannel4WxService.getWxRefundReq(jsonParam);
         System.out.println("map=" + map);
     }
 }

@@ -104,18 +104,17 @@ public class HttpClientUtil {
      * @param queryString
      * @return
      */
-    public static Map queryString2Map(String queryString) {
+    public static Map<String, String> queryString2Map(String queryString) {
         if (null == queryString || "".equals(queryString)) {
             return null;
         }
 
-        Map m = new HashMap();
+        Map<String, String> m = new HashMap<>();
         String[] strArray = queryString.split("&");
-        for (int index = 0; index < strArray.length; index++) {
+        for (int index = 0, len = strArray.length; index < len; index++) {
             String pair = strArray[index];
             HttpClientUtil.putMapByPair(pair, m);
         }
-
         return m;
     }
 
@@ -126,7 +125,7 @@ public class HttpClientUtil {
      * @param pair name=value
      * @param m
      */
-    public static void putMapByPair(String pair, Map m) {
+    private static void putMapByPair(String pair, Map<String, String> m) {
 
         if (null == pair || "".equals(pair)) {
             return;

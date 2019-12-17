@@ -67,7 +67,7 @@ public class Notify4WxPayController extends Notify4BasePay {
             String xmlResult = IOUtils.toString(request.getInputStream(), request.getCharacterEncoding());
             WxPayService wxPayService = new WxPayServiceImpl();
             WxPayOrderNotifyResult result = WxPayOrderNotifyResult.fromXML(xmlResult);
-            Map<String, Object> payContext = new HashMap();
+            Map<String, Object> payContext = new HashMap<>();
             payContext.put("parameters", result);
             // 验证业务数据是否正确,验证通过后返回PayOrder和WxPayConfig对象
             if (!verifyWxPayParams(payContext)) {

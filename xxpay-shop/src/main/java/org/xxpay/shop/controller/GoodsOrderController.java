@@ -103,7 +103,7 @@ public class GoodsOrderController {
         String url = baseUrl + "/pay/create_order?";
         String result = XXPayUtil.call4Post(url + reqData);
         System.out.println("请求支付中心下单接口,响应数据:" + result);
-        Map retMap = JSON.parseObject(result);
+        JSONObject retMap = JSON.parseObject(result);
         if ("SUCCESS".equals(retMap.get("retCode"))) {
             // 验签
             String checkSign = PayDigestUtil.getSign(retMap, resKey, "sign", "payParams");
@@ -126,7 +126,7 @@ public class GoodsOrderController {
         return result + "";
     }
 
-    private Map createPayOrder(GoodsOrder goodsOrder, Map<String, Object> params) {
+    private JSONObject createPayOrder(GoodsOrder goodsOrder, Map<String, Object> params) {
         JSONObject paramMap = new JSONObject();
         paramMap.put("mchId", mchId);                       // 商户ID
         paramMap.put("mchOrderNo", goodsOrder.getGoodsOrderId());           // 商户订单号
@@ -152,7 +152,7 @@ public class GoodsOrderController {
         String url = baseUrl + "/pay/create_order?";
         String result = XXPayUtil.call4Post(url + reqData);
         System.out.println("请求支付中心下单接口,响应数据:" + result);
-        Map retMap = JSON.parseObject(result);
+        JSONObject retMap = JSON.parseObject(result);
         if ("SUCCESS".equals(retMap.get("retCode"))) {
             // 验签
             String checkSign = PayDigestUtil.getSign(retMap, resKey, "sign", "payParams");
@@ -206,10 +206,10 @@ public class GoodsOrderController {
         }
         // 先插入订单数据
         GoodsOrder goodsOrder = null;
-        Map<String, String> orderMap = null;
+        JSONObject orderMap = null;
         if ("alipay".equals(client)) {
             _log.info("{}{}扫码下单", logPrefix, "支付宝");
-            Map params = new HashMap<>();
+            Map<String, Object> params = new HashMap<>();
             params.put("channelId", channelId);
             // 下单
             goodsOrder = createGoodsOrder(goodsId, amount);
@@ -220,7 +220,7 @@ public class GoodsOrderController {
             String openId = request.getParameter("openId");
             if (StringUtils.isNotBlank(openId)) {
                 _log.info("{}openId：{}", logPrefix, openId);
-                Map params = new HashMap<>();
+                Map<String, Object> params = new HashMap<>();
                 params.put("channelId", channelId);
                 params.put("openId", openId);
                 goodsOrder = createGoodsOrder(goodsId, amount);
@@ -237,7 +237,7 @@ public class GoodsOrderController {
         model.put("amount", AmountUtil.convertCent2Dollar(goodsOrder.getAmount() + ""));
         if (orderMap != null) {
             model.put("orderMap", orderMap);
-            String payOrderId = orderMap.get("payOrderId");
+            String payOrderId = orderMap.getString("payOrderId");
             GoodsOrder go = new GoodsOrder();
             go.setGoodsOrderId(goodsOrder.getGoodsOrderId());
             go.setPayOrderId(payOrderId);
@@ -398,13 +398,13 @@ public class GoodsOrderController {
         String goodsId = "G_0001";
         _log.info("{}接收参数:goodsId={},amount={},channelId={}", logPrefix, goodsId, amount, channelId);
         // 先插入订单数据
-        Map params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("channelId", channelId);
         // 下单
         GoodsOrder goodsOrder = createGoodsOrder(goodsId, amount);
-        Map<String, String> orderMap = createPayOrder(goodsOrder, params);
-        if (orderMap != null && "success".equalsIgnoreCase(orderMap.get("resCode"))) {
-            String payOrderId = orderMap.get("payOrderId");
+        JSONObject orderMap = createPayOrder(goodsOrder, params);
+        if (orderMap != null && "success".equalsIgnoreCase(orderMap.getString("resCode"))) {
+            String payOrderId = orderMap.getString("payOrderId");
             GoodsOrder go = new GoodsOrder();
             go.setGoodsOrderId(goodsOrder.getGoodsOrderId());
             go.setPayOrderId(payOrderId);
@@ -412,8 +412,9 @@ public class GoodsOrderController {
             int ret = goodsOrderService.update(go);
             _log.info("修改商品订单,返回:{}", ret);
         }
-        if (PayConstant.PAY_CHANNEL_ALIPAY_MOBILE.equalsIgnoreCase(channelId)) return orderMap.get("payParams");
-        return orderMap.get("payUrl");
+        if (PayConstant.PAY_CHANNEL_ALIPAY_MOBILE.equalsIgnoreCase(channelId))
+            return orderMap.getString("payParams");
+        return orderMap.getString("payUrl");
     }
 
     void outResult(HttpServletResponse response, String content) {

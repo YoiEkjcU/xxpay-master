@@ -287,8 +287,7 @@ public class HttpClient {
                 HttpClient.JKS_CA_PASSWORD, keyStream, this.certPasswd);*/
 
         SSLContext sslContext = SSLContext.getInstance("SSL");
-        sslContext.init(null, new TrustManager[]{new TrustAnyTrustManager()},
-                new java.security.SecureRandom());
+        sslContext.init(null, new TrustManager[]{new TrustAnyTrustManager()}, new java.security.SecureRandom());
 
         //关闭流
         //keyStream.close();

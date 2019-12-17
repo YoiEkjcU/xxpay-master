@@ -48,7 +48,7 @@ public class PayChannel4WxServiceImpl extends BaseService implements IPayChannel
     @Autowired
     private BaseService4PayOrder baseService4PayOrder;
 
-    public Map doWxPayReq(String jsonParam) {
+    public Map<?, ?> doWxPayReq(String jsonParam) {
         String logPrefix = "【微信支付统一下单】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -148,7 +148,7 @@ public class PayChannel4WxServiceImpl extends BaseService implements IPayChannel
     }
 
     @Override
-    public Map doWxTransReq(String jsonParam) {
+    public Map<?, ?> doWxTransReq(String jsonParam) {
         String logPrefix = "【微信企业付款】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -198,7 +198,7 @@ public class PayChannel4WxServiceImpl extends BaseService implements IPayChannel
     }
 
     @Override
-    public Map getWxTransReq(String jsonParam) {
+    public Map<?, ?> getWxTransReq(String jsonParam) {
         String logPrefix = "【微信企业付款查询】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -246,7 +246,7 @@ public class PayChannel4WxServiceImpl extends BaseService implements IPayChannel
     }
 
     @Override
-    public Map doWxRefundReq(String jsonParam) {
+    public Map<?, ?> doWxRefundReq(String jsonParam) {
         String logPrefix = "【微信退款】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
@@ -295,7 +295,7 @@ public class PayChannel4WxServiceImpl extends BaseService implements IPayChannel
     }
 
     @Override
-    public Map getWxRefundReq(String jsonParam) {
+    public Map<?, ?> getWxRefundReq(String jsonParam) {
         String logPrefix = "【微信退款查询】";
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();

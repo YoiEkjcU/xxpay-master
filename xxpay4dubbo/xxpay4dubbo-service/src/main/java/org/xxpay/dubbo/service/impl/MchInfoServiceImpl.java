@@ -24,7 +24,7 @@ public class MchInfoServiceImpl extends BaseService implements IMchInfoService {
     private static final MyLog _log = MyLog.getLog(MchInfoServiceImpl.class);
 
     @Override
-    public Map selectMchInfo(String jsonParam) {
+    public Map<?, ?> selectMchInfo(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {

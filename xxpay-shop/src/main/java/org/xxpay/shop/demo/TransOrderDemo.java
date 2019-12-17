@@ -56,7 +56,7 @@ public class TransOrderDemo {
         String url = baseUrl + "/trans/create_order?";
         String result = XXPayUtil.call4Post(url + reqData);
         System.out.println("请求支付中心转账接口,响应数据:" + result);
-        Map retMap = JSON.parseObject(result);
+        JSONObject retMap = JSON.parseObject(result);
         if ("SUCCESS".equals(retMap.get("retCode")) && "SUCCESS".equalsIgnoreCase(retMap.get("resCode").toString())) {
             // 验签
             String checkSign = PayDigestUtil.getSign(retMap, repKey, "sign", "payParams");
@@ -85,7 +85,7 @@ public class TransOrderDemo {
         String url = baseUrl + "/pay/query_order?";
         String result = XXPayUtil.call4Post(url + reqData);
         System.out.println("请求支付中心查单接口,响应数据:" + result);
-        Map retMap = JSON.parseObject(result);
+        JSONObject retMap = JSON.parseObject(result);
         if ("SUCCESS".equals(retMap.get("retCode")) && "SUCCESS".equalsIgnoreCase(retMap.get("resCode").toString())) {
             // 验签
             String checkSign = PayDigestUtil.getSign(retMap, repKey, "sign", "payParams");

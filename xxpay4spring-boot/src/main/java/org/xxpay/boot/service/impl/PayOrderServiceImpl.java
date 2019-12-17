@@ -45,7 +45,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
 
     public JSONObject queryPayOrder(String mchId, String payOrderId, String mchOrderNo, String executeNotify) {
         Map<String, Object> paramMap = new HashMap<>();
-        Map<String, Object> result;
+        Map<?, ?> result;
         if (StringUtils.isNotBlank(payOrderId)) {
             paramMap.put("mchId", mchId);
             paramMap.put("payOrderId", payOrderId);
@@ -92,7 +92,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("payOrder", payOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map<String, Object> result;
+        Map<?, ?> result;
         switch (channelId) {
             case PayConstant.PAY_CHANNEL_ALIPAY_MOBILE:
                 result = payChannel4AliService.doAliPayMobileReq(jsonParam);
@@ -142,7 +142,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     }
 
     @Override
-    public Map selectPayOrder(String jsonParam) {
+    public Map<?, ?> selectPayOrder(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -161,7 +161,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     }
 
     @Override
-    public Map selectPayOrderByMchIdAndPayOrderId(String jsonParam) {
+    public Map<?, ?> selectPayOrderByMchIdAndPayOrderId(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -181,7 +181,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     }
 
     @Override
-    public Map selectPayOrderByMchIdAndMchOrderNo(String jsonParam) {
+    public Map<?, ?> selectPayOrderByMchIdAndMchOrderNo(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -201,7 +201,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     }
 
     @Override
-    public Map updateStatus4Ing(String jsonParam) {
+    public Map<?, ?> updateStatus4Ing(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -219,7 +219,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     }
 
     @Override
-    public Map updateStatus4Success(String jsonParam) {
+    public Map<?, ?> updateStatus4Success(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -236,7 +236,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     }
 
     @Override
-    public Map updateStatus4Complete(String jsonParam) {
+    public Map<?, ?> updateStatus4Complete(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {
@@ -253,7 +253,7 @@ public class PayOrderServiceImpl extends BaseService implements IPayOrderService
     }
 
     @Override
-    public Map updateNotify(String jsonParam) {
+    public Map<?, ?> updateNotify(String jsonParam) {
         BaseParam baseParam = JsonUtil.getObjectFromJson(jsonParam, BaseParam.class);
         Map<String, Object> bizParamMap = baseParam.getBizParamMap();
         if (ObjectValidUtil.isInvalid(bizParamMap)) {

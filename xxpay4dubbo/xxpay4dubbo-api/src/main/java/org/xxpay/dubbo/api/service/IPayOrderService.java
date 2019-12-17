@@ -9,19 +9,19 @@ import java.util.Map;
  */
 public interface IPayOrderService {
 
-    Map create(String jsonParam);
+    Map<?, ?> create(String jsonParam);
 
-    Map select(String jsonParam);
+    Map<?, ?> select(String jsonParam);
 
-    Map selectByMchIdAndPayOrderId(String jsonParam);
+    Map<?, ?> selectByMchIdAndPayOrderId(String jsonParam);
 
-    Map selectByMchIdAndMchOrderNo(String jsonParam);
+    Map<?, ?> selectByMchIdAndMchOrderNo(String jsonParam);
 
-    Map updateStatus4Ing(String jsonParam);
+    Map<?, ?> updateStatus4Ing(String jsonParam);
 
-    Map updateStatus4Success(String jsonParam);
+    Map<?, ?> updateStatus4Success(String jsonParam);
 
-    Map updateStatus4Complete(String jsonParam);
+    Map<?, ?> updateStatus4Complete(String jsonParam);
 
-    Map updateNotify(String jsonParam);
+    Map<?, ?> updateNotify(String jsonParam);
 }

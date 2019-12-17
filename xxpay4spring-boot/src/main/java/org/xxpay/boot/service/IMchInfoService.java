@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public interface IMchInfoService {
 
-    Map selectMchInfo(String jsonParam);
+    Map<?, ?> selectMchInfo(String jsonParam);
 
     JSONObject getByMchId(String mchId);
 }
