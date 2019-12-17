@@ -35,7 +35,7 @@ public class OAuth2RequestParamHelper {
     public static Map<String, String> getStateParam(HttpServletRequest request) {
         String state = request.getParameter("state");
         String[] stateArr = state.split("!");//用！间隔
-        Map<String, String> param = new HashMap<String, String>();
+        Map<String, String> param = new HashMap<>();
         if (stateArr != null && stateArr.length > 0) {
             for (String s : stateArr) {
                 String key = s.split("=")[0];

@@ -47,12 +47,4 @@ public class MySeq {
         prefix += node;
         return String.format("%s%s%06d", prefix, DateUtil.getSeqString(), (int) seq.getAndIncrement() % 1000000);
     }
-
-    public static void main(String[] args) {
-        for (int i = 0; i < 100; i++) {
-            System.out.println("pay=" + getPay());
-            System.out.println("trans=" + getTrans());
-            System.out.println("refund=" + getRefund());
-        }
-    }
 }

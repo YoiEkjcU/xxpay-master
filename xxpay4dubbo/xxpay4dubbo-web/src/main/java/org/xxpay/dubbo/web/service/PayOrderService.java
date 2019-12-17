@@ -29,7 +29,7 @@ public class PayOrderService {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("payOrder", payOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map<String, Object> result = rpcCommonService.rpcPayOrderService.create(jsonParam);
+        Map<?, ?> result = rpcCommonService.rpcPayOrderService.create(jsonParam);
         String s = RpcUtil.mkRet(result);
         if (s == null) return 0;
         return Integer.parseInt(s);
@@ -37,7 +37,7 @@ public class PayOrderService {
 
     public JSONObject query(String mchId, String payOrderId, String mchOrderNo, String executeNotify) {
         Map<String, Object> paramMap = new HashMap<>();
-        Map<String, Object> result;
+        Map<?, ?> result;
         if (StringUtils.isNotBlank(payOrderId)) {
             paramMap.put("mchId", mchId);
             paramMap.put("payOrderId", payOrderId);
@@ -69,7 +69,7 @@ public class PayOrderService {
         paramMap.put("tradeType", tradeType);
         paramMap.put("payOrder", payOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map<String, Object> result = rpcCommonService.rpcPayChannel4WxService.doWxPayReq(jsonParam);
+        Map<?, ?> result = rpcCommonService.rpcPayChannel4WxService.doWxPayReq(jsonParam);
         String s = RpcUtil.mkRet(result);
         if (s == null) {
             return XXPayUtil.makeRetData(XXPayUtil.makeRetMap(PayConstant.RETURN_VALUE_SUCCESS, "", PayConstant.RETURN_VALUE_FAIL, "0111", "调用微信支付失败"), resKey);
@@ -83,7 +83,7 @@ public class PayOrderService {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("payOrder", payOrder);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map<String, Object> result;
+        Map<?, ?> result;
         switch (channelId) {
             case PayConstant.PAY_CHANNEL_ALIPAY_MOBILE:
                 result = rpcCommonService.rpcPayChannel4AliService.doAliPayMobileReq(jsonParam);

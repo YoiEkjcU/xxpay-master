@@ -10,15 +10,15 @@ public class MgrDemo {
 
     // 商户ID
 
-    static final String baseUrl = "http://localhost:3000";
+    private static final String baseUrl = "http://localhost:3000";
 
     public static void main(String[] args) {
-        //addMchInfo();
+        addMchInfo();
         addPayChannel();
     }
 
     // 添加商户
-    static void addMchInfo() {
+    private static void addMchInfo() {
         JSONObject params = new JSONObject();
         params.put("mchId", "20001226");
         params.put("name", "百年树丁");
@@ -34,7 +34,7 @@ public class MgrDemo {
     }
 
     // 添加渠道
-    static void addPayChannel() {
+    private static void addPayChannel() {
         JSONObject params = new JSONObject();
         params.put("channelId", "WX_NATIVE");//WX_NATIVE
         params.put("channelName", "WX");//WX

@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public class MyLog extends MyLogFace {
 
-    private static final Map<String, MyLog> _pool = new HashMap<String, MyLog>();
+    private static final Map<String, MyLog> _pool = new HashMap<>();
 
     //----------
     public static synchronized Set<String> getLoggers() {

@@ -23,7 +23,7 @@ public class MchInfoService {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("mchId", mchId);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map<String, Object> result = rpcCommonService.rpcMchInfoService.selectMchInfo(jsonParam);
+        Map<?, ?> result = rpcCommonService.rpcMchInfoService.selectMchInfo(jsonParam);
         String s = RpcUtil.mkRet(result);
         if (s == null) return null;
         return JSONObject.parseObject(s);

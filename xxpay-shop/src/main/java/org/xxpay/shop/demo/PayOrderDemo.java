@@ -24,11 +24,6 @@ public class PayOrderDemo {
     //static final String notifyUrl = "http://www.baidu.com"; // 本地环境测试,可到ngrok.cc网站注册
     static final String notifyUrl = "http://shop.xxpay.org/goods/payNotify";
 
-    public static void main(String[] args) {
-        payOrderTest();
-        //quryPayOrderTest("1494774484058", "P0020170910211048000001");
-    }
-
     // 统一下单
     static String payOrderTest() {
         JSONObject paramMap = new JSONObject();

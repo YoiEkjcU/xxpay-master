@@ -236,13 +236,4 @@ public class BaseParam extends RpcBaseParam {
         }
         return longList;
     }
-
-    public static void main(String[] args) {
-        BaseParam baseParam = new BaseParam();
-        Map<String, Object> map = new HashMap<>();
-        map.put("a", null);
-        map.put("b", "");
-        baseParam.setBizParamMap(map);
-        System.out.println(baseParam.isInvalidMapValue(""));
-    }
 }

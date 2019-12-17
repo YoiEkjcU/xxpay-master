@@ -74,11 +74,4 @@ public class MyProperties {
         String v = getValue(key);
         return Long.parseLong(v);
     }
-
-    public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 10; i++) {
-            String v = MyProperties.getInstance("common").getValue("jdbc.jndi.name");
-            Thread.sleep(1000 * 30);
-        }
-    }
 }

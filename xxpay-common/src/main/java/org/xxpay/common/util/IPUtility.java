@@ -21,27 +21,26 @@ public class IPUtility {
      * @Exception 异常对象
      * @since CodingExample　Ver(编码范例查看) 1.1
      */
-    public static String getLocalhostIp() {
+    private static String getLocalhostIp() {
         String ip = "";
         try {
             ip = InetAddress.getLocalHost().getHostAddress();
-        } catch (Exception e) {
-            return null;
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         }
         return ip;
     }
 
-    public static List<String> getIpAddrs() throws Exception {
-        List<String> IPs = new ArrayList<String>();
-        Enumeration<NetworkInterface> allNetInterfaces = null;
-        allNetInterfaces = NetworkInterface.getNetworkInterfaces();
-        InetAddress ip = null;
+    private static List<String> getIpAddrs() throws Exception {
+        List<String> IPs = new ArrayList<>();
+        Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface.getNetworkInterfaces();
+        InetAddress ip;
         while (allNetInterfaces.hasMoreElements()) {
-            NetworkInterface netInterface = (NetworkInterface) allNetInterfaces.nextElement();
-            Enumeration<?> addresses = netInterface.getInetAddresses();
+            NetworkInterface netInterface = allNetInterfaces.nextElement();
+            Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
             while (addresses.hasMoreElements()) {
-                ip = (InetAddress) addresses.nextElement();
-                if (ip != null && ip instanceof Inet4Address && ip.getHostAddress().indexOf(".") != -1) {
+                ip = addresses.nextElement();
+                if (ip instanceof Inet4Address && ip.getHostAddress().contains(".")) {
                     IPs.add(ip.getHostAddress());
                 }
             }
@@ -54,20 +53,19 @@ public class IPUtility {
      *
      * @return
      */
-    public static String getLocalIP() {
+    private static String getLocalIP() {
         String ip = "";
         try {
-            Enumeration<?> e1 = (Enumeration<?>) NetworkInterface
-                    .getNetworkInterfaces();
+            Enumeration<NetworkInterface> e1 = NetworkInterface.getNetworkInterfaces();
             while (e1.hasMoreElements()) {
-                NetworkInterface ni = (NetworkInterface) e1.nextElement();
-                Enumeration<?> e2 = ni.getInetAddresses();
+                NetworkInterface ni = e1.nextElement();
+                Enumeration<InetAddress> e2 = ni.getInetAddresses();
                 while (e2.hasMoreElements()) {
-                    InetAddress ia = (InetAddress) e2.nextElement();
-                    if (ia instanceof Inet6Address)
+                    InetAddress inetAddress = e2.nextElement();
+                    if (inetAddress instanceof Inet6Address)
                         continue;
-                    if (!ia.isLoopbackAddress()) {
-                        ip = ia.getHostAddress();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        ip = inetAddress.getHostAddress();
                         break;
                     }
                 }
@@ -79,7 +77,9 @@ public class IPUtility {
         return ip;
     }
 
-    public static void main(String[] args) throws Exception {
-        System.out.println(IPUtility.getLocalIP());
-    }
+//    public static void main(String[] args) throws Exception {
+//        System.out.println(IPUtility.getLocalhostIp());
+//        System.out.println(IPUtility.getIpAddrs());
+//        System.out.println(IPUtility.getLocalIP());
+//    }
 }

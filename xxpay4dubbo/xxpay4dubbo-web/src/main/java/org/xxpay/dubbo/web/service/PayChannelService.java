@@ -24,7 +24,7 @@ public class PayChannelService {
         paramMap.put("mchId", mchId);
         paramMap.put("channelId", channelId);
         String jsonParam = RpcUtil.createBaseParam(paramMap);
-        Map<String, Object> result = rpcCommonService.rpcPayChannelService.selectPayChannel(jsonParam);
+        Map<?, ?> result = rpcCommonService.rpcPayChannelService.selectPayChannel(jsonParam);
         String s = RpcUtil.mkRet(result);
         if (s == null) return null;
         return JSONObject.parseObject(s);

@@ -17,13 +17,13 @@ public class WxMemoryCacheClient {
     private static final MyLog _log = MyLog.getLog(WxMemoryCacheClient.class);
 
     //服务器内存的方式缓存account、accessToken、jsTicket
-    private static Map<String, MpAccount> mpAccountMap = new HashMap<String, MpAccount>();
-    private static Map<String, AccessToken> accountAccessTokenMap = new HashMap<String, AccessToken>();
-    private static Map<String, JSTicket> accountJSTicketMap = new HashMap<String, JSTicket>();
+    private static Map<String, MpAccount> mpAccountMap = new HashMap<>();
+    private static Map<String, AccessToken> accountAccessTokenMap = new HashMap<>();
+    private static Map<String, JSTicket> accountJSTicketMap = new HashMap<>();
 
     //微信OAuth认证的时候，服务器内存的方式缓存openid; key=sessionid ，value=openid
 
-    private static Map<String, OAuthAccessToken> accountOAuthTokenMap = new HashMap<String, OAuthAccessToken>();
+    private static Map<String, OAuthAccessToken> accountOAuthTokenMap = new HashMap<>();
 
     public static void addMpAccount(MpAccount account) {
         if (account != null && !mpAccountMap.containsKey(account.getAccount())) {

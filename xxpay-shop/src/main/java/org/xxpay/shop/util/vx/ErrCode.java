@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class ErrCode {
 
-    private static Map<String, String> codeMap = new HashMap<String, String>();
+    private static Map<String, String> codeMap = new HashMap<>();
 
     static {
         codeMap.put("-1", "系统繁忙");

@@ -136,7 +136,7 @@ public class PayDigestUtil {
         if (o instanceof Map) {
             return getSign((Map<String, Object>) o, key);
         }
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         Class cls = o.getClass();
         Field[] fields = cls.getDeclaredFields();
         for (Field f : fields) {
@@ -189,7 +189,7 @@ public class PayDigestUtil {
      * @return
      */
     public static String getSign(Map<String, Object> map, String key, String... notContains) {
-        Map<String, Object> newMap = new HashMap<String, Object>();
+        Map<String, Object> newMap = new HashMap<>();
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             boolean isContain = false;
             for (int i = 0; i < notContains.length; i++) {
@@ -205,12 +205,12 @@ public class PayDigestUtil {
         return getSign(newMap, key);
     }
 
-    public static void main(String[] args) {
-        String key = "8UPp0KE8sq73zVP370vko7C39403rtK1YwX40Td6irH216036H27Eb12792t";
-        String dataStr = "AnnulCard1000043252120080620160450.0http://localhost/SZXpro/callback.asp这4564868265473632445648682654736324511";
-        System.out.println(hmacSign(dataStr, key));
-
-        System.out.println(md5(dataStr, "UTF-8"));
-        System.out.println(md5(dataStr, "GBK"));
-    }
+//    public static void main(String[] args) {
+//        String key = "8UPp0KE8sq73zVP370vko7C39403rtK1YwX40Td6irH216036H27Eb12792t";
+//        String dataStr = "AnnulCard1000043252120080620160450.0http://localhost/SZXpro/callback.asp这4564868265473632445648682654736324511";
+//        System.out.println(hmacSign(dataStr, key));
+//
+//        System.out.println(md5(dataStr, "UTF-8"));
+//        System.out.println(md5(dataStr, "GBK"));
+//    }
 }

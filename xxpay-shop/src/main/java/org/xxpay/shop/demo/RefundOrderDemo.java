@@ -23,11 +23,6 @@ public class RefundOrderDemo {
     static final String baseUrl = "http://localhost:3020/api";
     static final String notifyUrl = "http://127.0.0.1:8081/goods/notify_test?rt=success"; // 本地环境测试,可到ngrok.cc网站注册
 
-    public static void main(String[] args) {
-        refundOrderTest();
-        //quryPayOrderTest("1494774484058", "P0020170910211048000001");
-    }
-
     // 退款
     static String refundOrderTest() {
         JSONObject paramMap = new JSONObject();
