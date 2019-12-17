@@ -12,6 +12,7 @@ import org.xxpay.dal.dao.model.RefundOrderExample;
 import org.xxpay.dal.dao.model.TransOrder;
 import org.xxpay.dal.dao.model.TransOrderExample;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -89,9 +90,9 @@ public class BaseService4RefundOrder extends BaseService {
         RefundOrderExample example = new RefundOrderExample();
         RefundOrderExample.Criteria criteria = example.createCriteria();
         criteria.andRefundOrderIdEqualTo(refundOrderId);
-        List values = CollectionUtils.arrayToList(new Byte[]{
-                PayConstant.REFUND_STATUS_SUCCESS, PayConstant.REFUND_STATUS_FAIL
-        });
+        List<Byte> values = new ArrayList<>();
+        values.add(PayConstant.REFUND_STATUS_SUCCESS);
+        values.add(PayConstant.REFUND_STATUS_FAIL);
         criteria.andStatusIn(values);
         return refundOrderMapper.updateByExampleSelective(refundOrder, example);
     }

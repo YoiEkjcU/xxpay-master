@@ -10,6 +10,7 @@ import org.xxpay.dal.dao.mapper.TransOrderMapper;
 import org.xxpay.dal.dao.model.TransOrder;
 import org.xxpay.dal.dao.model.TransOrderExample;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,12 +44,7 @@ public class BaseService4TransOrder extends BaseService {
     }
 
     public TransOrder baseSelectByMchIdAndMchTransNo(String mchId, String mchTransNo) {
-        TransOrderExample example = new TransOrderExample();
-        TransOrderExample.Criteria criteria = example.createCriteria();
-        criteria.andMchIdEqualTo(mchId);
-        criteria.andMchTransNoEqualTo(mchTransNo);
-        List<TransOrder> transOrderList = transOrderMapper.selectByExample(example);
-        return CollectionUtils.isEmpty(transOrderList) ? null : transOrderList.get(0);
+        return baseSelectByMchIdAndTransOrderId(mchId, mchTransNo);
     }
 
     public int baseUpdateStatus4Ing(String transOrderId, String channelOrderNo) {
@@ -91,9 +87,10 @@ public class BaseService4TransOrder extends BaseService {
         TransOrderExample example = new TransOrderExample();
         TransOrderExample.Criteria criteria = example.createCriteria();
         criteria.andTransOrderIdEqualTo(transOrderId);
-        List values = CollectionUtils.arrayToList(new Byte[]{
-                PayConstant.TRANS_STATUS_SUCCESS, PayConstant.TRANS_STATUS_FAIL
-        });
+
+        List<Byte> values = new ArrayList<>();
+        values.add(PayConstant.TRANS_STATUS_SUCCESS);
+        values.add(PayConstant.TRANS_STATUS_FAIL);
         criteria.andStatusIn(values);
         return transOrderMapper.updateByExampleSelective(transOrder, example);
     }

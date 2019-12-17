@@ -68,7 +68,7 @@ public class BaseService {
         MchNotifyExample example = new MchNotifyExample();
         MchNotifyExample.Criteria criteria = example.createCriteria();
         criteria.andOrderIdEqualTo(orderId);
-        List values = new LinkedList<>();
+        List<Byte> values = new LinkedList<>();
         values.add(PayConstant.MCH_NOTIFY_STATUS_NOTIFYING);
         values.add(PayConstant.MCH_NOTIFY_STATUS_FAIL);
         criteria.andStatusIn(values);
@@ -84,9 +84,9 @@ public class BaseService {
         MchNotifyExample example = new MchNotifyExample();
         MchNotifyExample.Criteria criteria = example.createCriteria();
         criteria.andOrderIdEqualTo(orderId);
-        List values = new LinkedList<>();
-        values.add(PayConstant.MCH_NOTIFY_STATUS_NOTIFYING);
-        values.add(PayConstant.MCH_NOTIFY_STATUS_FAIL);
+//        List<Byte> values = new LinkedList<>();
+//        values.add(PayConstant.MCH_NOTIFY_STATUS_NOTIFYING);
+//        values.add(PayConstant.MCH_NOTIFY_STATUS_FAIL);
         return mchNotifyMapper.updateByExampleSelective(mchNotify, example);
     }
 }
