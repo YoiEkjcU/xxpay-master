@@ -23,16 +23,11 @@ public class XXPayUtil {
 
     public static Map<String, Object> makeRetMap(String retCode, String retMsg, String resCode, String errCode, String errCodeDesc) {
         Map<String, Object> retMap = new HashMap<>();
-        if (retCode != null)
-            retMap.put(PayConstant.RETURN_PARAM_RETCODE, retCode);
-        if (retMsg != null)
-            retMap.put(PayConstant.RETURN_PARAM_RETMSG, retMsg);
-        if (resCode != null)
-            retMap.put(PayConstant.RESULT_PARAM_RESCODE, resCode);
-        if (errCode != null)
-            retMap.put(PayConstant.RESULT_PARAM_ERRCODE, errCode);
-        if (errCodeDesc != null)
-            retMap.put(PayConstant.RESULT_PARAM_ERRCODEDES, errCodeDesc);
+        if (retCode != null)     retMap.put(PayConstant.RETURN_PARAM_RETCODE, retCode);
+        if (retMsg != null)      retMap.put(PayConstant.RETURN_PARAM_RETMSG, retMsg);
+        if (resCode != null)     retMap.put(PayConstant.RESULT_PARAM_RESCODE, resCode);
+        if (errCode != null)     retMap.put(PayConstant.RESULT_PARAM_ERRCODE, errCode);
+        if (errCodeDesc != null) retMap.put(PayConstant.RESULT_PARAM_ERRCODEDES, errCodeDesc);
         return retMap;
     }
 
@@ -40,7 +35,7 @@ public class XXPayUtil {
         return makeRetMap(retCode, retMsg, resCode, payEnum.getCode(), payEnum.getMessage());
     }
 
-    public static String makeRetData(Map retMap, String resKey) {
+    public static String makeRetData(Map<String, Object> retMap, String resKey) {
         if (retMap.get(PayConstant.RETURN_PARAM_RETCODE).equals(PayConstant.RETURN_VALUE_SUCCESS)) {
             String sign = PayDigestUtil.getSign(retMap, resKey, "payParams");
             retMap.put(PayConstant.RESULT_PARAM_SIGN, sign);
@@ -49,7 +44,7 @@ public class XXPayUtil {
         return JSON.toJSONString(retMap);
     }
 
-    public static String makeRetFail(Map retMap) {
+    public static String makeRetFail(Map<?, ?> retMap) {
         _log.info("生成响应数据:{}", retMap);
         return JSON.toJSONString(retMap);
     }

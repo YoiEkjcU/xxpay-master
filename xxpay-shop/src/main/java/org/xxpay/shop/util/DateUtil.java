@@ -13,19 +13,19 @@ public class DateUtil {
 
     private final SimpleDateFormat format;
 
-    public DateUtil(SimpleDateFormat format) {
+    private DateUtil(SimpleDateFormat format) {
         this.format = format;
     }
 
-    public SimpleDateFormat getFormat() {
+    private SimpleDateFormat getFormat() {
         return format;
     }
 
     //紧凑型日期格式，也就是纯数字类型yyyyMMdd
-    public static final DateUtil COMPAT = new DateUtil(new SimpleDateFormat("yyyyMMdd"));
+    static final DateUtil COMPAT = new DateUtil(new SimpleDateFormat("yyyyMMdd"));
 
     //常用日期格式，yyyy-MM-dd
-    public static final DateUtil COMMON = new DateUtil(new SimpleDateFormat("yyyy-MM-dd"));
+    static final DateUtil COMMON = new DateUtil(new SimpleDateFormat("yyyy-MM-dd"));
     public static final DateUtil COMMON_FULL = new DateUtil(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
     //使用斜线分隔的，西方多采用，yyyy/MM/dd
@@ -38,7 +38,7 @@ public class DateUtil {
     /**
      * 日期获取字符串
      */
-    public String getDateText(Date date) {
+    String getDateText(Date date) {
         return getFormat().format(date);
     }
 
@@ -47,14 +47,14 @@ public class DateUtil {
      *
      * @throws ParseException
      */
-    public Date getTextDate(String text) throws ParseException {
+    Date getTextDate(String text) throws ParseException {
         return getFormat().parse(text);
     }
 
     /**
      * 日期获取字符串
      */
-    public static String getDateText(Date date, String format) {
+    static String getDateText(Date date, String format) {
         return new SimpleDateFormat(format).format(date);
     }
 

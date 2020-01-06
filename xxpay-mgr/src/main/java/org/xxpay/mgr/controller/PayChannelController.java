@@ -1,7 +1,6 @@
 package org.xxpay.mgr.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -17,6 +16,7 @@ import org.xxpay.dal.dao.model.PayChannel;
 import org.xxpay.dal.dao.plugin.PageModel;
 import org.xxpay.mgr.service.PayChannelService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -47,12 +47,12 @@ public class PayChannelController {
     @RequestMapping("/list")
     @ResponseBody
     public String list(@ModelAttribute PayChannel payChannel, Integer pageIndex, Integer pageSize) {
-        PageModel pageModel = new PageModel();
+        PageModel<JSONObject> pageModel = new PageModel<>();
         int count = payChannelService.count(payChannel);
         if(count <= 0) return JSON.toJSONString(pageModel);
         List<PayChannel> payChannelList = payChannelService.getPayChannelList((pageIndex-1)*pageSize, pageSize, payChannel);
         if(!CollectionUtils.isEmpty(payChannelList)) {
-            JSONArray array = new JSONArray();
+            List<JSONObject> array = new ArrayList<>();
             for(PayChannel pc : payChannelList) {
                 JSONObject object = (JSONObject) JSONObject.toJSON(pc);
                 object.put("createTime", DateUtil.date2Str(pc.getCreateTime()));

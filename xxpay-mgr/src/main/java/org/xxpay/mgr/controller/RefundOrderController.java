@@ -1,7 +1,6 @@
 package org.xxpay.mgr.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import org.xxpay.dal.dao.model.RefundOrder;
 import org.xxpay.dal.dao.plugin.PageModel;
 import org.xxpay.mgr.service.RefundOrderService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -37,12 +37,12 @@ public class RefundOrderController {
     @RequestMapping("/list")
     @ResponseBody
     public String list(@ModelAttribute RefundOrder refundOrder, Integer pageIndex, Integer pageSize) {
-        PageModel pageModel = new PageModel();
+        PageModel<JSONObject> pageModel = new PageModel<>();
         int count = refundOrderService.count(refundOrder);
         if (count <= 0) return JSON.toJSONString(pageModel);
         List<RefundOrder> refundOrderList = refundOrderService.getRefundOrderList((pageIndex - 1) * pageSize, pageSize, refundOrder);
         if (!CollectionUtils.isEmpty(refundOrderList)) {
-            JSONArray array = new JSONArray();
+            List<JSONObject> array = new ArrayList<>();
             for (RefundOrder po : refundOrderList) {
                 JSONObject object = (JSONObject) JSONObject.toJSON(po);
                 if (po.getCreateTime() != null) object.put("createTime", DateUtil.date2Str(po.getCreateTime()));

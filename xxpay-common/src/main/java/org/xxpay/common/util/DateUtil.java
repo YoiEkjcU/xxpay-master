@@ -58,7 +58,7 @@ public class DateUtil {
      * @param format
      * @return
      */
-    public static String date2Str(Date date, String format) {
+    private static String date2Str(Date date, String format) {
         if ((format == null) || format.equals("")) {
             format = FORMAT_YYYY_MM_DD_HH_MM_SS;
         }
@@ -96,13 +96,8 @@ public class DateUtil {
         try {
             Date dt1 = df.parse(date1);
             Date dt2 = df.parse(date2);
-            if (dt1.getTime() > dt2.getTime()) {
-                return 1;
-            } else if (dt1.getTime() < dt2.getTime()) {
-                return -1;
-            } else {
-                return 0;
-            }
+            return Long.compare(dt1.getTime(), dt2.getTime());
+
         } catch (Exception exception) {
             exception.printStackTrace();
         }

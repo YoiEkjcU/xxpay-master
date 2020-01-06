@@ -4,10 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author dingzhiwei jmdhappy@126.com
@@ -26,11 +23,10 @@ public class PayDigestUtil {
      * @param aKey
      * @return
      */
-    public static String hmacSign(String aValue, String aKey) {
-        byte k_ipad[] = new byte[64];
-        byte k_opad[] = new byte[64];
-        byte keyb[];
-        byte value[];
+    private static String hmacSign(String aValue, String aKey) {
+        byte[] k_ipad = new byte[64];
+        byte[] k_opad = new byte[64];
+        byte[] keyb, value;
         try {
             keyb = aKey.getBytes(encodingCharset);
             value = aValue.getBytes(encodingCharset);
@@ -46,7 +42,7 @@ public class PayDigestUtil {
             k_opad[i] = (byte) (keyb[i] ^ 0x5c);
         }
 
-        MessageDigest md = null;
+        MessageDigest md;
         try {
             md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
@@ -55,7 +51,7 @@ public class PayDigestUtil {
         }
         md.update(k_ipad);
         md.update(value);
-        byte dg[] = md.digest();
+        byte[] dg = md.digest();
         md.reset();
         md.update(k_opad);
         md.update(dg, 0, 16);
@@ -63,7 +59,7 @@ public class PayDigestUtil {
         return toHex(dg);
     }
 
-    public static String toHex(byte input[]) {
+    private static String toHex(byte[] input) {
         if (input == null)
             return null;
         StringBuffer output = new StringBuffer(input.length * 2);
@@ -99,13 +95,13 @@ public class PayDigestUtil {
      */
     public static String digest(String aValue) {
         aValue = aValue.trim();
-        byte value[];
+        byte[] value;
         try {
             value = aValue.getBytes(encodingCharset);
         } catch (UnsupportedEncodingException e) {
             value = aValue.getBytes();
         }
-        MessageDigest md = null;
+        MessageDigest md;
         try {
             md = MessageDigest.getInstance("SHA");
         } catch (NoSuchAlgorithmException e) {
@@ -116,27 +112,23 @@ public class PayDigestUtil {
 
     }
 
-    public static String md5(String value, String charset) {
-        MessageDigest md = null;
+    private static String md5(String value, String charset) {
         try {
             byte[] data = value.getBytes(charset);
-            md = MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] digestData = md.digest(data);
             return toHex(digestData);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        } catch (UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static String getSign(Object o, String key) throws IllegalAccessException {
+    public static String getSign(Object o, String k) throws IllegalAccessException {
         if (o instanceof Map) {
-            return getSign((Map<String, Object>) o, key);
+            return getSign((Map<?, ?>) o, k);
         }
-        ArrayList<String> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         Class cls = o.getClass();
         Field[] fields = cls.getDeclaredFields();
         for (Field f : fields) {
@@ -145,28 +137,20 @@ public class PayDigestUtil {
                 list.add(f.getName() + "=" + f.get(o) + "&");
             }
         }
-        int size = list.size();
-        String[] arrayToSort = list.toArray(new String[size]);
-        Arrays.sort(arrayToSort, String.CASE_INSENSITIVE_ORDER);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < size; i++) {
-            sb.append(arrayToSort[i]);
-        }
-        String result = sb.toString();
-        result += "key=" + key;
-        _log.debug("Sign Before MD5:" + result);
-        result = md5(result, encodingCharset).toUpperCase();
-        _log.debug("Sign Result:" + result);
-        return result;
+        return getSign(list, k);
     }
 
-    public static String getSign(Map<String, Object> map, String key) {
-        ArrayList<String> list = new ArrayList<>();
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
+    public static String getSign(Map<?, ?> map, String k) {
+        List<String> list = new ArrayList<>();
+        for (Map.Entry<?, ?> entry : map.entrySet()) {
             if (!"".equals(entry.getValue()) && null != entry.getValue()) {
                 list.add(entry.getKey() + "=" + entry.getValue() + "&");
             }
         }
+        return getSign(list, k);
+    }
+
+    public static String getSign(List<String> list, String k) {
         int size = list.size();
         String[] arrayToSort = list.toArray(new String[size]);
         Arrays.sort(arrayToSort, String.CASE_INSENSITIVE_ORDER);
@@ -175,7 +159,7 @@ public class PayDigestUtil {
             sb.append(arrayToSort[i]);
         }
         String result = sb.toString();
-        result += "key=" + key;
+        result += "key=" + k;
         _log.debug("Sign Before MD5:" + result);
         result = md5(result, encodingCharset).toUpperCase();
         _log.debug("Sign Result:" + result);

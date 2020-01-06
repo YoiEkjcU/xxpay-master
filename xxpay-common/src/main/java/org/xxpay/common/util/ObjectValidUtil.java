@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class ObjectValidUtil {
 
-    public static boolean isValid(Object... objs) {
+    private static boolean isValid(Object... objs) {
         if (objs == null || objs.length < 1) {
             return false;
         }
@@ -61,11 +61,8 @@ public class ObjectValidUtil {
      * @param num
      * @return
      */
-    public static boolean isValidShort(Short num) {
-        if (num == null || num.compareTo((short) 0) <= 0) {
-            return false;
-        }
-        return true;
+    private static boolean isValidShort(Short num) {
+        return num != null && num.compareTo((short) 0) > 0;
     }
 
     public static boolean isInvalidShort(Short num) {
@@ -78,14 +75,11 @@ public class ObjectValidUtil {
      * @param num
      * @return
      */
-    public static boolean isValidInteger(Integer num) {
-        if (num == null || num.compareTo(0) <= 0) {
-            return false;
-        }
-        return true;
+    private static boolean isValidInteger(Integer num) {
+        return num != null && num.compareTo(0) > 0;
     }
 
-    public static boolean isInvalidInteger(Integer num) {
+    private static boolean isInvalidInteger(Integer num) {
         return !isValidInteger(num);
     }
 
@@ -95,14 +89,11 @@ public class ObjectValidUtil {
      * @param num
      * @return
      */
-    public static boolean isValidLong(Long num) {
-        if (num == null || num.compareTo(0L) <= 0) {
-            return false;
-        }
-        return true;
+    private static boolean isValidLong(Long num) {
+        return num != null && num.compareTo(0L) > 0;
     }
 
-    public static boolean isInvalidLong(Long num) {
+    private static boolean isInvalidLong(Long num) {
         return !isValidLong(num);
     }
 
@@ -112,11 +103,8 @@ public class ObjectValidUtil {
      * @param num
      * @return
      */
-    public static boolean isValidBigDecimal(BigDecimal num) {
-        if (num == null || num.compareTo(BigDecimal.ZERO) <= 0) {
-            return false;
-        }
-        return true;
+    private static boolean isValidBigDecimal(BigDecimal num) {
+        return num != null && num.compareTo(BigDecimal.ZERO) > 0;
     }
 
     public static boolean isInvalidBigDecimal(BigDecimal num) {
@@ -133,39 +121,30 @@ public class ObjectValidUtil {
         return StringUtils.isNotBlank(str);
     }
 
-    public static boolean isInvalidString(String str) {
+    private static boolean isInvalidString(String str) {
         return StringUtils.isBlank(str);
     }
 
-    public static boolean isNull(Object obj) {
-        if (obj == null) {
-            return true;
-        }
-        return false;
+    private static boolean isNull(Object obj) {
+        return obj == null;
     }
 
     public static boolean isNotNull(Object obj) {
         return !isNull(obj);
     }
 
-    public static boolean isValidCurPage(Integer curPage) {
+    private static boolean isValidCurPage(Integer curPage) {
         if (curPage == null) {
             return false;
         }
-        if (curPage.compareTo(1) < 0) {
-            return false;
-        }
-        return true;
+        return curPage.compareTo(1) >= 0;
     }
 
-    public static boolean isValidCurPage(Long curPage) {
+    private static boolean isValidCurPage(Long curPage) {
         if (curPage == null) {
             return false;
         }
-        if (curPage.compareTo(1L) < 0) {
-            return false;
-        }
-        return true;
+        return curPage.compareTo(1L) >= 0;
     }
 
     public static boolean isInvalidCurPage(Integer curPage) {
@@ -176,24 +155,18 @@ public class ObjectValidUtil {
         return !isValidCurPage(curPage);
     }
 
-    public static boolean isValidViewNumber(Integer viewNumber) {
+    private static boolean isValidViewNumber(Integer viewNumber) {
         if (viewNumber == null) {
             return false;
         }
-        if (viewNumber.compareTo(0) <= 0) {
-            return false;
-        }
-        return true;
+        return viewNumber.compareTo(0) > 0;
     }
 
-    public static boolean isValidViewNumber(Long viewNumber) {
+    private static boolean isValidViewNumber(Long viewNumber) {
         if (viewNumber == null) {
             return false;
         }
-        if (viewNumber.compareTo(0L) <= 0) {
-            return false;
-        }
-        return true;
+        return viewNumber.compareTo(0L) > 0;
     }
 
     public static boolean isInvalidViewNumber(Integer viewNumber) {
@@ -204,14 +177,11 @@ public class ObjectValidUtil {
         return !isValidViewNumber(viewNumber);
     }
 
-    public static boolean isValidLimit(Integer limit) {
+    private static boolean isValidLimit(Integer limit) {
         if (limit == null) {
             return false;
         }
-        if (limit.compareTo(0) <= 0) {
-            return false;
-        }
-        return true;
+        return limit.compareTo(0) > 0;
     }
 
     public static boolean isInvalidLimit(Integer limit) {

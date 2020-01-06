@@ -12,10 +12,10 @@ public class MgrDemo {
 
     private static final String baseUrl = "http://localhost:3000";
 
-    public static void main(String[] args) {
-        addMchInfo();
-        addPayChannel();
-    }
+//    public static void main(String[] args) {
+//        addMchInfo();
+//        addPayChannel();
+//    }
 
     // 添加商户
     private static void addMchInfo() {

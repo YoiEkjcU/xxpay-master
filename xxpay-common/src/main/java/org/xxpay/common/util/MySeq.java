@@ -11,25 +11,13 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class MySeq {
 
-    private static AtomicLong pay_seq = new AtomicLong(0L);
-    private static String pay_seq_prefix = "P";
-    private static AtomicLong trans_seq = new AtomicLong(0L);
-    private static String trans_seq_prefix = "T";
-    private static AtomicLong refund_seq = new AtomicLong(0L);
-    private static String refund_seq_prefix = "R";
-
-    private static String node = "00";
-
-    static {
-        try {
-            //URL url = Thread.currentThread().getContextClassLoader().getResource("config" + File.separator + "system.properties");
-            //Properties properties = new Properties();
-            //properties.load(url.openStream());
-            //node = properties.getProperty(ConfigEnum.SERVER_NAME.getKey());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    private final static AtomicLong pay_seq = new AtomicLong(0L);
+    private final static String pay_seq_prefix = "P";
+    private final static AtomicLong trans_seq = new AtomicLong(0L);
+    private final static String trans_seq_prefix = "T";
+    private final static AtomicLong refund_seq = new AtomicLong(0L);
+    private final static String refund_seq_prefix = "R";
+    private final static String node = "00";
 
     public static String getPay() {
         return getSeq(pay_seq_prefix, pay_seq);

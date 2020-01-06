@@ -37,7 +37,7 @@ public class DateUtils {
      * @param pattern 转换格式
      * @return
      */
-    public static String getCurrentTimeStr(String pattern) {
+    static String getCurrentTimeStr(String pattern) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
         return dateFormat.format(new Date());
     }

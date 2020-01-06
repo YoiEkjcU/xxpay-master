@@ -13,23 +13,23 @@ import java.util.Map;
 public class TransOrderDemo {
 
     // 商户ID
-    static final String mchId = "20001223";//20001223,20001245
+    private static final String mchId = "20001223";//20001223,20001245
     // 加签key
-    static final String reqKey = "M86l522AV6q613Ii4W6u8K48uW8vM1N6bFgyv769220MdYe9u37N4y7rI5mQ";
+    private static final String reqKey = "M86l522AV6q613Ii4W6u8K48uW8vM1N6bFgyv769220MdYe9u37N4y7rI5mQ";
     // 验签key
-    static final String repKey = "Hpcl522AV6q613KIi46u6g6XuW8vM1N8bFgyv769770MdYe9u37M4y7rIpl8";
+    private static final String repKey = "Hpcl522AV6q613KIi46u6g6XuW8vM1N8bFgyv769770MdYe9u37M4y7rIpl8";
 
     //static final String baseUrl = "http://api.xxpay.org/api";
-    static final String baseUrl = "http://localhost:3020/api";
-    static final String notifyUrl = "http://127.0.0.1:8081/goods/notify_test?rt=success"; // 本地环境测试,可到ngrok.cc网站注册
+    private static final String baseUrl = "http://localhost:3020/api";
+    private static final String notifyUrl = "http://127.0.0.1:8081/goods/notify_test?rt=success"; // 本地环境测试,可到ngrok.cc网站注册
 
-    public static void main(String[] args) {
-        transOrderTest();
-        //quryPayOrderTest("1494774484058", "P0020170910211048000001");
-    }
+//    public static void main(String[] args) {
+//        transOrderTest();
+//        quryPayOrderTest("1494774484058", "P0020170910211048000001");
+//    }
 
     // 统一下单
-    static String transOrderTest() {
+    private static String transOrderTest() {
         JSONObject paramMap = new JSONObject();
         paramMap.put("mchId", mchId);                               // 商户ID
         paramMap.put("mchTransNo", "TRANS" + System.currentTimeMillis());     // 商户订单号

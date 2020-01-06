@@ -78,8 +78,7 @@ public class PaginationPlugin extends PluginAdapter {
      * 为Mapper.xml的selectByExample添加limit,offset
      */
     @Override
-    public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element,
-                                                                     IntrospectedTable introspectedTable) {
+    public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(XmlElement element, IntrospectedTable introspectedTable) {
 
         XmlElement ifLimitNotNullElement = new XmlElement("if");
         ifLimitNotNullElement.addAttribute(new Attribute("test", "limit != null"));

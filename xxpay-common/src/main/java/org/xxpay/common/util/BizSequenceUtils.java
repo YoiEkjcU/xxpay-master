@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class BizSequenceUtils {
 
-    private static Object lock = new Object();
+    private static final Object lock = new Object();
 
     private static BizSequenceUtils instance;
 

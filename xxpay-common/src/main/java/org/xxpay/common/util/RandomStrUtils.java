@@ -13,11 +13,11 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class RandomStrUtils {
 
-    private static Object lock = new Object();
+    private static final Object lock = new Object();
 
     private static RandomStrUtils instance;
 
-    private Map<String, Long> randomStrMap = new ConcurrentHashMap<String, Long>();
+    private Map<String, Long> randomStrMap = new ConcurrentHashMap<>();
 
     private static final String[] BASE_STRING = new String[]{
             "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
@@ -34,9 +34,11 @@ public class RandomStrUtils {
     }
 
     public static RandomStrUtils getInstance() {
-        synchronized (lock) {
-            if (instance == null) {
-                instance = new RandomStrUtils();
+        if (instance == null) {
+            synchronized (lock) {
+                if (instance == null) {
+                    instance = new RandomStrUtils();
+                }
             }
         }
         return instance;
@@ -44,7 +46,7 @@ public class RandomStrUtils {
 
     public String getRandomString() {
         Long nowTime = System.currentTimeMillis();
-        String randomStr = null;
+        String randomStr;
 
         synchronized (lock) {
             // 生成随机字符串
@@ -67,23 +69,23 @@ public class RandomStrUtils {
     private String createRandomString(int len, Long nowTime) {
         Random random = new Random();
         int length = BASE_STRING.length;
-        String randomString = "";
+        StringBuilder randomString = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            randomString += BASE_STRING[random.nextInt(length)];
+            randomString.append(BASE_STRING[random.nextInt(length)]);
         }
         random = new Random(System.currentTimeMillis());
-        String resultStr = "";
+        StringBuilder resultStr = new StringBuilder();
         for (int i = 0; i < len; i++) {
-            resultStr += randomString.charAt(random.nextInt(randomString.length() - 1));
+            resultStr.append(randomString.charAt(random.nextInt(randomString.length() - 1)));
         }
 
         // 判断一分钟内是否重复
-        Long randomStrCreateTime = randomStrMap.get(resultStr);
+        Long randomStrCreateTime = randomStrMap.get(resultStr.toString());
         if (randomStrCreateTime != null &&
                 nowTime - randomStrCreateTime < Constant.RPC_SEQ_NO_NOT_REPEAT_INTERVAL) {
-            resultStr = createRandomString(len, nowTime);
+            resultStr = new StringBuilder(createRandomString(len, nowTime));
         }
-        randomStrMap.put(resultStr, nowTime);
-        return resultStr;
+        randomStrMap.put(resultStr.toString(), nowTime);
+        return resultStr.toString();
     }
 }

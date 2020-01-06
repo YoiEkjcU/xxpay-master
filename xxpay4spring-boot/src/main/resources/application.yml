@@ -48,5 +48,5 @@ config:
     certRootPath: /home/xxpay/service/cert
     notifyUrl: http://api.xxpay.org/notify/pay/wxPayNotifyRes.htm
 
-logging:
-  file: ./log/xxpay4spring-boot.log
+#logging:
+#  file: ./log/xxpay4spring-boot.log

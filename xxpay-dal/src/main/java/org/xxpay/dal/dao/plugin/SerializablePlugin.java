@@ -30,8 +30,8 @@ public class SerializablePlugin extends PluginAdapter {
 
     public void setProperties(Properties properties) {
         super.setProperties(properties);
-        this.addGWTInterface = Boolean.valueOf(properties.getProperty("addGWTInterface")).booleanValue();
-        this.suppressJavaInterface = Boolean.valueOf(properties.getProperty("suppressJavaInterface")).booleanValue();
+        this.addGWTInterface = Boolean.valueOf(properties.getProperty("addGWTInterface"));
+        this.suppressJavaInterface = Boolean.valueOf(properties.getProperty("suppressJavaInterface"));
     }
 
     public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
@@ -49,7 +49,7 @@ public class SerializablePlugin extends PluginAdapter {
         return true;
     }
 
-    protected void makeSerializable(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+    private void makeSerializable(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         if (this.addGWTInterface) {
             topLevelClass.addImportedType(this.gwtSerializable);
             topLevelClass.addSuperInterface(this.gwtSerializable);

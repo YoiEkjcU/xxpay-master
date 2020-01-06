@@ -15,11 +15,11 @@ public class OAuth2RequestParamHelper {
     //准备state参数
     public static String prepareState(HttpServletRequest request) {
         Map<String, String[]> map = request.getParameterMap();
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         for (String key : map.keySet()) {
             if (map.get(key) != null && map.get(key).length > 0) {
                 if (map.get(key)[0] != null) {
-                    sb.append(key + "=" + map.get(key)[0] + "!");//用！间隔
+                    sb.append(key).append("=").append(map.get(key)[0]).append("!");//用！间隔
                 }
             }
         }

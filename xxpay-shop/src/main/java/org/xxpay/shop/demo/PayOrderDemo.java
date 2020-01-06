@@ -5,24 +5,22 @@ import com.alibaba.fastjson.JSONObject;
 import org.xxpay.common.util.PayDigestUtil;
 import org.xxpay.common.util.XXPayUtil;
 
-import java.util.Map;
-
 /**
  * Created by dingzhiwei on 16/5/5.
  */
 public class PayOrderDemo {
 
     // 商户ID
-    static final String mchId = "20001223";//20001223,20001245
+    private static final String mchId = "20001223";//20001223,20001245
     // 加签key
-    static final String reqKey = "M86l522AV6q613Ii4W6u8K48uW8vM1N6bFgyv769220MdYe9u37N4y7rI5mQ";
+    private static final String reqKey = "M86l522AV6q613Ii4W6u8K48uW8vM1N6bFgyv769220MdYe9u37N4y7rI5mQ";
     // 验签key
-    static final String repKey = "Hpcl522AV6q613KIi46u6g6XuW8vM1N8bFgyv769770MdYe9u37M4y7rIpl8";
+    private static final String repKey = "Hpcl522AV6q613KIi46u6g6XuW8vM1N8bFgyv769770MdYe9u37M4y7rIpl8";
 
     //static final String baseUrl = "http://api.xxpay.org/api";
-    static final String baseUrl = "http://localhost:3020/api";
+    private static final String baseUrl = "http://localhost:3020/api";
     //static final String notifyUrl = "http://www.baidu.com"; // 本地环境测试,可到ngrok.cc网站注册
-    static final String notifyUrl = "http://shop.xxpay.org/goods/payNotify";
+    private static final String notifyUrl = "http://shop.xxpay.org/goods/payNotify";
 
     // 统一下单
     static String payOrderTest() {

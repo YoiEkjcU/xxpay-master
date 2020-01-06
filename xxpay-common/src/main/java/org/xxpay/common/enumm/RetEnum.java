@@ -65,7 +65,8 @@ public enum RetEnum {
         }
 
         RetEnum[] values = RetEnum.values();
-        for (RetEnum e : values) {
+        for (int i = 0, len = values.length; i < len; i++) {
+            RetEnum e = values[i];
             if (e.getCode().equals(code)) {
                 return e;
             }

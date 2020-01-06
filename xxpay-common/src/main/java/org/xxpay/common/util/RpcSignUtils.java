@@ -11,10 +11,9 @@ public class RpcSignUtils {
 
     public static String sha1(String decript) {
         try {
-            MessageDigest digest = MessageDigest
-                    .getInstance("SHA-1");
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
             digest.update(decript.getBytes());
-            byte messageDigest[] = digest.digest();
+            byte[] messageDigest = digest.digest();
             // Create Hex String
             StringBuffer hexString = new StringBuffer();
             // 字节数组转换为 十六进制 数

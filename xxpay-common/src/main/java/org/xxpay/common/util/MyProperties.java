@@ -16,8 +16,8 @@ public class MyProperties {
 
     private static HashMap<String, MyProperties> configMap = new HashMap<>();
 
-    private Date loadTime = null;
-    private ResourceBundle rb = null;
+    private Date loadTime;
+    private ResourceBundle rb;
     private static final String CONFIG_FILE = "properties";
     private static final long CONFIG_CACHE_TIME = 60 * 1000; // 缓存1分钟
 
@@ -45,14 +45,13 @@ public class MyProperties {
         return getInstance("config");
     }
 
-    public Date getLoadTime() {
+    private Date getLoadTime() {
         return loadTime;
     }
 
     public String getValue(String key) {
         try {
-            String v = rb.getString(key);
-            return v;
+            return rb.getString(key);
         } catch (MissingResourceException e) {
             return "";
         }
@@ -60,9 +59,7 @@ public class MyProperties {
 
     public boolean getBool(String key) {
         String v = getValue(key);
-        if (v.equalsIgnoreCase("true"))
-            return true;
-        return false;
+        return v.equalsIgnoreCase("true");
     }
 
     public int getInt(String key) {

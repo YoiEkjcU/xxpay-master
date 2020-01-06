@@ -15,23 +15,23 @@ public class MyLogFace implements MyLogInf {
         _log = org.slf4j.LoggerFactory.getLogger(clz);
     }
 
-    public boolean isDebugEnabled() {
+    private boolean isDebugEnabled() {
         return _log.isDebugEnabled();
     }
 
-    public boolean isInfoEnabled() {
+    private boolean isInfoEnabled() {
         return _log.isInfoEnabled();
     }
 
-    public boolean isWarnEnabled() {
+    private boolean isWarnEnabled() {
         return _log.isWarnEnabled();
     }
 
-    public boolean isErrorEnabled() {
+    private boolean isErrorEnabled() {
         return _log.isErrorEnabled();
     }
 
-    public boolean isTraceEnabled() {
+    private boolean isTraceEnabled() {
         return _log.isTraceEnabled();
     }
 

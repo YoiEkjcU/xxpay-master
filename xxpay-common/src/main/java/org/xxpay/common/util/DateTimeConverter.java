@@ -5,6 +5,7 @@ import org.apache.commons.beanutils.Converter;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -12,8 +13,8 @@ import java.util.Locale;
  */
 public class DateTimeConverter implements Converter {
 
-    private static final String DATE      = "yyyy-MM-dd";
-    private static final String DATETIME  = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE = "yyyy-MM-dd";
+    private static final String DATETIME = "yyyy-MM-dd HH:mm:ss";
     private static final String TIMESTAMP = "yyyy-MM-dd HH:mm:ss.SSS";
 
     @Override
@@ -27,21 +28,18 @@ public class DateTimeConverter implements Converter {
         if (value instanceof String) {
             String dateValue = value.toString().trim();
             int length = dateValue.length();
-            if (type.equals(java.util.Date.class)) {
+            if (type.equals(Date.class)) {
                 try {
-                    DateFormat formatter = null;
+                    String pattern;
                     if (length <= 10) {
-                        formatter = new SimpleDateFormat(DATE, new DateFormatSymbols(Locale.CHINA));
-                        return formatter.parse(dateValue);
+                        pattern = DATE;
+                    } else if (length <= 19) {
+                        pattern = DATETIME;
+                    } else {
+                        pattern = TIMESTAMP;
                     }
-                    if (length <= 19) {
-                        formatter = new SimpleDateFormat(DATETIME, new DateFormatSymbols(Locale.CHINA));
-                        return formatter.parse(dateValue);
-                    }
-                    if (length <= 23) {
-                        formatter = new SimpleDateFormat(TIMESTAMP, new DateFormatSymbols(Locale.CHINA));
-                        return formatter.parse(dateValue);
-                    }
+                    DateFormat formatter = new SimpleDateFormat(pattern, new DateFormatSymbols(Locale.CHINA));
+                    return formatter.parse(dateValue);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
