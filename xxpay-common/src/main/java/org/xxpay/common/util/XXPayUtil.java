@@ -32,7 +32,9 @@ public class XXPayUtil {
     }
 
     public static Map<String, Object> makeRetMap(String retCode, String retMsg, String resCode, PayEnum payEnum) {
-        return makeRetMap(retCode, retMsg, resCode, payEnum.getCode(), payEnum.getMessage());
+        String errCode = payEnum == null ? null : payEnum.getCode();
+        String message = payEnum == null ? null : payEnum.getMessage();
+        return makeRetMap(retCode, retMsg, resCode, errCode, message);
     }
 
     public static String makeRetData(Map<String, Object> retMap, String resKey) {
